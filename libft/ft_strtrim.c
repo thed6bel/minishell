@@ -3,33 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 12:15:43 by hucorrei          #+#    #+#             */
-/*   Updated: 2022/10/18 11:47:57 by hucorrei         ###   ########.fr       */
+/*   Created: 2019/10/09 14:06:48 by lwathar           #+#    #+#             */
+/*   Updated: 2022/10/03 16:35:19 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static char	*ft_protect(void)
+{
+	char	*ptct;
+
+	ptct = malloc(sizeof(char) * 1);
+	if (ptct == NULL)
+		return (0);
+	ptct[0] = '\0';
+	return (ptct);
+}
+
+static int	char_in_set(char c, char *set)
+{
+	while (*set)
+	{
+		if (*set == c)
+			return (1);
+		set++;
+	}
+	return (0);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*copy;
+	char	*new;
+	int		start;
+	int		end;
 	int		i;
-	int		j;
-	int		len;
 
-	if (!s1)
-		return (NULL);
-	if (!set)
-		return ((char *)s1);
 	i = 0;
-	while (s1[i] != '\0' && ft_strchr(set, s1[i]))
+	if (s1 == NULL || set == NULL)
+		return (ft_protect());
+	while (char_in_set(s1[i], (char *)set) && s1[i])
 		i++;
-	j = ft_strlen(s1);
-	while (j >= 0 && ft_strrchr(set, s1[j]))
-		j--;
-	len = (j - i) + 1;
-	copy = ft_substr((char *)s1, i, len);
-	return (copy);
+	start = i;
+	i = (ft_strlen(s1) - 1);
+	while (char_in_set(s1[i], (char *)set) && i > start)
+		i--;
+	end = i;
+	i = 0;
+	new = (char *)malloc((end - start + 2) * sizeof(char));
+	if (new == NULL)
+		return (new);
+	while (start <= end)
+		new[i++] = s1[start++];
+	new[i] = 0;
+	return (new);
 }

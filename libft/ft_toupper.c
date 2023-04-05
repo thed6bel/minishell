@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 10:36:12 by hucorrei          #+#    #+#             */
-/*   Updated: 2022/10/10 10:34:53 by hucorrei         ###   ########.fr       */
+/*   Created: 2019/10/07 14:07:45 by lwathar           #+#    #+#             */
+/*   Updated: 2022/10/03 16:35:22 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (c - 32);
-	else
-		return (c);
+	return (c);
 }

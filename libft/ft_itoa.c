@@ -3,63 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 12:29:55 by hucorrei          #+#    #+#             */
-/*   Updated: 2022/10/19 13:38:29 by hucorrei         ###   ########.fr       */
+/*   Created: 2019/10/10 16:20:41 by lwathar           #+#    #+#             */
+/*   Updated: 2022/10/13 12:43:47 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_intlen(int n)
+static int	set_size_array(int n)
 {
-	int	i;
+	int		nb;
 
-	i = 0;
-	if (n < 0)
-		n *= -1;
-	while (n != 0)
+	nb = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
 	{
 		n /= 10;
-		i++;
+		nb++;
 	}
-	return (i);
+	return (nb);
 }
 
-static char	*ft_conv(char *str, long int nbr, int len, int i)
+static void	set_array(char *nbr, int n, int neg, int size_array)
 {
-	while (len > i)
+	while (size_array + neg > 0)
 	{
-		len--;
-		str[len] = (nbr % 10) + '0';
-		nbr /= 10;
+		nbr[(size_array + neg) - 1] = (n % 10) + 48;
+		n /= 10;
+		size_array--;
 	}
-	return (str);
 }
 
 char	*ft_itoa(int n)
 {
-	char		*str;
-	int			len;
-	int			i;
-	long		nbr;
+	char	*nbr;
+	int		neg;
+	int		size_array;
 
-	nbr = n;
-	len = ft_intlen(n);
-	i = 0;
-	if (n < 0 || len == 0)
-		len++;
-	str = (char *)malloc(len + 1);
-	if (!str)
-		return (0);
+	neg = 0;
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
 	if (n < 0)
 	{
-		nbr *= -1;
-		str[0] = '-';
-		i++;
+		neg = 1;
+		n *= -1;
 	}
-	str[len] = '\0';
-	str = ft_conv(str, nbr, len, i);
-	return (str);
+	size_array = set_size_array(n);
+	nbr = malloc(sizeof(char) * (size_array + neg + 1));
+	if (nbr == NULL)
+		return (NULL);
+	nbr[size_array + neg] = '\0';
+	set_array(nbr, n, neg, size_array);
+	if (neg == 1)
+		nbr[0] = '-';
+	return (nbr);
 }

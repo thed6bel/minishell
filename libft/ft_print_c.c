@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_print_c.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 12:01:03 by hucorrei          #+#    #+#             */
-/*   Updated: 2022/10/19 12:31:24 by hucorrei         ###   ########.fr       */
+/*   Created: 2022/10/18 16:15:54 by lowathar          #+#    #+#             */
+/*   Updated: 2023/02/21 14:00:08 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_print_c(t_struct *tab, va_list *ap)
 {
-	t_list	*tmp;
-	t_list	*nextlst;
+	char	c;
 
-	if (!del)
-		return ;
-	tmp = *lst;
-	while (tmp)
-	{
-		nextlst = tmp->next;
-		ft_lstdelone(tmp, del);
-		tmp = nextlst;
-	}
-	*lst = 0;
+	c = va_arg(*ap, int);
+	ft_putchar(c, tab);
 }

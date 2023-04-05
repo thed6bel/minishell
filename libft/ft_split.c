@@ -3,88 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 11:24:56 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/02/01 14:05:12 by hucorrei         ###   ########.fr       */
+/*   Created: 2019/10/10 11:07:31 by lwathar           #+#    #+#             */
+/*   Updated: 2022/10/14 14:13:07 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count(char const *s, char c)
+static int	ft_size(char const *str, char c)
 {
+	int	a;
+	int	size;
+
+	a = 0;
+	size = 0;
+	while (str[a] != '\0')
+	{
+		if (str[a] != c)
+		{
+			while (str[a] != c && str[a])
+				a++;
+			size++;
+		}
+		else if (str[a] == c)
+			a++;
+	}
+	return (size);
+}
+
+static char	**ft_bugfree(char **split, const char *str, char c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = ft_size(str, c);
+	while (i < j)
+	{
+		if (split[i] == NULL)
+		{
+			i = 0;
+			while (i < j)
+			{
+				free(split[i]);
+				i++;
+			}
+			free (split);
+			return (NULL);
+		}
+		i++;
+	}
+	return (split);
+}
+
+static void	ft_write_char(char *dest, const char *src, char c)
+{
+	int	j;
+
+	j = 0;
+	while (src[j] != c && src[j])
+	{
+		dest[j] = src[j];
+		j++;
+	}
+	dest[j] = '\0';
+}
+
+static void	*ft_split_fil(char **split, const char *str, char c)
+{
+	int	a;
+	int	b;
 	int	i;
 
 	i = 0;
-	while (*s)
+	a = 0;
+	while (str[a] != '\0')
 	{
-		while (*s == c)
-			s++;
-		if (*s)
+		if (str[a] == c)
+			a++;
+		else
+		{
+			b = 0;
+			while (str[a + b] != c && str[a + b])
+				b++;
+			split[i] = (char *)malloc(sizeof(char) * (b + 1));
+			if (split[i] == NULL)
+				return (NULL);
+			ft_write_char(split[i], str + a, c);
+			a = a + b;
 			i++;
-		while (*s && *s != c)
-			s++;
+		}
 	}
-	return (i);
+	return (NULL);
 }
 
-static int	ft_len(char const *s, char c, int i)
+char	**ft_split(char const *str, char c)
 {
-	int	len;
-
-	len = 0 ;
-	while (s[i] && s[i] == c)
-		i++;
-	while (s[i] != c && s[i])
-	{
-		len++;
-		i++;
-	}
-	return (len);
-}
-
-static char	*ft_write(char const *s, char c, int i)
-{
-	int		j;
-	char	*res;
-
-	j = 0;
-	res = malloc(sizeof(char) * (ft_len(s, c, i) + 1));
-	if (!res)
-		return (NULL);
-	while (s[i] && s[i] != c)
-	{
-		res[j] = s[i];
-		i++;
-		j++;
-	}
-	res[j] = '\0';
-	return (res);
-}
-
-char	**ft_split(char const *s, char c)
-{
+	char	**split;
 	int		i;
-	int		j;
-	char	**res;
 
-	i = 0;
-	j = 0;
-	res = malloc(sizeof(char *) * (ft_count(s, c) + 1));
-	if (!res)
+	if (str == NULL)
 		return (NULL);
-	while (j < ft_count(s, c))
-	{
-		while (s[i] == c)
-			i++;
-		res[j] = ft_write(s, c, i);
-		if (!res[j])
-			return ((char **)ft_free(res));
-		while (s[i] != c && s[i] != '\0')
-			i++;
-		j++;
-	}
-	res[j] = NULL;
-	return (res);
+	i = ft_size(str, c);
+	split = (char **)malloc(sizeof(char *) * (i + 1));
+	if (split == NULL)
+		return (0);
+	split[i] = 0;
+	ft_split_fil(split, str, c);
+	return (ft_bugfree(split, str, c));
 }

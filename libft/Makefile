@@ -3,112 +3,102 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
+#    By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/10 09:35:36 by hucorrei          #+#    #+#              #
-#    Updated: 2023/02/02 10:01:13 by hucorrei         ###   ########.fr        #
+#    Created: 2019/10/10 16:54:45 by lwathar           #+#    #+#              #
+#    Updated: 2023/03/14 14:31:46 by lowathar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-################################################################################
-#                                     CONFIG                                   #
-################################################################################
+SRC =	ft_atoi.c \
+		ft_bzero.c \
+		ft_calloc.c \
+		ft_isalnum.c \
+		ft_isalpha.c \
+		ft_isascii.c \
+		ft_isdigit.c \
+		ft_isprint.c \
+		ft_itoa.c \
+		ft_itoa_base.c \
+		ft_memchr.c \
+		ft_memcmp.c \
+		ft_memcpy.c \
+		ft_memmove.c \
+		ft_memset.c \
+		ft_putchar_fd.c \
+		ft_putendl_fd.c \
+		ft_putnbr_fd.c \
+		ft_putstr_fd.c \
+		ft_split.c \
+		ft_strchr.c \
+		ft_strdup.c \
+		ft_strjoin.c \
+		ft_strlcat.c \
+		ft_strlcpy.c \
+		ft_strlen.c \
+		ft_strmapi.c \
+		ft_strncmp.c \
+		ft_strnstr.c \
+		ft_strrchr.c \
+		ft_strtrim.c \
+		ft_striteri.c \
+		ft_substr.c \
+		ft_tolower.c \
+		ft_toupper.c \
+		ft_printf.c \
+		ft_print_c.c \
+		ft_print_p.c \
+		ft_print_s.c \
+		ft_print_u.c \
+		ft_print_i.c \
+		ft_print_x.c \
+		ft_get_next_line.c \
+		ft_get_next_line_utils.c \
 
-NAME	= libft.a
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+NAME = libft.a
 
-################################################################################
-#                                 PROGRAM'S SRCS                               #
-################################################################################
+OBJS = $(SRC:%.c=%.o)
 
-SRCS	= ft_atoi.c \
-		  ft_bzero.c \
-		  ft_calloc.c \
-		  ft_isalnum.c \
-		  ft_isalpha.c \
-		  ft_isascii.c \
-		  ft_isdigit.c \
-		  ft_isprint.c \
-		  ft_memchr.c \
-		  ft_memcpy.c \
-		  ft_memset.c \
-		  ft_memcmp.c \
-		  ft_memmove.c \
-		  ft_strchr.c \
-		  ft_strdup.c \
-		  ft_strlcpy.c \
-		  ft_strlen.c \
-		  ft_strncmp.c \
-		  ft_strnstr.c \
-		  ft_strrchr.c \
-		  ft_strtrim.c \
-		  ft_tolower.c \
-		  ft_toupper.c \
-		  ft_substr.c \
-		  ft_strjoin.c \
-		  ft_strlcat.c \
-		  ft_striteri.c \
-		  ft_putchar_fd.c \
-		  ft_putstr_fd.c \
-		  ft_putendl_fd.c \
-		  ft_putnbr_fd.c \
-		  ft_strmapi.c \
-		  ft_itoa.c \
-		  ft_split.c \
-		  ft_lstnew.c \
-		  ft_lstsize.c \
-		  ft_lstlast.c \
-		  ft_lstadd_front.c \
-		  ft_lstadd_back.c \
-		  ft_lstiter.c \
-		  ft_lstdelone.c \
-		  ft_lstclear.c \
-		  ft_lstmap.c \
-		  ft_printf.c \
-		  ft_printtools.c \
-		  ft_printhex.c \
-		  ft_printptr.c \
-		  ft_numbers.c \
-		  get_next_line_utils.c \
-		  get_next_line.c \
+BOBJ = $(BONUS:%.c=%.o)
 
-OBJS	= ${SRCS:.c=.o}
+CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
 
-%.c%.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+GCC = gcc
 
-################################################################################
-#                                  Makefile  objs                              #
-################################################################################
+RM = rm -rf
 
+HEADER = ./
 
-CLR_RMV		= \033[0m
-RED		    = \033[1;31m
-GREEN		= \033[1;32m
-YELLOW		= \033[1;33m
-BLUE		= \033[1;34m
-CYAN 		= \033[1;36m
-RM			= rm -rf
+BONUS = 	ft_lstadd_front_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstnew_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c \
 
+all: $(NAME)
 
+$(OBJS): $(SRC)
+	$(GCC) $(CFLAGS) -c $(SRC)
 
-${NAME}:	${OBJS}
-		@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-		@ar rc ${NAME} ${OBJS}
-		@ranlib ${NAME}
-		@echo "$(GREEN)$(NAME) created[0m ✔️"
-
-all:	${NAME}
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)   
 
 clean:
-		@${RM} ${OBJS}
-		@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+	    $(RM) $(OBJS) $(BOBJ)
 
-fclean:	clean
-		@${RM} ${NAME}
-		@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+fclean: clean
+	    $(RM) $(NAME)
 
-re:		fclean all
+re: fclean all
 
-.PHONY:	all clean fclean re
+bonus:
+	$(GCC) $(CFLAGS) -c $(BONUS)
+	ar rc $(NAME) $(BOBJ)
+	ranlib $(NAME)
+
+.PHONY: all test clean fclean re

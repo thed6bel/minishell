@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_print_i.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 13:55:16 by hucorrei          #+#    #+#             */
-/*   Updated: 2022/10/18 10:27:59 by hucorrei         ###   ########.fr       */
+/*   Created: 2022/10/19 12:13:32 by lowathar          #+#    #+#             */
+/*   Updated: 2023/02/21 14:00:13 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_putnbr_i(int nb, t_struct *tab)
 {
-	int	i;
+	char	*str;
+	int		i;
 
 	i = 0;
-	while (lst)
+	str = ft_itoa(nb);
+	while (str[i] != '\0')
 	{
-		lst = lst->next;
+		ft_putchar(str[i], tab);
 		i++;
 	}
-	return (i);
+	free (str);
+}
+
+int	ft_print_i(t_struct *tab, va_list *ap)
+{
+	int		nb;
+
+	nb = va_arg(*ap, int);
+	ft_putnbr_i(nb, tab);
+	return (0);
 }

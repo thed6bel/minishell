@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_print_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 16:05:52 by lwathar           #+#    #+#             */
-/*   Updated: 2022/10/03 16:35:11 by lowathar         ###   ########.fr       */
+/*   Created: 2022/10/18 16:57:35 by lowathar          #+#    #+#             */
+/*   Updated: 2023/02/21 13:59:52 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int	ft_print_s(t_struct *tab, va_list *ap)
 {
-	char	*s2;
+	char	*str;
 	int		i;
 
-	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (s2 == NULL)
-		return (0);
 	i = 0;
-	while (s1[i] != '\0')
+	str = va_arg(*ap, char *);
+	if (!str)
+		str = "(null)";
+	while (str[i])
 	{
-		s2[i] = s1[i];
+		ft_putchar(str[i], tab);
 		i++;
 	}
-	s2[i] = '\0';
-	return (s2);
+	return (0);
 }

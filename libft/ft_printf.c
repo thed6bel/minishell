@@ -3,65 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 10:03:41 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/02/01 14:06:55 by hucorrei         ###   ########.fr       */
+/*   Created: 2022/10/11 15:39:10 by lowathar          #+#    #+#             */
+/*   Updated: 2023/02/21 14:00:40 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_printchar(int c)
+void	ft_putchar(char c, t_struct *tab)
 {
 	write(1, &c, 1);
-	return (1);
+	tab->count_print++;
 }
 
-int	ft_format(va_list args, char format)
+int	ft_print_with_convert(t_struct *tab, va_list *ap)
 {
-	int	print_len;
+	if (tab->convert == 'c')
+		ft_print_c(tab, ap);
+	else if (tab->convert == 's')
+		return (ft_print_s(tab, ap));
+	else if (tab->convert == 'p')
+		return (ft_print_p(tab, ap));
+	else if (tab->convert == 'd' || tab->convert == 'i')
+		return (ft_print_i(tab, ap));
+	else if (tab->convert == 'u')
+		return (ft_print_u(tab, ap));
+	else if (tab->convert == 'x' || tab->convert == 'X')
+		return (ft_print_x(tab, ap));
+	else if (tab->convert == '%')
+		ft_putchar('%', tab);
+	return (0);
+}
 
-	print_len = 0;
-	if (format == 'c')
-		print_len += ft_printchar(va_arg(args, int));
-	else if (format == 's')
-		print_len += ft_printstr(va_arg(args, char *));
-	else if (format == 'p')
-		print_len += ft_printptr(va_arg(args, unsigned long));
-	else if (format == 'd' || format == 'i')
-		print_len += ft_printnbr(va_arg(args, int));
-	else if (format == 'u')
-		print_len += ft_printunsigned(va_arg(args, unsigned int));
-	else if (format == 'x' || format == 'X')
-		print_len += ft_printhex(va_arg(args, unsigned int), format);
-	else if (format == '%')
-		print_len += ft_printpercent();
+int	ft_get_convert(t_struct *tab, const char *str, int i)
+{
+	if (str[i] == 'c' || str[i] == 's' || str[i] == 'p' || str[i] == 'd'
+		|| str[i] == 'i' || str[i] == 'u' || str[i] == 'x'
+		|| str[i] == 'X' || str[i] == '%')
+	{
+		tab->convert = str[i];
+		return (i);
+	}
 	else
-		print_len += ft_printchar(format);
-	return (print_len);
+		return (-1);
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_print(const char *format, va_list *ap, t_struct *tab)
 {
-	va_list	args;
-	int		i;
-	int		print_len;
+	int	i;
+	int	j;
 
 	i = 0;
-	print_len = 0;
-	va_start(args, str);
-	while (str[i])
+	while (format[i])
 	{
-		if (str[i] == '%')
+		if (format[i] == '%')
 		{
-			print_len += ft_format(args, str[i + 1]);
 			i++;
+			j = ft_get_convert(tab, format, i);
+			if (j != -1)
+			{
+				if (ft_print_with_convert(tab, ap) == -1)
+					return (-1);
+			}
+			else
+				ft_putchar(format[i], tab);
 		}
 		else
-			print_len += ft_printchar(str[i]);
+			ft_putchar(format[i], tab);
 		i++;
 	}
-	va_end(args);
-	return (print_len);
+	return (tab->count_print);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list		ap;
+	t_struct	tab;
+	int			count;
+	char		*f;
+
+	tab.count_print = 0;
+	f = (char *)format;
+	va_start(ap, format);
+	count = ft_print(f, &ap, &tab);
+	if (count == -1)
+		return (-1);
+	va_end(ap);
+	return (count);
 }

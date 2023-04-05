@@ -3,38 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 15:18:57 by hucorrei          #+#    #+#             */
-/*   Updated: 2022/10/21 11:21:22 by hucorrei         ###   ########.fr       */
+/*   Created: 2019/10/07 11:28:10 by lwathar           #+#    #+#             */
+/*   Updated: 2022/10/17 13:00:18 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *nptr)
+#include "libft.h"
+
+static int	ft_manage_longmin(unsigned long result, int count)
 {
-	int						i;
-	int						signe;
-	unsigned long long int	nbr;
+	int	value;
+
+	if (count % 2 != 0)
+		value = -1;
+	else
+		value = 1;
+	if (value == -1 && result > LLONG_MAX)
+		return (0);
+	else if (value == 1 && result > LLONG_MAX)
+		result = (-1);
+	return (result * value);
+}
+
+int	ft_atoi(const char *str)
+{
+	int				i;
+	int				count;
+	unsigned long	result;
 
 	i = 0;
-	signe = 1;
-	nbr = 0;
-	while (nptr[i] == ' ' || nptr[i] == '\n' || nptr[i] == '\t'
-		|| nptr[i] == '\r' || nptr[i] == '\v' || nptr[i] == '\f' )
+	count = 0;
+	result = 0;
+	while (str[i] == '\t' || str[i] == '\v' || str[i] == '\n'
+		|| str[i] == '\r' || str[i] == '\f' || str[i] == ' ')
 		i++;
-	while (nptr[i] == '-' || nptr[i] == '+')
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (nptr[i] == '-')
-			signe *= -1;
+		if (str[i] == '-')
+			count++;
 		i++;
-		if (nptr[i] == '-' || nptr[i] == '+')
-			return (0);
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-		nbr = nptr[i++] - '0' + (nbr * 10);
-	if (nbr > 9223372036854775807 && signe == 1)
-		return (-1);
-	if (nbr > 9223372036854775807 && signe == -1)
-		return (0);
-	return (signe * nbr);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = (result * 10) + str[i] - '0';
+		i++;
+	}
+	return (ft_manage_longmin(result, count));
 }

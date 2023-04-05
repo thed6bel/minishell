@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_print_u.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 16:05:52 by lwathar           #+#    #+#             */
-/*   Updated: 2022/10/03 16:35:11 by lowathar         ###   ########.fr       */
+/*   Created: 2022/10/19 12:44:46 by lowathar          #+#    #+#             */
+/*   Updated: 2023/02/21 14:00:27 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+void	ft_putnbr_ui(unsigned int nb, t_struct *tab)
 {
-	char	*s2;
-	int		i;
-
-	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (s2 == NULL)
-		return (0);
-	i = 0;
-	while (s1[i] != '\0')
+	if (nb <= 9 && nb >= 0)
+		ft_putchar(nb + 48, tab);
+	else if (nb > 9)
 	{
-		s2[i] = s1[i];
-		i++;
+		ft_putnbr_ui(nb / 10, tab);
+		ft_putnbr_ui(nb % 10, tab);
 	}
-	s2[i] = '\0';
-	return (s2);
+	else
+	{
+		ft_putchar('-', tab);
+		ft_putnbr_ui(nb * -1, tab);
+	}
+}
+
+int	ft_print_u(t_struct *tab, va_list *ap)
+{
+	int	nb;
+
+	nb = va_arg(*ap, unsigned int);
+	ft_putnbr_ui(nb, tab);
+	return (0);
 }
