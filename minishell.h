@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:22:13 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/03 09:14:24 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:15:41 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
@@ -31,6 +32,12 @@ typedef struct 		s_data
 	char			**args;
 	struct s_cmds	*next;
 }					t_data;
+
+typedef struct 		s_shell
+{
+	//char			**builtins;
+	int				pid;
+}					t_shell;
 
 
 # endif

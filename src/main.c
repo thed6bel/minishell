@@ -6,11 +6,47 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/06 09:38:37 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:19:34 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_shell	minishell;//Struct global vs variable global accpeter??
+
+void	ft_handler(int n)
+{
+	int sig_fd;
+	struct termios *a;
+	struct termios *b;
+	struct termios term;
+	
+	sig_fd = 1;
+	a = malloc(sizeof(struct termios));
+	b = malloc(sizeof(struct termios));
+
+	if (n == SIGINT) 
+	{
+        tcgetattr(STDIN_FILENO, &term);
+        term.c_lflag &= ~ECHOCTL;
+        tcsetattr(STDIN_FILENO, TCSANOW, &term);
+
+        printf("\n");
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
+	}
+	if (n == SIGQUIT)
+	{
+		printf("test\n");
+	}
+}
+
+void	ft_signal()
+{
+	signal(SIGINT, ft_handler); //ctrl+c
+	signal(SIGQUIT, SIG_IGN);//ctrl+d et ctrl+/
+}
 
 void	ft_free(char **str)
 {
@@ -94,6 +130,8 @@ int ft_launch_shell(char **envp)
 
 	shellp = "nanoshell ~ ";
 	//printf("%s\n", cmd);//verif de readline
+	cmd = (char *) malloc(sizeof(char) * 1024);
+	ft_signal();
 	while (1)
 	{
 		add_history(cmd);
@@ -104,6 +142,7 @@ int ft_launch_shell(char **envp)
 		if (ft_strnstr(cmd, "exit", 4))
 			break;
 		ft_exec(arg, envp);
+		ft_signal();
 	}
 	free(cmd);//free du malloc de readline
 	free(arg);//free split
