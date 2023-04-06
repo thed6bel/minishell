@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mainback.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/06 09:38:37 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:24:59 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
 
 static char	**ft_get_paths(char **envp)
 {
@@ -53,6 +40,7 @@ char	*ft_path(char *cmd, char **envp)
 		slach = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(slach, cmd);
 		free(slach);
+		//printf("slash : %s\n", slach);...
 		if (!access(path, F_OK))
 		{
 			ft_free(paths);
@@ -75,13 +63,11 @@ int ft_exec(char **arg, char **envp)
 	{
 		execve(ft_path(arg[0], envp), arg, envp);
 	}
-	else
+	else 
 	{
-		wpid = waitpid(pid, &status, WUNTRACED);
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-		{
-			wpid = waitpid(pid, &status, WUNTRACED);
-		}
+		do {
+      		wpid = waitpid(pid, &status, WUNTRACED);
+    	} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	return (pid);
 }
@@ -92,7 +78,7 @@ int ft_launch_shell(char **envp)
 	char	*cmd;
 	char	**arg;
 
-	shellp = "nanoshell ~ ";
+	shellp = "minishell: ";
 	//printf("%s\n", cmd);//verif de readline
 	while (1)
 	{
@@ -103,6 +89,7 @@ int ft_launch_shell(char **envp)
 		//printf("arg2 : %s\n", arg[1]);
 		if (ft_strnstr(cmd, "exit", 4))
 			break;
+		shellp = "minishell: ";
 		ft_exec(arg, envp);
 	}
 	free(cmd);//free du malloc de readline

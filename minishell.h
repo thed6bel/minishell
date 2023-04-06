@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:22:13 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/03/31 09:54:36 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:14:24 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 # include <readline/history.h>
 # include "./libft/libft.h"
 
-typedef struct 		s_cmds
+typedef struct 		s_data
 {
 	char			*cmd;
 	char			**args;
 	struct s_cmds	*next;
-}					t_cmds;
+}					t_data;
 
 
 # endif
