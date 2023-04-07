@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/07 13:13:28 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:35:07 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int ft_launch_shell(char **envp)
     arg = ft_split(minishell.cmds, ' ');
     if (arg[0] && ft_strnstr(minishell.cmds, "exit", 4))
     {
-        system("leaks a.out");
+        system("leaks nanoshell");
         break;
     }
 	path = ft_path(arg[0], envp);
