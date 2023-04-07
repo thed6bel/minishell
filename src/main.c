@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/06 14:19:34 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/07 09:27:07 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,11 @@ t_shell	minishell;//Struct global vs variable global accpeter??
 
 void	ft_handler(int n)
 {
-	int sig_fd;
-	struct termios *a;
-	struct termios *b;
 	struct termios term;
-	
-	sig_fd = 1;
-	a = malloc(sizeof(struct termios));
-	b = malloc(sizeof(struct termios));
 
 	if (n == SIGINT) 
 	{
-        tcgetattr(STDIN_FILENO, &term);
+       	tcgetattr(STDIN_FILENO, &term);
         term.c_lflag &= ~ECHOCTL;
         tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
@@ -36,16 +29,13 @@ void	ft_handler(int n)
         rl_replace_line("", 0);
         rl_redisplay();
 	}
-	if (n == SIGQUIT)
-	{
-		printf("test\n");
-	}
 }
 
 void	ft_signal()
 {
 	signal(SIGINT, ft_handler); //ctrl+c
-	signal(SIGQUIT, SIG_IGN);//ctrl+d et ctrl+/
+	signal(SIGQUIT, SIG_IGN);// ctrl+/
+
 }
 
 void	ft_free(char **str)
@@ -130,22 +120,25 @@ int ft_launch_shell(char **envp)
 
 	shellp = "nanoshell ~ ";
 	//printf("%s\n", cmd);//verif de readline
-	cmd = (char *) malloc(sizeof(char) * 1024);
+	cmd = NULL;
 	ft_signal();
 	while (1)
 	{
 		add_history(cmd);
+		free(cmd);
 		cmd = readline(shellp);
+		if (cmd == NULL)
+			break;
 		arg = ft_split(cmd, ' ');
 		//printf("cmd1 : %s\n", arg[0]);
 		//printf("arg2 : %s\n", arg[1]);
 		if (ft_strnstr(cmd, "exit", 4))
 			break;
 		ft_exec(arg, envp);
+		free(arg);//free split
 		ft_signal();
 	}
 	free(cmd);//free du malloc de readline
-	free(arg);//free split
 	return (1);
 }
 
