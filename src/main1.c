@@ -1,5 +1,36 @@
 #include "../minishell.h"
 
+t_shell	minishell;//Struct global vs variable global accpeter??
+
+void	ft_init_struct(void)
+{
+	minishell.cmds = NULL;
+}
+
+void	ft_handler(int n)
+{
+	struct termios term;
+
+	if (n == SIGINT) 
+	{
+       	tcgetattr(STDIN_FILENO, &term);
+        term.c_lflag &= ~ECHOCTL;
+        tcsetattr(STDIN_FILENO, TCSANOW, &term);
+
+        printf("\n");
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
+	}
+}
+
+void	ft_signal()
+{
+	signal(SIGINT, ft_handler); //ctrl+c
+	signal(SIGQUIT, SIG_IGN);//ctrl+d && ctrl+/
+
+}
+
 void	ft_free(char **str)
 {
 	int	i;
@@ -77,29 +108,42 @@ int ft_exec(char **arg, char **envp)
 int ft_launch_shell(char **envp)
 {
 	char	*shellp;
-	char	*cmd;
 	char	**arg;
+	char	*path;
 
 	shellp = "nanoshell ~ ";
-	cmd = NULL;
+	ft_signal();
 	while (1)
 	{
-		add_history(cmd);
-		free(cmd);
-		cmd = readline(shellp);
-		if (cmd == NULL)
-			break;
-		arg = ft_split(cmd, ' ');
-		if (ft_strnstr(cmd, "exit", 4))
-			break;
-		ft_exec(arg, envp);
-		ft_free(arg);
+    	free(minishell.cmds);
+    	minishell.cmds = readline(shellp);
+    	add_history(minishell.cmds);
+    	if (minishell.cmds == NULL)
+        	break;
+    	//ft_parsing
+    	arg = ft_split(minishell.cmds, ' ');
+		if (arg[0] != NULL)
+		{
+			if (arg[0] && ft_strnstr(minishell.cmds, "exit", 4))
+			{
+				system("leaks a.out");
+				break;
+			}
+			if (arg[0] && (path = ft_path(arg[0], envp)))
+				ft_exec(arg, envp);
+			ft_free(arg);
+			free(path);
+		}
+		ft_signal();
 	}
-	free(cmd);
+	ft_free(arg);
+	printf("av free\n");
+	free(minishell.cmds);
 	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	ft_init_struct();
 	ft_launch_shell(envp);
 }
