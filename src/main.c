@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/07 09:27:07 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/07 09:35:22 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,19 +119,16 @@ int ft_launch_shell(char **envp)
 	char	**arg;
 
 	shellp = "nanoshell ~ ";
-	//printf("%s\n", cmd);//verif de readline
 	cmd = NULL;
 	ft_signal();
 	while (1)
 	{
-		add_history(cmd);
 		free(cmd);
 		cmd = readline(shellp);
+		add_history(cmd);
 		if (cmd == NULL)
 			break;
 		arg = ft_split(cmd, ' ');
-		//printf("cmd1 : %s\n", arg[0]);
-		//printf("arg2 : %s\n", arg[1]);
 		if (ft_strnstr(cmd, "exit", 4))
 			break;
 		ft_exec(arg, envp);
