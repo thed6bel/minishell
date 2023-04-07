@@ -6,13 +6,18 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/07 09:35:22 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/07 10:21:24 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_shell	minishell;//Struct global vs variable global accpeter??
+
+void	ft_init_struct(void)
+{
+	minishell.cmds = NULL;
+}
 
 void	ft_handler(int n)
 {
@@ -34,7 +39,7 @@ void	ft_handler(int n)
 void	ft_signal()
 {
 	signal(SIGINT, ft_handler); //ctrl+c
-	signal(SIGQUIT, SIG_IGN);// ctrl+/
+	signal(SIGQUIT, SIG_IGN);//ctrl+d && ctrl+/
 
 }
 
@@ -99,7 +104,7 @@ int ft_exec(char **arg, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		execve(ft_path(arg[0], envp), arg, envp);
+			execve(ft_path(arg[0], envp), arg, envp);
 	}
 	else
 	{
@@ -115,31 +120,31 @@ int ft_exec(char **arg, char **envp)
 int ft_launch_shell(char **envp)
 {
 	char	*shellp;
-	char	*cmd;
 	char	**arg;
 
 	shellp = "nanoshell ~ ";
-	cmd = NULL;
 	ft_signal();
 	while (1)
 	{
-		free(cmd);
-		cmd = readline(shellp);
-		add_history(cmd);
-		if (cmd == NULL)
+		free(minishell.cmds);
+		minishell.cmds = readline(shellp);
+		add_history(minishell.cmds);
+		if (minishell.cmds == NULL)
 			break;
-		arg = ft_split(cmd, ' ');
-		if (ft_strnstr(cmd, "exit", 4))
+		arg = ft_split(minishell.cmds, ' ');
+		if (ft_strnstr(minishell.cmds, "exit", 4))
 			break;
-		ft_exec(arg, envp);
+		if ((arg[0]) && ft_path(arg[0], envp))
+			ft_exec(arg, envp);
 		free(arg);//free split
 		ft_signal();
 	}
-	free(cmd);//free du malloc de readline
+	free(minishell.cmds);//free du malloc de readline
 	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	ft_init_struct();
 	ft_launch_shell(envp);
 }

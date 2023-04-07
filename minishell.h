@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:22:13 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/06 11:15:41 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/07 09:53:46 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct 		s_data
 typedef struct 		s_shell
 {
 	//char			**builtins;
+	char			*cmds;
 	int				pid;
 }					t_shell;
 
