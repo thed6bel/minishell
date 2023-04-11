@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_line_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:25:19 by lowathar          #+#    #+#             */
-/*   Updated: 2023/03/28 12:28:04 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/04/07 19:50:11 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,9 @@ char	*ft_strjoin_gnl_2(char *lstr, char *buf, char *str)
 
 char	*ft_strjoin_gnl(char *lstr, char *buf)
 {
-	int		i;
-	int		j;
 	char	*str;
 	int		sizetot;
 
-	i = 0;
-	j = 0;
 	if (!lstr)
 	{
 		lstr = malloc(1);

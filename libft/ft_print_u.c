@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_u.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:44:46 by lowathar          #+#    #+#             */
-/*   Updated: 2023/02/21 14:00:27 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/04/07 19:48:29 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_ui(unsigned int nb, t_struct *tab)
 {
-	if (nb <= 9 && nb >= 0)
+	if (nb <= 9)
 		ft_putchar(nb + 48, tab);
 	else if (nb > 9)
 	{

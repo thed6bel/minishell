@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/07 13:35:07 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/07 19:54:02 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,26 +127,27 @@ int ft_launch_shell(char **envp)
 	ft_signal();
 	while (1)
 	{
-    free(minishell.cmds);
-    minishell.cmds = readline(shellp);
-    add_history(minishell.cmds);
-    if (minishell.cmds == NULL)
-        break;
-    //ft_parsing
-    arg = ft_split(minishell.cmds, ' ');
-    if (arg[0] && ft_strnstr(minishell.cmds, "exit", 4))
-    {
-        system("leaks nanoshell");
-        break;
-    }
-	path = ft_path(arg[0], envp);
-    if (arg[0] && path)
-        ft_exec(arg, envp);
-    ft_free(arg);
-	if (arg[0] != NULL)
-    	free(path);
-    ft_signal();
-}
+    	free(minishell.cmds);
+    	minishell.cmds = readline(shellp);
+    	add_history(minishell.cmds);
+    	if (minishell.cmds == NULL)
+        	break;
+    	//ft_parsing
+    	arg = ft_split(minishell.cmds, ' ');
+		if (arg[0] != NULL)
+		{
+			if (arg[0] && ft_strnstr(minishell.cmds, "exit", 4))
+			{
+				system("leaks a.out");
+				break;
+			}
+			if (arg[0] && (path = ft_path(arg[0], envp)))
+				ft_exec(arg, envp);
+			ft_free(arg);
+			free(path);
+		}
+		ft_signal();
+	}
 	free(minishell.cmds);//free du malloc de readline
 	return (1);
 }
