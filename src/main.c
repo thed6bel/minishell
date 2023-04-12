@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/12 14:51:40 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:19:22 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,17 @@ void	ft_free(char **str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return;
+
 	while (str[i])
 	{
-		free(str[i]);
+		if (str[i] != NULL)
+			free(str[i]);
 		i++;
 	}
-	free(str);
+	if (str != NULL)
+		free(str);
 }
 
 static char	**ft_get_paths(char **envp)
@@ -160,10 +165,11 @@ int ft_launch_shell(char **envp)
 				break;
 			}
 			if (arg[0] && (path = ft_path(arg[0], envp)))
+			{
+				free(path);
 				ft_exec(arg, envp);
-			free(path);
+			}
 		}
-		//printf("test double free\n");
 		ft_free(arg);
 	}
 	free(minishell.cmds);
