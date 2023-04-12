@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:22:13 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/11 13:43:51 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:38:41 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 
 typedef struct 		s_data
 {
-	char			*cmd;
-	char			**args;
-	int 			fd_i;
-	int				fd_o;
-	struct s_data	*next;
+	char			*path;
+	char			**cmd;
+	int 			fd_in;
+	int				fd_out;
+	//struct s_data	*next;//liste chainee vs **tab de struct
 }					t_data;
 
 typedef struct 		s_shell

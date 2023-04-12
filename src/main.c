@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/12 13:47:02 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:25:05 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int ft_launch_shell(char **envp)
 				ft_exec(arg, envp);
 			free(path);
 		}
+		//printf("test double free\n");
 		ft_free(arg);
 	}
 	free(minishell.cmds);//free du malloc de readline
