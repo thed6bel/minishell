@@ -6,7 +6,7 @@
 #    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 14:22:47 by hucorrei          #+#    #+#              #
-#    Updated: 2023/04/12 14:45:44 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/04/12 14:46:06 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,6 @@ re:		fclean all
 git:
 		git add .
 		git commit -m "$m"
-		git push -u origin master 
+		git push
 
 .PHONY:	all clean fclean re git
