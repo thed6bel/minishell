@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main1.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
+/*   Updated: 2023/04/11 11:11:52 by thed6bel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 t_shell	minishell;//Struct global vs variable global accpeter??
@@ -14,7 +26,7 @@ void	ft_handler(int n)
 	if (n == SIGINT) 
 	{
        	tcgetattr(STDIN_FILENO, &term);
-        term.c_lflag &= ~ECHOCTL;
+        //term.c_lflag &= ~ECHOCTL;
         tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
         printf("\n");
@@ -92,7 +104,7 @@ int ft_exec(char **arg, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		execve(ft_path(arg[0], envp), arg, envp);
+			execve(ft_path(arg[0], envp), arg, envp);
 	}
 	else
 	{
@@ -113,10 +125,10 @@ int ft_launch_shell(char **envp)
 
 	shellp = "nanoshell ~ ";
 	ft_signal();
+	minishell.cmds = readline(shellp);
 	while (1)
 	{
-    	free(minishell.cmds);
-    	minishell.cmds = readline(shellp);
+    	//free(minishell.cmds);
     	add_history(minishell.cmds);
     	if (minishell.cmds == NULL)
         	break;
@@ -134,16 +146,15 @@ int ft_launch_shell(char **envp)
 			ft_free(arg);
 			free(path);
 		}
+    	minishell.cmds = readline(shellp);
 		ft_signal();
 	}
-	ft_free(arg);
-	printf("av free\n");
-	free(minishell.cmds);
+	free(minishell.cmds);//free du malloc de readline
 	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	ft_init_struct();
+	ft_init_struct();//a voir les variables utile au projet
 	ft_launch_shell(envp);
 }

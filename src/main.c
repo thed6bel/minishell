@@ -6,7 +6,7 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/07 19:54:02 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:06:52 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	ft_handler(int n)
 	if (n == SIGINT) 
 	{
        	tcgetattr(STDIN_FILENO, &term);
-        term.c_lflag &= ~ECHOCTL;
+        //term.c_lflag &= ~ECHOCTL;
         tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
         printf("\n");
         rl_on_new_line();
         rl_replace_line("", 0);
-        rl_redisplay();
+        rl_redisplay(); 
 	}
 }
 
@@ -117,6 +117,41 @@ int ft_exec(char **arg, char **envp)
 	return (pid);
 }
 
+void ft_child_cmd_one(int ft_i, int pipe_fd[], char **cmd, char **envp)
+{
+	if  (strcut cmd.fd_i)
+	
+}
+
+ft_cmd_exec(char **cmd, char **envp)
+{
+	int	pipe_fd[2];
+	int fd_i;
+	int ret;
+	int i;
+
+	i = 0;
+	ret = 0;
+	fd_i = 0;
+	while (cmd != NULL)
+	{
+		pipe(pipe_fd);
+		minishell.pid = fork();
+		if (minishell.pid == -1)
+			return (0);
+		else if (minishell.pid == 0)
+			ft_child_cmd_one(fd_i, pipe_fd, cmd, envp);
+		close (pipe_fd[1]);
+		if (fd_i != 0)
+			close(fd_i);
+		fd_i = pipe_fd[0];
+		cmd[i++];// voir si ont utilise des liste => cdm = cdm->next
+	}
+	if (fd_i != 0)
+		close(fd_i);
+	//wait??
+}
+
 int ft_launch_shell(char **envp)
 {
 	char	*shellp;
@@ -125,10 +160,10 @@ int ft_launch_shell(char **envp)
 
 	shellp = "nanoshell ~ ";
 	ft_signal();
+	minishell.cmds = readline(shellp);
 	while (1)
 	{
-    	free(minishell.cmds);
-    	minishell.cmds = readline(shellp);
+    	//free(minishell.cmds);
     	add_history(minishell.cmds);
     	if (minishell.cmds == NULL)
         	break;
@@ -146,6 +181,7 @@ int ft_launch_shell(char **envp)
 			ft_free(arg);
 			free(path);
 		}
+    	minishell.cmds = readline(shellp);
 		ft_signal();
 	}
 	free(minishell.cmds);//free du malloc de readline
