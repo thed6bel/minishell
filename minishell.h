@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:22:13 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/14 10:47:26 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:02:20 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct 		s_shell
 	char			**envp;
 	char			*shell_prompt;
 	t_data			data_cmd;
+	int				exit_stat;
 }					t_shell;
 
 

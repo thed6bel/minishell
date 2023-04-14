@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/14 10:42:39 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:57:47 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ int ft_launch_shell(char **envp)
 	ft_signal();
 	while (1)
 	{
-		ft_signal();
     	free(minishell.cmds);
     	minishell.cmds = readline(minishell.shell_prompt);
     	add_history(minishell.cmds);
@@ -173,6 +172,7 @@ int ft_launch_shell(char **envp)
 			}
 		}
 		ft_free(minishell.data_cmd.cmd);
+		ft_signal();
 	}
 	free(minishell.cmds);
 	return (1);
