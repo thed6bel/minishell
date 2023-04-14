@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/12 15:19:22 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/14 10:42:39 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_shell	minishell;//Struct global vs variable global accpeter??
 void	ft_init_struct(void)
 {
 	minishell.cmds = NULL;
+	minishell.data_cmd.path = NULL;
+	minishell.data_cmd.cmd = NULL;
+	minishell.shell_prompt = "nanoshell ~ ";
+	minishell.data_cmd.fd_in = 0;
+	minishell.data_cmd.fd_out = 1;
 }
 
 void	ft_handler(int n)
@@ -66,7 +71,6 @@ void	ft_free(char **str)
 	i = 0;
 	if (str == NULL)
 		return;
-
 	while (str[i])
 	{
 		if (str[i] != NULL)
@@ -139,38 +143,36 @@ int ft_exec(char **arg, char **envp)
 	return (pid);
 }
 
+
 int ft_launch_shell(char **envp)
 {
-	char	*shellp;
-	char	**arg;
-	char	*path;
-
-	shellp = "nanoshell ~ ";
+	minishell.shell_prompt = "nanoshell ~ ";
 	ft_signal();
 	while (1)
 	{
 		ft_signal();
     	free(minishell.cmds);
-    	minishell.cmds = readline(shellp);
+    	minishell.cmds = readline(minishell.shell_prompt);
     	add_history(minishell.cmds);
     	if (minishell.cmds == NULL)
         	break;
     	//ft_parsing
-    	arg = ft_split(minishell.cmds, ' ');
-		if (arg[0] != NULL)
+    	minishell.data_cmd.cmd = ft_split(minishell.cmds, ' ');
+		if (minishell.data_cmd.cmd[0] != NULL)
 		{
-			if (arg[0] && ft_strnstr(minishell.cmds, "exit", 4))
+			if (minishell.data_cmd.cmd[0] && ft_strnstr(minishell.cmds, "exit", 4))
 			{
-				system("leaks nanoshell");
+				//system("leaks nanoshell");
+				//exit(0);
 				break;
 			}
-			if (arg[0] && (path = ft_path(arg[0], envp)))
+			if (minishell.data_cmd.cmd[0] && (minishell.data_cmd.path = ft_path(minishell.data_cmd.cmd[0], envp)))
 			{
-				free(path);
-				ft_exec(arg, envp);
+				free(minishell.data_cmd.path);
+				ft_exec(minishell.data_cmd.cmd, envp);
 			}
 		}
-		ft_free(arg);
+		ft_free(minishell.data_cmd.cmd);
 	}
 	free(minishell.cmds);
 	return (1);

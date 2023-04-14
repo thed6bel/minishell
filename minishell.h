@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:22:13 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/12 14:38:41 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/14 10:47:26 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,17 @@ typedef struct 		s_data
 	char			**cmd;
 	int 			fd_in;
 	int				fd_out;
-	//struct s_data	*next;//liste chainee vs **tab de struct
+	struct s_data	*next;//liste chainee vs **tab de struct
 }					t_data;
 
 typedef struct 		s_shell
 {
 	//char			**builtins;
 	char			*cmds;
-	int				pid;
+	pid_t			pid;
 	char			**envp;
+	char			*shell_prompt;
+	t_data			data_cmd;
 }					t_shell;
 
 
