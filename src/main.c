@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:17:19 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/04/14 13:57:47 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/04/17 09:44:43 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_handler(int n)
         rl_on_new_line();
         rl_replace_line("", 0);
 		rl_redisplay();
+		//system("leaks nanoshell");//test leaks apres un ctrl C
 		
 	}
 }
