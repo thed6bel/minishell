@@ -9,37 +9,21 @@
 /*   Updated: 2023/04/17 09:44:43 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../minishell.h"
-
-t_shell	minishell;//Struct global vs variable global accpeter??
-
-void	ft_init_struct(void)
-{
-	minishell.cmds = NULL;
-	minishell.data_cmd.path = NULL;
-	minishell.data_cmd.cmd = NULL;
-	minishell.shell_prompt = "nanoshell ~ ";
-	minishell.data_cmd.fd_in = 0;
-	minishell.data_cmd.fd_out = 1;
-}
 
 void	ft_handler(int n)
 {
-	struct termios term;
-
 	if (n == SIGINT) 
 	{
+       	struct termios term;
        	tcgetattr(STDIN_FILENO, &term);
         term.c_lflag &= ~ECHOCTL;
         tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
-        printf("\n");
+        write(STDOUT_FILENO, "\n", 1);
         rl_on_new_line();
         rl_replace_line("", 0);
 		rl_redisplay();
-		//system("leaks nanoshell");//test leaks apres un ctrl C
-		
 	}
 }
 
@@ -47,7 +31,7 @@ void	ft_handler_process(int n)
 {
 	if (n == SIGINT)
 	{
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 	}
 }
@@ -67,19 +51,33 @@ void	ft_signals_inprocess(void)
 
 void	ft_free(char **str)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	if (str == NULL)
-		return;
-	while (str[i])
-	{
-		if (str[i] != NULL)
-			free(str[i]);
-		i++;
-	}
-	if (str != NULL)
-		free(str);
+    if (str == NULL)
+        return;
+    while (str[i] != NULL)
+    {
+        free(str[i]);
+        i++;
+    }
+    free(str);
+}
+void	ft_exit(char *a)
+{
+	if (errno == 0)
+		write(2, "Error\n", 6);
+	else
+		perror(a);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_cmd_not_found(char **cmd)
+{
+	write(2, cmd[0], ft_strlen(cmd[0]));
+	write(2, ": command not found\n", 21);
+	ft_free(cmd);
+	exit(127);
 }
 
 static char	**ft_get_paths(char **envp)
@@ -88,10 +86,16 @@ static char	**ft_get_paths(char **envp)
 	int		i;
 
 	i = 0;
-	while (!ft_strnstr(envp[i], "PATH", 4))
+	while (envp[i])
+	{
+		if (ft_strnstr(envp[i], "PATH", 4))
+		{
+			paths = ft_split(envp[i] + 5, ':');
+			return (paths);
+		}
 		i++;
-	paths = ft_split(envp[i] + 5, ':');
-	return (paths);
+	}
+	return (NULL);
 }
 
 char	*ft_path(char *cmd, char **envp)
@@ -102,7 +106,7 @@ char	*ft_path(char *cmd, char **envp)
 	int		i;
 
 	if (ft_strnstr(cmd, "/", ft_strlen(cmd)))
-		return (cmd);
+		return (ft_strdup(cmd));
 	paths = ft_get_paths(envp);
 	i = 0;
 	while (paths[i])
@@ -121,66 +125,155 @@ char	*ft_path(char *cmd, char **envp)
 	ft_free(paths);
 	return (0);
 }
-
-int ft_exec(char **arg, char **envp)
+char	**ft_parse_cmds(char *cmd)
 {
-	pid_t	pid, wpid;
-	int status;
+	char	**cmds;
+	int		i;
+	int		j;
 
-	pid = fork();
-	ft_signals_inprocess();
-	if (pid == 0)
+	cmds = ft_calloc(ft_strlen(cmd) + 1, sizeof(char *));
+	if (!cmds)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (cmd[i])
 	{
-			execve(ft_path(arg[0], envp), arg, envp);
-	}
-	else
-	{
-		wpid = waitpid(pid, &status, WUNTRACED);
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
+		if (cmd[i] == '|')
 		{
-			wpid = waitpid(pid, &status, WUNTRACED);
+			cmds[j++] = ft_strdup("|");
+			i++;
+		}
+		else
+		{
+			int start = i;
+			while (cmd[i] && cmd[i] != '|')
+				i++;
+			cmds[j++] = ft_substr(cmd, start, i - start);
 		}
 	}
-	return (pid);
+	cmds[j] = NULL;
+	return (cmds);
 }
 
+void ft_exec_cmd_pipes(char **cmds, char **envp)
+{
+	int fd[2];
+    int prev_fd;
+    pid_t pid;
+    int i;
+    char **args;
+    int status;
+
+	i = 0;
+	prev_fd = 0;
+    while (cmds[i]) 
+	{
+        if (!ft_strncmp(cmds[i], "|", 1))//ajouter la conditions que cmds i+1 existe en cas de echo |xxx
+		{
+            if (pipe(fd) == -1)
+                ft_exit("pipe");
+            args = ft_split(cmds[i - 1], ' ');
+            if (!args)
+			{
+				free(cmds);
+                ft_exit("malloc");
+			}
+            pid = fork();
+			ft_signals_inprocess();
+            if (pid == -1)
+                ft_exit("fork");
+            if (pid == 0) 
+			{
+                if (prev_fd != 0) 
+				{
+                    if (dup2(prev_fd, STDIN_FILENO) == -1)
+                        ft_exit("dup2");
+                    close(prev_fd);
+                }
+                if (dup2(fd[1], STDOUT_FILENO) == -1)
+                    ft_exit("dup2");
+                close(fd[0]);
+                close(fd[1]);
+                if ((args[0]) && ft_path(args[0], envp))
+                    execve(ft_path(args[0], envp), args, envp);
+                else
+                    ft_cmd_not_found(args);
+            }
+            close(fd[1]);
+            if (prev_fd != 0)
+                close(prev_fd);
+            prev_fd = fd[0];
+            ft_free(args);
+        }
+        i++;
+    }
+    args = ft_split(cmds[i - 1], ' ');
+    if (!args)
+	{
+		free(cmds);
+        ft_exit("malloc");
+	}
+    pid = fork();
+	ft_signals_inprocess();
+    if (pid == -1)
+        ft_exit("fork");
+    if (pid == 0) 
+	{
+        if (prev_fd != 0) {
+            if (dup2(prev_fd, STDIN_FILENO) == -1)
+                ft_exit("dup2");
+            close(prev_fd);
+        }
+        if ((args[0]) && ft_path(args[0], envp))
+            execve(ft_path(args[0], envp), args, envp);
+        else
+            ft_cmd_not_found(args);
+    }
+    if (prev_fd != 0)
+        close(prev_fd);
+    ft_free(args);
+    ft_free(cmds);
+    if (waitpid(pid, &status, 0) == -1)
+        ft_exit("waitpid");
+}
 
 int ft_launch_shell(char **envp)
 {
-	minishell.shell_prompt = "nanoshell ~ ";
+	char	**cmds;//free
+	char	*shell_prompt;
+	char	*p_cmd;//free
+	char	*path;//free
+	
+	shell_prompt = "nanoshell ~ ";
+	p_cmd = NULL;
 	ft_signal();
 	while (1)
 	{
-    	free(minishell.cmds);
-    	minishell.cmds = readline(minishell.shell_prompt);
-    	add_history(minishell.cmds);
-    	if (minishell.cmds == NULL)
-        	break;
-    	//ft_parsing
-    	minishell.data_cmd.cmd = ft_split(minishell.cmds, ' ');
-		if (minishell.data_cmd.cmd[0] != NULL)
+		if (p_cmd != NULL)
+			free(p_cmd);
+		p_cmd = readline(shell_prompt);
+		if (p_cmd == NULL)
+			break;
+		if (p_cmd[0] != '\0')
 		{
-			if (minishell.data_cmd.cmd[0] && ft_strnstr(minishell.cmds, "exit", 4))
+			add_history(p_cmd);
+			cmds = ft_parse_cmds(p_cmd);
+			if (cmds[0] != NULL)
 			{
-				//system("leaks nanoshell");
-				//exit(0);
-				break;
-			}
-			if (minishell.data_cmd.cmd[0] && (minishell.data_cmd.path = ft_path(minishell.data_cmd.cmd[0], envp)))
-			{
-				free(minishell.data_cmd.path);
-				ft_exec(minishell.data_cmd.cmd, envp);
+				if (ft_strnstr(p_cmd, "exit", 4))
+					break;
+				ft_exec_cmd_pipes(cmds, envp);
 			}
 		}
-		ft_free(minishell.data_cmd.cmd);
 		ft_signal();
 	}
-	free(minishell.cmds);
+	free(p_cmd);
+	ft_free(cmds);
+	system("leaks nanoshell");
 	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	ft_init_struct();//a voir les variables utile au projet
 	ft_launch_shell(envp);
 }
