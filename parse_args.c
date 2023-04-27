@@ -103,8 +103,14 @@ char	**ft_cmdtrim(char const *s, char *set)
 static void print_cmds(t_prompt *prompt)
 {
     t_list *cmds = prompt->cmds;
+	int i;
+
+	i = 1;
     while (cmds != NULL)
     {
+		printf("===================\n");
+		printf("Node numero : %i\n", i);
+		i++;
         t_mini *cmd = cmds->content;
         printf("Full command: %s\n", cmd->full_cmd[0]);
         printf("Full path: %s\n", cmd->full_path);
