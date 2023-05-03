@@ -3,54 +3,119 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/05/01 23:14:18 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:09:34 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char ft_set_var(char *arg)
-{
+extern int g_status;
 
+char *ft_set_var(char *arg)
+{
+	int i;
+	int size;
+	char *res;
+
+	i = 0;
+	size = 0;
+	while (arg[size] && arg[size] != '=')
+		size++;
+	if (!arg[size])
+		ft_error("not a valide command, use : export [name=value]");
+		//return (NULL);
+	res = malloc(sizeof(char) * size + 1);
+	if (!res)
+		return (NULL);
+	while (i < size)
+	{
+		res[i] = arg[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
 
-char ft_set_key(char *arg)
+char ft_set_value(char *arg)
 {
+	int i;
+	int size;
+	char *res;
+	char *tmp;
 
+	i = 0;
+	size = 0;
+	tmp = arg;
+	while(*tmp && *tmp != '=')
+		tmp++;
+	if (*tmp == '=')
+		tmp++;
+	while (tmp[size])
+		size++;
+	res = malloc(sizeof(char *) * size +1);
+	if (!res)
+		return(NULL);
+	while (i , size)
+	{
+		res[i] = tmp[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
 
-void    ft_new_list(var, value, buff)
+void    ft_new_list(char *var, char *value, t_env *buff)
 {
+	t_env *tmp;
+	t_env *new;
 
+	tmp = buff;
+	while (tmp != NULL)
+		tmp = tmp->next;
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	tmp->next = new;
+	new->next = NULL;
+	new->var = var;
+	new->value = value;
+	new->equal = '=';
 }
 
 void    ft_print_export(t_data *cmd, t_env *envp)
 {
-    
+	//prendre envp et le mettre par ordre alpha!!
 }
 
 void	built_export(t_data *cmd, t_env *envp)
 {
-    t_env *buff;
-    char *var;
-    char *value;
+	t_env *buff;
+	char *var;
+	char *value;
 
-    buff = envp;
-    //protec NULL return
-    if (cmd->cmd[1] == NULL)
-        ft_print_export(cmd, envp); //declare -x PWD="/home/thed6bel/projet/test/minishell/louis/minishell" sous linux
-    var = ft_set_var(cmd->cmd[1]);
-    value = ft_set_key(cmd->cmd[1]);
-    //ctrl erreur dans nom si il y en a
-    while (buff != NULL)
-        buff = buff->next;
-    if (buff == NULL)
-        ft_new_list(var, value, buff);
-    free(var);
-    free(value);
-    
-    
+	buff = envp;
+	//protec NULL return
+	if (cmd->cmd[1] == NULL)
+		ft_print_export(cmd, envp); //declare -x PWD="/home/thed6bel/projet/test/minishell/louis/minishell" sous linux pareil sous bash
+	else
+		var = ft_set_var(cmd->cmd[1]);
+		value = ft_set_value(cmd->cmd[1]);
+		//ctrl erreur dans nom si il y en a
+		while (buff != NULL)
+			buff = buff->next;
+		if (buff == NULL)
+			ft_new_list(var, value, buff);
+		free(var);
+		free(value);
+	
+	
 }
+
+/*
+print export faut trier par ordre alpha
+pas gerer export var (sans = valeur)
+
+*/
