@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/05/03 15:09:34 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:15:10 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +95,26 @@ void	built_export(t_data *cmd, t_env *envp)
 	t_env *buff;
 	char *var;
 	char *value;
+	int i;
 
 	buff = envp;
+	i = 1;
 	//protec NULL return
-	if (cmd->cmd[1] == NULL)
+	if (cmd->cmd[i] == NULL)
 		ft_print_export(cmd, envp); //declare -x PWD="/home/thed6bel/projet/test/minishell/louis/minishell" sous linux pareil sous bash
 	else
-		var = ft_set_var(cmd->cmd[1]);
-		value = ft_set_value(cmd->cmd[1]);
-		//ctrl erreur dans nom si il y en a
-		while (buff != NULL)
-			buff = buff->next;
-		if (buff == NULL)
-			ft_new_list(var, value, buff);
-		free(var);
-		free(value);
-	
+		while (cmd->cmd[i])
+		{
+			var = ft_set_var(cmd->cmd[i]);
+			value = ft_set_value(cmd->cmd[i]);
+			//ctrl erreur dans nom si il y en a
+			while (buff != NULL)
+				buff = buff->next;
+			if (buff == NULL)
+				ft_new_list(var, value, buff);
+			free(var);
+			free(value);
+		}
 	
 }
 
