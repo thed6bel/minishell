@@ -61,3 +61,66 @@ t_env *get_env_list(char **envp)
     }
     return head;
 }
+
+static int	count_env(t_env *env)
+{
+    int		count;
+    t_env	*curr;
+
+    count = 0;
+    curr = env;
+    while (curr != NULL)
+    {
+        count++;
+        curr = curr->next;
+    }
+    return (count);
+}
+
+static void	create_cmd_str(char **cmd, t_env *env)
+{
+    t_env	*curr;
+    int		i;
+
+    curr = env;
+    i = 0;
+    while (curr != NULL)
+    {
+        cmd[i] = (char *)malloc(sizeof(char) * (ft_strlen(curr->var) + ft_strlen(curr->value[0]) + 2));
+        if (cmd[i] == NULL)
+            return ;
+        ft_strcpy(cmd[i], curr->var);
+        ft_strcat(cmd[i], "=");
+        ft_strcat(cmd[i], curr->value[0]);
+        curr = curr->next;
+        i++;
+    }
+}
+
+static void free_str_array(char **array)
+{
+    char	**p;
+
+    p = array;
+    while (*p != NULL)
+    {
+        free(*p);
+        *p = NULL;
+        p++;
+    }
+    free(array);
+}
+
+char	**env_to_array(t_env *env)
+{
+    int		count;
+    char	**cmd;
+
+    count = count_env(env);
+    cmd = (char **)malloc(sizeof(char *) * (count + 1));
+    if (cmd == NULL)
+        return (NULL);
+    cmd[count] = NULL;
+    create_cmd_str(cmd, env);
+    return (cmd);
+}
