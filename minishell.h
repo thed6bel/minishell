@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:54:31 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/24 11:54:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/19 10:18:42 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ char	*ft_getprompt(t_prompt prompt);
 // heredoc.c
 int		get_here_doc(char *str[2], char *aux[2]);
 char	*get_here_str(char *str[2], size_t len, char *limit, char *warn);
+
+// get_path.c
+int		builtin(t_prompt *prompt, t_list *cmd, int n);
+int		is_builtin(t_mini *n);
 
 // error.c
 void	*mini_perror(int err_type, char *param, int err);

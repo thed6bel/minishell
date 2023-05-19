@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/11 15:17:41 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/19 10:06:58 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_mini	*mini_init(void)
 	if (!mini)
 		return (NULL);
 	mini->full_cmd = NULL;
-	mini->full_path = NULL;
+	mini->full_path = "-1";
 	mini->infile = STDIN_FILENO;
 	mini->outfile = STDOUT_FILENO;
 	return (mini);

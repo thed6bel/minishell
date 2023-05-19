@@ -95,6 +95,9 @@ char	**ft_cmdtrim(char const *s, char *set)
 static	void	*parse_arg(char **args, t_prompt *p)
 {
 	p->cmds = fill_node(split_all(args, p), -1);
+	if (!p->cmds)
+		return(p);
+	g_status = builtin(p, p->cmds, 0);
 	return (p);
 }
 
