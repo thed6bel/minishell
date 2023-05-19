@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/19 10:06:58 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:09:25 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_mini	*mini_init(void)
 	if (!mini)
 		return (NULL);
 	mini->full_cmd = NULL;
-	mini->full_path = "-1";
+	mini->full_path = "0";
 	mini->infile = STDIN_FILENO;
 	mini->outfile = STDOUT_FILENO;
 	return (mini);

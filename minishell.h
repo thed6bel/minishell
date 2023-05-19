@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include <errno.h>
 # include <sys/ioctl.h>
 
 # define READ_END 0
@@ -29,6 +30,14 @@
 
 extern int	g_status;
 int			g_status;
+
+typedef struct 		s_env
+{
+    char 			*var;
+    char 			equal;
+    char 			*value;
+    struct 			s_env *next;
+} 					t_env;
 
 typedef struct s_prompt
 {
@@ -115,5 +124,10 @@ int		is_builtin(t_mini *n);
 
 // error.c
 void	*mini_perror(int err_type, char *param, int err);
+
+// exec.c
+void	ft_execute_commandes(t_prompt *p, t_mini *n);
+void	ft_cmd_not_found(char **cmd);
+void	ft_free(char **str);
 
 #endif

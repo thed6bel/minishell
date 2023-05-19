@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/19 10:05:06 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:10:43 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 int builtin(t_prompt *prompt, t_list *cmd, int i)
 {
     t_mini  *n;
+	t_env 				*env_list;
 
 	while (cmd)
 	{
@@ -65,11 +66,17 @@ int builtin(t_prompt *prompt, t_list *cmd, int i)
 		{
 			printf("i'm builtin : %s\n", n->full_cmd[0]);
 			//mini_builtin();
+			//env_list = get_env_list(prompt->envp);
+			//ft_free(prompt->envp);
+			//prompt->envp = env_list_to_tab(env_list);
+			//free_env_list(env_list); //evite 2 leaks!
+			
 		}
 		else
 		{
 			printf("i'm cmd\n");
 			get_cmd(prompt, cmd, NULL, NULL);
+			ft_execute_commandes(prompt, n);
 		}
 		cmd = cmd->next;
 	}
