@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 12:33:42 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/24 12:33:42 by marvin           ###   ########.fr       */
+/*   Created: 2023/05/22 17:18:28 by thed6bel          #+#    #+#             */
+/*   Updated: 2023/05/22 17:19:31 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,30 +97,22 @@ static	void	*parse_arg(char **args, t_prompt *p)
 	p->cmds = fill_node(split_all(args, p), -1);
 	if (!p->cmds)
 		return(p);
-
-	g_status = builtin(p, p->cmds, 0);
-
+	builtin(p, p->cmds, 0);
 	return (p);
 }
 
 void	*ft_check_args(char *out, t_prompt *p)
 {
 	char	**a;
-	t_mini	*n;
+	t_mini *n;
 
-	// if (!out)
-	// {
-	// 	printf("test exec ----------------------------------------3.2\n");
-	// 	printf("exit\n");
-	// 	return (NULL);
-	// }
 	if (out && out[0] && out[0] != '\0')
 		add_history(out);
 	a = ft_cmdtrim(out, " ");
 	free(out);
 	if (!a)
 		mini_perror(QUOTE, NULL, 1);
-	p = parse_arg(a, p);
-	//print_cmds(p);
+	p = parse_arg(a, p);	
+	ft_execute_commandes(p);
 	return (p);
 }
