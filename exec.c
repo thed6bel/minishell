@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/19 13:47:18 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:02:28 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-typedef struct 		s_data
-{
-	char			*path;
-	char			**cmd;
-	int 			fd_in;
-	int				fd_out;
-	struct s_data	*next;
-}					t_data;*/
 
 void	ft_exit(char *a)
 {
@@ -29,6 +20,7 @@ void	ft_exit(char *a)
 		perror(a);
 	exit(EXIT_FAILURE);
 }
+
 void	ft_free(char **str)
 {
 	int i;
@@ -43,61 +35,49 @@ void	ft_free(char **str)
     }
     free(str);
 }
-void	ft_cmd_not_found(char **cmd)
-{
-	write(2, cmd[0], ft_strlen(cmd[0]));
-	write(2, ": command not found\n", 21);
-	ft_free(cmd);
-	exit(127);
-}
 
-void ft_execute_commandes(t_prompt *p, t_mini *n)
+void ft_execute_commandes(t_prompt *p)
 {
     int fd[2];
     pid_t pid;
-	t_prompt *p1;
-	t_mini *n1;
-	
-	p1 = p;
-	n1 = n;
-    while (p1->cmds != NULL)
-	{
-        if (p1->cmds->next != NULL)
-		{
-            pipe(fd);
-        }
+    t_prompt *p1;
+    t_mini *n1;
+    int in;
 
+    in = 0;
+    p1 = p;
+    n1 = p->cmds->content;
+    while (p1->cmds != NULL)
+    {
+        if (pipe(fd) == -1)
+            ft_exit("pipe error:");
         pid = fork();
-        if (pid == 0)
-		{  // fils
-            if (n1->infile != 0)
-                dup2(n1->infile, STDIN_FILENO);
+        if (pid == -1)
+            ft_exit("fork error:");
+        else if (pid == 0)
+        {
+            dup2(in, STDIN_FILENO);
+            if (in != 0)
+                close(in);
             if (p1->cmds->next != NULL)
+            {
                 dup2(fd[1], STDOUT_FILENO);
-            if (n1->outfile != 1)
-                dup2(n1->outfile, STDOUT_FILENO);
-            close(fd[0]);
-			printf("test exec ----------------------------------------1\n");
-			if (n1->full_path)
-			{
-				if (execve(n1->full_path, n1->full_cmd, p1->envp) == -1)
-					ft_exit("execve1");	
-			}
-			else
-				ft_cmd_not_found(n1->full_cmd);
-        }
-		else
-		{ // père
-            if (p1->cmds->next != NULL)
-			{
-				printf("test exec ----------------------------------------2\n");
                 close(fd[1]);
-                dup2(fd[0], STDIN_FILENO);
             }
             close(fd[0]);
+            execve(n1->full_path, n1->full_cmd, p1->envp);
+        }
+        else
+        {
             waitpid(pid, NULL, 0);
+            close(fd[1]);
+            if (in != 0)
+                close(in);
+            in = fd[0];
         }
         p1->cmds = p1->cmds->next;
-		printf("test exec ----------------------------------------3\n");
+        if (p1->cmds != NULL)
+            n1 = p1->cmds->content;
     }
+    close(in);
 }
