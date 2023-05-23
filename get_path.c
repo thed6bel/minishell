@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/19 14:10:43 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:59:58 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,19 @@ int builtin(t_prompt *prompt, t_list *cmd, int i)
     	n = cmd->content;
     	if (is_builtin(n))
 		{
-			printf("i'm builtin : %s\n", n->full_cmd[0]);
+			//printf("i'm builtin : %s\n", n->full_cmd[0]);
 			//mini_builtin();
-			//env_list = get_env_list(prompt->envp);
-			//ft_free(prompt->envp);
-			//prompt->envp = env_list_to_tab(env_list);
+			env_list = get_env_list(prompt->envp);
+			ft_builtin_unset(n, &env_list);
+			ft_free(prompt->envp);
+			prompt->envp = env_list_to_tab(env_list);
 			//free_env_list(env_list); //evite 2 leaks!
 			
 		}
 		else
 		{
-			printf("i'm cmd\n");
+			//printf("i'm cmd\n");
 			get_cmd(prompt, cmd, NULL, NULL);
-			ft_execute_commandes(prompt, n);
 		}
 		cmd = cmd->next;
 	}
@@ -87,7 +87,7 @@ int	is_builtin(t_mini *n)
 {
 	int		l;
 
-	printf("coucou\n");
+	//printf("coucou\n");
 	if (!n->full_cmd)
 		return (0);
 	l = ft_strlen(*n->full_cmd);

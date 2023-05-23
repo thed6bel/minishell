@@ -126,8 +126,30 @@ int		is_builtin(t_mini *n);
 void	*mini_perror(int err_type, char *param, int err);
 
 // exec.c
-void	ft_execute_commandes(t_prompt *p, t_mini *n);
+void	ft_execute_commandes(t_prompt *p);
 void	ft_cmd_not_found(char **cmd);
 void	ft_free(char **str);
 
+//builtins
+void	ft_builtin_cd(t_mini *n, t_env *envp);
+void	ft_buildin_echo(t_mini *n);
+void	built_env(t_mini *n, t_env *envp);
+void	ft_builtin_exit(t_mini *n);
+void	ft_builtin_export(t_mini *n, t_env *envp);
+void	ft_check_variable(t_env *buff, char *var, char *value, int *mod);
+int		ft_var_error(char *var, char *value, int *mod);
+void	ft_print_export(t_mini *n, t_env *envp);
+void	ft_print_env(t_mini *n, t_env *envpcpy);
+void	ft_copy_env(t_env *envp, t_env **envpcpy, t_env	*tmp, t_env	*new_env);
+void	ft_sort_list(t_env *envpcpy);
+void	ft_swap_env(t_env *env1, t_env *env2);
+void	ft_new_list(char *var, char *value, t_env *buff);
+char	*ft_set_value(char *arg);
+char	*ft_set_var(char *arg, int *mod);
+void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod);
+void	ft_builtin_pwd(t_mini *n);
+void	ft_builtin_unset(t_mini *n, t_env **envp);
+
+t_env	*get_env_list(char **envp);
+char **env_list_to_tab(t_env *envp);
 #endif

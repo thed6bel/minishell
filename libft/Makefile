@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+         #
+#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/10 16:54:45 by lwathar           #+#    #+#              #
-#    Updated: 2023/03/14 14:31:46 by lowathar         ###   ########.fr        #
+#    Updated: 2023/05/23 09:21:43 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,15 @@ SRC =	ft_atoi.c \
 		ft_print_x.c \
 		ft_get_next_line.c \
 		ft_get_next_line_utils.c \
+		ft_lstadd_front_bonus.c \
+		ft_lstdelone_bonus.c \
+		ft_lstlast_bonus.c \
+		ft_lstnew_bonus.c \
+		ft_lstsize_bonus.c \
+		ft_lstadd_back_bonus.c \
+		ft_lstclear_bonus.c \
+		ft_lstiter_bonus.c \
+		ft_lstmap_bonus.c \
 
 NAME = libft.a
 
@@ -68,16 +77,6 @@ GCC = gcc
 RM = rm -rf
 
 HEADER = ./
-
-BONUS = 	ft_lstadd_front_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstnew_bonus.c \
-			ft_lstsize_bonus.c \
-			ft_lstadd_back_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstmap_bonus.c \
 
 all: $(NAME)
 
@@ -95,10 +94,5 @@ fclean: clean
 	    $(RM) $(NAME)
 
 re: fclean all
-
-bonus:
-	$(GCC) $(CFLAGS) -c $(BONUS)
-	ar rc $(NAME) $(BOBJ)
-	ranlib $(NAME)
 
 .PHONY: all test clean fclean re

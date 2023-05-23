@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/22 20:02:28 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:59:46 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,25 @@ void	ft_exit(char *a)
 
 void	ft_free(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-    if (str == NULL)
-        return;
-    while (str[i] != NULL)
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
+	if (str == NULL)
+		return ;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
-
-void ft_execute_commandes(t_prompt *p)
+void	ft_execute_commandes(t_prompt *p)
 {
 	int			fd[2];
 	pid_t		pid;
 	t_prompt	*p1;
 	t_mini		*n1;
-	int 		in;
+	int			in;
 
 	in = 0;
 	p1 = p;
