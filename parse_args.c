@@ -114,8 +114,9 @@ void	*ft_check_args(char *out, t_prompt *p)
 	{
 		mini_perror(QUOTE, NULL, 1);
 	}
-	p = parse_arg(a, p);	
+	p = parse_arg(a, p);
 	ft_execute_commandes(p);
+	printf("waaaaaaaaa\n");
 	//print_cmds(p);
 	return (p);
 }

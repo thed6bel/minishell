@@ -121,6 +121,7 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 // get_path.c
 int		builtin(t_prompt *prompt, t_list *cmd, int n);
 int		is_builtin(t_mini *n);
+int		ft_dispatch_builtin(t_mini *n, t_prompt *p);
 
 // error.c
 void	*mini_perror(int err_type, char *param, int err);
