@@ -1,0 +1,27 @@
+total 304
+drwxr-xr-x  26 lowathar  2022_brussels    884 24 May 13:51 .
+drwxr-xr-x  16 lowathar  2022_brussels    544 23 May 13:14 ..
+drwxr-xr-x  13 lowathar  2022_brussels    442 23 May 14:32 .git
+-rwxr-xr-x   1 lowathar  2022_brussels  71664 24 May 13:43 a.out
+drwxr-xr-x   9 lowathar  2022_brussels    306 23 May 13:14 builtin
+-rwxr-xr-x   1 lowathar  2022_brussels   1318 23 May 13:14 colors.h
+-rw-r--r--   1 lowathar  2022_brussels   1872 23 May 13:14 env.c
+-rw-r--r--   1 lowathar  2022_brussels   1979 23 May 13:14 error.c
+-rw-r--r--   1 lowathar  2022_brussels   2021 23 May 14:31 exec.c
+-rw-r--r--   1 lowathar  2022_brussels   2741 23 May 13:14 expand.c
+-rw-r--r--   1 lowathar  2022_brussels   2879 23 May 13:14 fill_node.c
+-rw-r--r--   1 lowathar  2022_brussels   3443 23 May 13:14 get_params.c
+-rw-r--r--   1 lowathar  2022_brussels   3657 23 May 13:54 get_path.c
+-rw-r--r--   1 lowathar  2022_brussels   1818 23 May 13:14 heredoc.c
+-rw-r--r--   1 lowathar  2022_brussels   1079 23 May 13:14 info.txt
+drwxr-xr-x  58 lowathar  2022_brussels   1972 23 May 13:14 libft
+-rw-r--r--   1 lowathar  2022_brussels      0 24 May 13:52 log
+-rw-r--r--   1 lowathar  2022_brussels      0 24 May 13:51 log2
+-rwxr-xr-x   1 lowathar  2022_brussels   4693 23 May 13:14 main.c
+-rw-r--r--   1 lowathar  2022_brussels   2454 23 May 13:14 matrix_utils.c
+-rwxr-xr-x   1 lowathar  2022_brussels   4647 23 May 13:33 minishell.h
+-rwxr-xr-x   1 lowathar  2022_brussels   2989 24 May 13:42 parse_args.c
+-rwxr-xr-x   1 lowathar  2022_brussels   2750 23 May 13:14 prompt.c
+-rw-r--r--   1 lowathar  2022_brussels   1926 23 May 13:14 strtrim.c
+-rw-r--r--   1 lowathar  2022_brussels   2669 23 May 13:14 subsplit.c
+-rw-r--r--   1 lowathar  2022_brussels   2179 23 May 13:14 utils.c

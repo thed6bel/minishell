@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/23 13:54:32 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:31:10 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,15 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 
 	n = cmd->content;
 	path = mini_getenv("PATH", prompt->envp, 4);
+	printf("%s\n", path);
 	s = ft_split(path, ':');
 	free(path);
 	n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
 	if (!n->full_path || !n->full_cmd[0] || !n->full_cmd[0][0])
+	{
 		mini_perror(NCMD, *n->full_cmd, 127);
+		n->full_path = "0";
+	}
 }
 
 
@@ -62,7 +66,8 @@ int builtin(t_prompt *prompt, t_list *cmd, int i)
 	while (cmd)
 	{
     	n = cmd->content;
-		get_cmd(prompt, cmd, NULL, NULL);
+		if (!is_builtin(n))
+			get_cmd(prompt, cmd, NULL, NULL);
 		cmd = cmd->next;
 	}
 	return (g_status);
