@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/24 16:02:00 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:02:57 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,24 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 	t_mini	*n;
 
 	n = cmd->content;
-	path = mini_getenv("PATH", prompt->envp, 4);
-	//printf("%s\n", path);
-	s = ft_split(path, ':');
-	free(path);
-	n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
+	if (n && n->full_cmd && ft_strchr(*n->full_cmd, '/'))
+	{
+		s = ft_split(*n->full_cmd, '/');
+		n->full_path = ft_strdup(*n->full_cmd);
+		free(n->full_cmd[0]);
+		n->full_cmd[0] = ft_strdup(&s[1][ft_matrixlen(s)] - 2);
+	}
+	else if (!is_builtin(n) && n && n->full_cmd)
+	{
+		path = mini_getenv("PATH", prompt->envp, 4);
+		s = ft_split(path, ':');
+		free(path);
+		n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
+	}
 	if (!n->full_path || !n->full_cmd[0] || !n->full_cmd[0][0])
 	{
 		mini_perror(NCMD, *n->full_cmd, 127);
-		n->full_path = "0";
+		n->full_path = NULL;
 	}
 }
 

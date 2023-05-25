@@ -113,10 +113,10 @@ void	*ft_check_args(char *out, t_prompt *p)
 	if (!a)
 	{
 		mini_perror(QUOTE, NULL, 1);
+		return ("");
 	}
 	p = parse_arg(a, p);
-	//ft_execute_commandes(p);
-	//printf("waaaaaaaaa\n");
-	print_cmds(p);
+	ft_execute_commandes(p);
+	//print_cmds(p);
 	return (p);
 }

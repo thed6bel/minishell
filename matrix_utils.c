@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:51:40 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/19 14:09:13 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:48:47 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	**ft_dup_matrix(char **m)
 	n_rows = ft_matrixlen(m);
 	out = malloc(sizeof(char *) * (n_rows + 1));
 	if (!out)
+		return (NULL);
+	if (!m)
 		return (NULL);
 	while (m[i])
 	{
