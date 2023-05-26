@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/23 11:48:19 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:10:24 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 	homedir = NULL;
 	if (n->full_cmd[1] == NULL || !ft_strncmp(n->full_cmd[1], "~", 1))
 	{
-		if (n->full_cmd[1][1])
+		if (n->full_cmd[1])
 			homedir = ft_compet_path(n->full_cmd[1], envp);
 		else
 			homedir = ft_gethomedir(envp);

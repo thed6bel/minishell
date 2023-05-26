@@ -6,7 +6,7 @@
 #    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 14:22:47 by hucorrei          #+#    #+#              #
-#    Updated: 2023/05/26 11:02:13 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/05/26 13:58:10 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ ${NAME}:	${OBJS}
 		@echo "$(GREEN)$(NAME) created[0m ✔️"
 
 build:
-	gcc main.c env.c error.c exec.c expand.c fill_node.c get_params.c get_path.c heredoc.c matrix_utils.c parse_args.c strtrim.c subsplit.c utils.c builtin/unset.c builtin/cd.c builtin/echo.c builtin/env.c builtin/exit.c builtin/export.c builtin/pwd.c libft/libft.a -lreadline
+	gcc main.c env.c error.c exec.c expand.c fill_node.c get_params.c get_path.c heredoc.c matrix_utils.c parse_args.c strtrim.c subsplit.c utils.c builtin/unset.c builtin/cd.c builtin/echo.c builtin/env.c builtin/exit.c builtin/export.c builtin/pwd.c prompt.c libft/libft.a -lreadline
 	./a.out
 # all:	${NAME}
 
