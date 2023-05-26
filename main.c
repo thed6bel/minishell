@@ -168,12 +168,11 @@ int	main(int argc, char **argv, char **envp)
 	prompt = init_prompt(argv, envp);
 	while (argv && argc)
 	{
-		//str = ft_getprompt(prompt);
-		// if (str)
-		// 	out = readline(str);
-		// else
-		// 	out = readline("guest@minishell $ ");
-		out = readline("guest@minishell $ ");
+		str = ft_getprompt(prompt);
+		if (str)
+			out = readline(str);
+		else
+			out = readline("guest@minishell $ ");
 		if (!ft_check_args(out, &prompt))
 			break ;
 	}

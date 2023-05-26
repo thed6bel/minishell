@@ -3,14 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 12:21:12 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/24 12:21:12 by marvin           ###   ########.fr       */
+/*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
+/*   Updated: 2023/05/26 13:53:43 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	update_output(char ***matrix, int fd)
+{
+	char	**aux;
+	char	*temp;
+	char	*line;
+
+	aux = NULL;
+	line = NULL;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		temp = ft_strtrim(line, "\n");
+		free(line);
+		aux = ft_extend_matrix(aux, temp);
+		free(temp);
+	}
+	ft_free_matrix(matrix);
+	*matrix = aux;
+}
+
+static void	exec_custom(char ***out, char *full, char *args, char **envp)
+{
+	pid_t	pid;
+	int		fd[2];
+	char	**matrix;
+
+	pipe(fd);
+	pid = fork();
+	if (!pid)
+	{
+		close(fd[READ_END]);
+		matrix = ft_split(args, ' ');
+		dup2(fd[WRITE_END], STDOUT_FILENO);
+		close(fd[WRITE_END]);
+		if (!access(full, F_OK))
+			execve(full, matrix, envp);
+		exit (1);
+	}
+	close(fd[WRITE_END]);
+	waitpid(pid, NULL, 0);
+	update_output(out, fd[READ_END]);
+	close(fd[READ_END]);
+}
+
 
 static char	*get_home(t_prompt prompt)
 {
@@ -52,7 +99,7 @@ static char	*get_user(t_prompt prompt)
 	if (!user)
 		user = ft_extend_matrix(user, "guest");
 	if (!ft_strncmp(user[0], "root", 4))
-		temp2 = ft_strjoin(NULL, RED);
+		temp2 = ft_strjoin(NULL, MAGENTA);
 	else if ((int)(user[0][0]) % 5 == 0)
 		temp2 = ft_strjoin(NULL, CYAN);
 	else if ((int)(user[0][0]) % 5 == 1)
@@ -60,7 +107,7 @@ static char	*get_user(t_prompt prompt)
 	else if ((int)(user[0][0]) % 5 == 2)
 		temp2 = ft_strjoin(NULL, GREEN);
 	else if ((int)(user[0][0]) % 5 == 3)
-		temp2 = ft_strjoin(NULL, MAGENTA);
+		temp2 = ft_strjoin(NULL, RED);
 	else
 		temp2 = ft_strjoin(NULL, YELLOW);
 	temp = ft_strjoin(temp2, *user);
