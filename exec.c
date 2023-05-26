@@ -141,7 +141,6 @@ void ft_execute_single_command(t_mini *cmd, char **envp)
 			execve(cmd->full_path, cmd->full_cmd, envp);
 			ft_exit("execve ");
 		}
-		exit(0);
 	}
 	else
 	{ // Processus parent
