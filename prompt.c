@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/26 14:12:40 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:50:28 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,31 @@ static char	*get_user(t_prompt prompt)
 	if (!ft_strncmp(user[0], "root", 4))
 		temp2 = ft_strjoin(NULL, MAGENTA);
 	else if ((int)(user[0][0]) % 5 == 0)
-		temp2 = ft_strjoin(NULL, CYAN);
+	{
+        temp2 = ft_strjoin(NULL, CYAN);
+        printf("%s", CYAN);
+    }
 	else if ((int)(user[0][0]) % 5 == 1)
-		temp2 = ft_strjoin(NULL, GRAY);
+	{
+        temp2 = ft_strjoin(NULL, GRAY);
+        printf("%s", GRAY);
+    }
 	else if ((int)(user[0][0]) % 5 == 2)
+    {
 		temp2 = ft_strjoin(NULL, GREEN);
+        printf("%s", GREEN);
+    }
 	else if ((int)(user[0][0]) % 5 == 3)
-		temp2 = ft_strjoin(NULL, RED);
+	{
+        temp2 = ft_strjoin(NULL, RED);
+        printf("%s", RED);
+    }
 	else
 		temp2 = ft_strjoin(NULL, YELLOW);
 	temp = ft_strjoin(temp2, *user);
 	free(temp2);
 	ft_free_matrix(&user);
-    printf("color : %s\n", RED);
+    //printf("color : %s\n", YELLOW);
 	return (temp);
 }
 
