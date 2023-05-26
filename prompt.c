@@ -6,13 +6,13 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/26 13:53:43 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:07:22 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_output(char ***matrix, int fd)
+static void	update_out(char ***matrix, int fd)
 {
 	char	**aux;
 	char	*temp;
@@ -54,7 +54,7 @@ static void	exec_custom(char ***out, char *full, char *args, char **envp)
 	}
 	close(fd[WRITE_END]);
 	waitpid(pid, NULL, 0);
-	update_output(out, fd[READ_END]);
+	update_out(out, fd[READ_END]);
 	close(fd[READ_END]);
 }
 
