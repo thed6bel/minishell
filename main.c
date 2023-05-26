@@ -12,11 +12,49 @@
 
 #include "minishell.h"
 
+void	ft_handler(int n)
+{
+	if (n == SIGINT) 
+	{
+       	struct termios term;
+       	tcgetattr(STDIN_FILENO, &term);
+        term.c_lflag &= ~ECHOCTL;
+        tcsetattr(STDIN_FILENO, TCSANOW, &term);
+
+        write(STDOUT_FILENO, "\n", 1);
+        rl_on_new_line();
+        rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
+void	ft_handler_process(int n)
+{
+	if (n == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_replace_line("", 0);
+	}
+}
+
+void	ft_signal()
+{
+	signal(SIGINT, ft_handler); //ctrl+c
+	signal(SIGQUIT, SIG_IGN);//ctrl+d && ctrl+/
+}
+
+void	ft_signals_inprocess(void)
+{
+	signal(SIGINT, ft_handler_process);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 static void	mini_getpid(t_prompt *p)
 {
 	pid_t	pid;
 
 	pid = fork();
+	ft_signals_inprocess();
 	if (pid < 0)
 	{
 		mini_perror(FORKERR, NULL, 1);
@@ -166,8 +204,11 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt			prompt;
 
 	prompt = init_prompt(argv, envp);
+	ft_signal();
 	while (argv && argc)
 	{
+		if (out != NULL)
+			free(out);
 		str = ft_getprompt(prompt);
 		if (str)
 			out = readline(str);
@@ -175,7 +216,9 @@ int	main(int argc, char **argv, char **envp)
 			out = readline("guest@minishell $ ");
 		if (!ft_check_args(out, &prompt))
 			break ;
+		ft_signal();
 	}
+	free(out);
 	printf("test exec ----------------------------------------4\n");
 	exit(g_status);
 }
