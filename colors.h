@@ -17,7 +17,7 @@
 /* Color codes for users  */
 # define DEFAULT "\033[0;39m"
 # define GRAY "\033[1;90m"
-# define RED "\033[0;31m"
+# define RED "\033[1;91m"
 # define GREEN "\033[1;92m"
 # define YELLOW "\033[1;93m"
 # define BLUE "\033[1;94m"
