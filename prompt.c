@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/26 15:03:43 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:12:17 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static char	*get_user(t_prompt prompt)
 	else if ((int)(user[0][0]) % 5 == 2)
 		temp2 = ft_strjoin(NULL, GREEN);
 	else if ((int)(user[0][0]) % 5 == 3)
-        temp2 = ft_strjoin(NULL, RED);
+		temp2 = ft_strjoin(NULL, RED);
 	else
 		temp2 = ft_strjoin(NULL, YELLOW);
 	temp = ft_strjoin(temp2, *user);

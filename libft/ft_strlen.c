@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:32:32 by lwathar           #+#    #+#             */
-/*   Updated: 2022/10/11 13:13:12 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:09:26 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
