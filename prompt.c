@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/26 14:07:22 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:12:40 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ static char	*get_user(t_prompt prompt)
 	temp = ft_strjoin(temp2, *user);
 	free(temp2);
 	ft_free_matrix(&user);
+    printf("color : %s\n", RED);
 	return (temp);
 }
 
