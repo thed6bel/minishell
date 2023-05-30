@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/25 15:02:57 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:27:10 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,6 @@ int	ft_dispatch_builtin(t_mini *n, t_prompt *p)
 	if (!ft_strncmp(*n->full_cmd, "echo", l) && l == 4)
 		ft_buildin_echo(n);
 	if (!ft_strncmp(*n->full_cmd, "exit", l) && l == 4)
-		ft_builtin_exit(n);
+		ft_builtin_exit(n, env_list);
 	return (0);
 }

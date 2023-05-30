@@ -6,13 +6,13 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/23 12:09:32 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:21:52 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_builtin_exit(t_mini *n)
+void	ft_builtin_exit(t_mini *n, t_env *env_list)
 {
 	int	i[2];
 
@@ -41,5 +41,6 @@ void	ft_builtin_exit(t_mini *n)
 		g_status = 0;
 	//printf("gstatus = %d\n", g_status);
 	//system("leaks test");
+	free_env_list(env_list);
 	exit(g_status);
 }

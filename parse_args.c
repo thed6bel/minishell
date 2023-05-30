@@ -109,7 +109,7 @@ void	*ft_check_args(char *out, t_prompt *p)
 	if (out && out[0] && out[0] != '\0')
 		add_history(out);
 	a = ft_cmdtrim(out, " ");
-	free(out);
+	//free(out);
 	if (!a)
 	{
 		mini_perror(QUOTE, NULL, 1);

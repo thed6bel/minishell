@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/23 14:31:16 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:24:13 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ void ft_close_fds(t_mini *cmd)
         close(cmd->infile);
     if (cmd->outfile != 1)
         close(cmd->outfile);
+}
+
+void free_env_list(t_env *head)
+{
+    t_env *current = head;
+    while (current != NULL) {
+        t_env *next = current->next;
+        free(current->var);
+        free(current->value);
+        free(current);
+        current = next;
+    }
 }
 
 int ft_execute_builtin(t_mini *n, t_prompt *p, int i)

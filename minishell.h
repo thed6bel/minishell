@@ -24,6 +24,11 @@
 # include <dirent.h>
 # include <errno.h>
 # include <sys/ioctl.h>
+# include <termios.h>
+# include <sys/types.h>
+
+
+
 
 # define READ_END 0
 # define WRITE_END 1
@@ -135,7 +140,7 @@ void	ft_free(char **str);
 void	ft_builtin_cd(t_mini *n, t_env *envp);
 void	ft_buildin_echo(t_mini *n);
 void	built_env(t_mini *n, t_env *envp);
-void	ft_builtin_exit(t_mini *n);
+void	ft_builtin_exit(t_mini *n, t_env *env_list);
 void	ft_builtin_export(t_mini *n, t_env *envp);
 void	ft_check_variable(t_env *buff, char *var, char *value, int *mod);
 int		ft_var_error(char *var, char *value, int *mod);
@@ -153,4 +158,11 @@ void	ft_builtin_unset(t_mini *n, t_env **envp);
 
 t_env	*get_env_list(char **envp);
 char **env_list_to_tab(t_env *envp);
+void free_env_list(t_env *head);
+void	ft_handler(int n);
+void	ft_handler_process(int n);
+void	ft_signal();
+void	ft_signals_inprocess(void);
+
+
 #endif

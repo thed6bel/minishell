@@ -214,11 +214,13 @@ int	main(int argc, char **argv, char **envp)
 			out = readline(str);
 		else
 			out = readline("guest@minishell $ ");
+		if (out == NULL)
+			break;
+		add_history(out);
 		if (!ft_check_args(out, &prompt))
 			break ;
 		ft_signal();
 	}
 	free(out);
-	printf("test exec ----------------------------------------4\n");
 	exit(g_status);
 }
