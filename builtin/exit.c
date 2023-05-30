@@ -12,34 +12,39 @@
 
 #include "../minishell.h"
 
+void	handle_numeric_argument(const char *argument)
+{
+	int i = 0;
+	while (argument[i])
+	{
+		if (!isdigit(argument[i]))
+		{
+			write(1, "exit: ", 6);
+			write(1, argument, ft_strlen(argument));
+			write(1, ": numeric argument required\n", 28);
+			exit(255);
+		}
+		i++;
+	}
+}
+
 void	ft_builtin_exit(t_mini *n, t_env *env_list)
 {
-	int	i[2];
-
-	i[0] = 0;
-	i[1] = 0;
 	if (n->full_cmd[1] != NULL)
 	{
-		while (n->full_cmd[1][i[0]])
-			if (!ft_isdigit(n->full_cmd[1][i[0]++]))
-			{
-				printf("exit: %s: numeric argument required\n", n->full_cmd[1]);
-				exit(255);
-			}
-		if (n->full_cmd[1][i[0]] == '\0')
-		{
-			g_status = ft_atoi(n->full_cmd[1]);
-			i[1] = 1;
-		}
+		handle_numeric_argument(n->full_cmd[1]);
+		g_status = atoi(n->full_cmd[1]);
 	}
+
 	if (n->full_cmd[1] != NULL && n->full_cmd[2] != NULL)
 	{
-		printf("exit: too many arguments\n");
+		write(1, "exit: too many arguments\n", 25);
 		exit(1);
 	}
-	if (i[1] == 0)
+
+	if (n->full_cmd[1] == NULL)
 		g_status = 0;
-	//printf("gstatus = %d\n", g_status);
+
 	system("leaks a.out");
 	free_env_list(env_list);
 	exit(g_status);
