@@ -139,6 +139,7 @@ void	ft_free(char **str);
 
 //builtins
 void	ft_builtin_cd(t_mini *n, t_env *envp);
+char	*ft_gethomedir(t_env *envp);
 void	ft_buildin_echo(t_mini *n);
 void	built_env(t_mini *n, t_env *envp);
 void	ft_builtin_exit(t_mini *n, t_env *env_list);
