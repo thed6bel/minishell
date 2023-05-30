@@ -12,11 +12,9 @@
 
 #include "../minishell.h"
 
-extern int	g_status;
-
 void	built_env(t_mini *n, t_env *envp)
 {
-	t_env *buff;
+	t_env	*buff;
 
 	buff = envp;
 	while (buff != NULL)
