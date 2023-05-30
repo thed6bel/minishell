@@ -12,20 +12,12 @@
 
 #include "../minishell.h"
 
-extern int	g_status;
-
-/*
-ne pas oublier une fonction qui copie le double tab de **env vers liste chain2e
-et l'inverse pour envoyer un double tableau vers execve
-*/
-char	*ft_gethomedir(t_env *envp);
-
-char	*ft_compet_path(char *cmd, t_env *envp)
+static char	*ft_compet_path(char *cmd, t_env *envp)
 {
-	char *home;
-	char *completpath;
-	int i;
-	int j;
+	char	*home;
+	char	*completpath;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 1;
@@ -46,8 +38,6 @@ char	*ft_compet_path(char *cmd, t_env *envp)
 	}
 	completpath[i] = '\0';
 	free(home);
-	printf("cmd = %s\n", cmd);
-	printf("complete path = %s\n", completpath);
 	return (completpath);
 }
 
@@ -75,7 +65,7 @@ char	*ft_gethomedir(t_env *envp)
 	return (homedir);
 }
 
-void	ft_upd_pwd(t_env *envp)
+static void	ft_upd_pwd(t_env *envp)
 {
 	t_env	*old;
 	t_env	*new;
@@ -110,7 +100,7 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 	if (n->full_cmd[1] == NULL || !ft_strncmp(n->full_cmd[1], "~", 1))
 	{
 		if (n->full_cmd[1])
-			homedir = ft_compet_path(n->full_cmd[1], envp);
+			homedir = ft_compet_path(n->full_cmd[1], envp);// rentre jamais dedans!!
 		else
 			homedir = ft_gethomedir(envp);
 		if (chdir(homedir) != -1)
