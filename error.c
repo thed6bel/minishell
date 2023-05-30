@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:36:39 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/11 14:37:12 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:26:22 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,53 @@ void	*mini_perror(int err_type, char *param, int err)
 		ft_putstr_fd("minishell: Not a directory: ", 2);
 	ft_putendl_fd(param, 2);
 	return (NULL);
+}
+
+void	ft_exit(char *a)
+{
+	if (errno == 0)
+		write(2, "Error\n", 6);
+	else
+	{
+		perror(a);
+		g_status = 127;
+	}
+	exit(g_status);
+}
+
+void	ft_free(char **str)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+void	ft_close_fds(t_mini *cmd)
+{
+	if (cmd->infile != 0)
+		close(cmd->infile);
+	if (cmd->outfile != 1)
+		close(cmd->outfile);
+}
+
+void	free_env_list(t_env *head)
+{
+	t_env	*current = head;
+
+	while (current != NULL)
+	{
+		t_env *next = current->next;
+		free(current->var);
+		free(current->value);
+		free(current);
+		current = next;
+	}
 }

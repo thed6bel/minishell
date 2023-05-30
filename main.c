@@ -37,7 +37,7 @@ void	ft_handler_process(int n)
 	}
 }
 
-void	ft_signal()
+void	ft_signal(void)
 {
 	signal(SIGINT, ft_handler); //ctrl+c
 	signal(SIGQUIT, SIG_IGN);//ctrl+d && ctrl+/

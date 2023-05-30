@@ -96,7 +96,7 @@ static	void	*parse_arg(char **args, t_prompt *p)
 {
 	p->cmds = fill_node(split_all(args, p), -1);
 	if (!p->cmds)
-		return(p);
+		return (p);
 	builtin(p, p->cmds, 0);
 	return (p);
 }
@@ -104,12 +104,11 @@ static	void	*parse_arg(char **args, t_prompt *p)
 void	*ft_check_args(char *out, t_prompt *p)
 {
 	char	**a;
-	t_mini *n;
+	t_mini	*n;
 
 	if (out && out[0] && out[0] != '\0')
 		add_history(out);
 	a = ft_cmdtrim(out, " ");
-	//free(out);
 	if (!a)
 	{
 		mini_perror(QUOTE, NULL, 1);
@@ -117,6 +116,5 @@ void	*ft_check_args(char *out, t_prompt *p)
 	}
 	p = parse_arg(a, p);
 	ft_execute_commandes(p);
-	//print_cmds(p);
 	return (p);
 }

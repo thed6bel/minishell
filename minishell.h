@@ -27,22 +27,19 @@
 # include <termios.h>
 # include <sys/types.h>
 
-
-
-
 # define READ_END 0
 # define WRITE_END 1
 
 extern int	g_status;
 int			g_status;
 
-typedef struct 		s_env
+typedef struct s_env
 {
-    char 			*var;
-    char 			equal;
-    char 			*value;
-    struct 			s_env *next;
-} 					t_env;
+	char			*var;
+	char			equal;
+	char			*value;
+	struct s_env	*next;
+}			t_env;
 
 typedef struct s_prompt
 {
@@ -130,6 +127,10 @@ int		ft_dispatch_builtin(t_mini *n, t_prompt *p);
 
 // error.c
 void	*mini_perror(int err_type, char *param, int err);
+void	ft_exit(char *a);
+void	ft_free(char **str);
+void	ft_close_fds(t_mini *cmd);
+void	free_env_list(t_env *head);
 
 // exec.c
 void	ft_execute_commandes(t_prompt *p);
@@ -157,12 +158,11 @@ void	ft_builtin_pwd(t_mini *n);
 void	ft_builtin_unset(t_mini *n, t_env **envp);
 
 t_env	*get_env_list(char **envp);
-char **env_list_to_tab(t_env *envp);
-void free_env_list(t_env *head);
+char	**env_list_to_tab(t_env *envp);
+void	free_env_list(t_env *head);
 void	ft_handler(int n);
 void	ft_handler_process(int n);
-void	ft_signal();
+void	ft_signal(void);
 void	ft_signals_inprocess(void);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/26 16:12:17 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:23:04 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	exec_custom(char ***out, char *full, char *args, char **envp)
 	update_out(out, fd[READ_END]);
 	close(fd[READ_END]);
 }
-
 
 static char	*get_home(t_prompt prompt)
 {
