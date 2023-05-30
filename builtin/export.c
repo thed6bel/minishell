@@ -14,9 +14,9 @@
 
 void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 {
-	char *finalvalue;
-	t_env *current;
-	t_env *prev;
+	char	*finalvalue;
+	t_env	*current;
+	t_env	*prev;
 
 	current = buff;
 	prev = NULL;
@@ -30,7 +30,7 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 				finalvalue = ft_strjoin(current->value, value1);
 				if (finalvalue == NULL)
 				{
-					printf("Allocation failed");
+					write(1, "Allocation failed\n", 18);
 					return;
 				}
 				free(current->value);
@@ -45,7 +45,7 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 	if (prev != NULL) 
 		ft_new_list(varfind, value1, prev);
 	else
-		printf("Erreur : la liste est vide.\n");
+		write(1, "Erreur : empty list\n", 20);
 }
 
 
@@ -96,7 +96,7 @@ char	*ft_set_value(char *arg)
 		return (NULL);
 	while (tmp[size])
 		size++;
-	res = malloc(sizeof(char *) * size +1);
+	res = malloc(sizeof(char *) * size + 1);
 	if (!res)
 		return (NULL);
 	while (++i < size)
@@ -123,7 +123,7 @@ void	ft_new_list(char *var, char *value, t_env *buff)
 		new->value = value;
 	}
 	else
-		printf("not a valide command, use : export [VARname=value]\n");
+		write(1, "not a valide command, use : export [VARname=value]\n", 51);
 }
 
 void	ft_swap_env(t_env *env1, t_env *env2)
@@ -238,37 +238,29 @@ void	ft_print_export(t_mini *n, t_env *envp)
 
 int	ft_var_error(char *var, char *value, int *mod)
 {
-    int i;
+	int i;
 
-    if (!var)
-    {
-        printf("not a valide command, use : export [name=value]\n");
-        if (value)
-            free(value);
-        return (0);
-    }
-    // Verifier si var contient des caracteres non autorises
-    i = 0;
-    while (var[i] != '\0')
-    {
-        if (i == 0 && !ft_isalpha(var[i]) && var[i] != '_')
-        {
+	i = 0;
+	while (var[i] != '\0')
+	{
+		if (i == 0 && !ft_isalpha(var[i]) && var[i] != '_')
+		{
 			*mod = 1;
-            return (0);
-        }
-        else if (!ft_isalnum(var[i]) && var[i] != '_')
-        {
+			return (0);
+		}
+		else if (!ft_isalnum(var[i]) && var[i] != '_')
+		{
 			*mod = 1;
-            return (0);
-        }
-        i++;
-    }
-    if (!value)
-    {
+			return (0);
+		}
+		i++;
+	}
+	if (!value)
+	{
 		printf("export: `%s=%s': not a valid identifier\n", var, value);
-        return (0);
-    }
-    return (1);
+		return (0);
+	}
+	return (1);
 }
 
 
@@ -321,15 +313,11 @@ void	ft_builtin_export(t_mini *n, t_env *envp)
 			if (!ft_var_error(var, value, &mod))
 				break;
 			if (mod == 1)
-			{
 				ft_export_mod(var, value, buff, &mod);
-				//system("leaks test");
-			}
 			else
                 ft_check_variable(buff, var, value, &mod);
 			i++;
 		}
-		
 	}
 	if (mod == 1)//si +=
 	{
