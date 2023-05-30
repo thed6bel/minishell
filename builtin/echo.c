@@ -14,7 +14,7 @@
 
 static void	ft_mod_ok(t_mini *n, int *mod)
 {
-	int i;
+	int	i;
 
 	i = *mod + 1;
 	while (n->full_cmd[i] != NULL)
@@ -31,7 +31,7 @@ static void	ft_mod_ok(t_mini *n, int *mod)
 
 static void	ft_mod_ko(t_mini *n)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (n->full_cmd[i] != NULL)
@@ -50,8 +50,8 @@ static void	ft_mod_ko(t_mini *n)
 
 void	ft_set_mod(int *mod, t_mini *n)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	if (n->full_cmd[i] == NULL)
@@ -74,9 +74,9 @@ void	ft_set_mod(int *mod, t_mini *n)
 
 void	ft_buildin_echo(t_mini *n)
 {
-	int i;
-	int mod;
-	char *codexit;
+	int		i;
+	int		mod;
+	char	*codexit;
 
 	i = 1;
 	mod = 0;
