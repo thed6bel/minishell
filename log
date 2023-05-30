@@ -1,4 +1,1 @@
-declare -x SHELL="/bin/zsh"
-declare -x SHLVL="2"
-declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.8wjsRM09L0/Listeners"
-declare -x ZSH="/Users/hucorrei/.oh-my-zsh"
+      15     135    1022

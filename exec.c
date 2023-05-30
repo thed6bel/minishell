@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/30 13:27:52 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:14:58 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void ft_execute_single_command(t_mini *cmd, char **envp)
 	pid_t pid;
 	
 	pid = fork();
+	ft_signals_inprocess();
 	if (pid == 0) 
 	{
-		ft_signals_inprocess();
 		if (cmd->infile != 0)
 		{
 			dup2(cmd->infile, 0);
@@ -69,6 +69,7 @@ void ft_execute_single_command(t_mini *cmd, char **envp)
 			execve(cmd->full_path, cmd->full_cmd, envp); 
 			ft_exit("execve ");
 		}
+		exit(0);
 	} 
 	else 
 	{ 
@@ -113,6 +114,7 @@ void ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 	}
 	if (pipe_fds[0] != -1)
 		close(pipe_fds[0]);
+	ft_lstclear(&cmds, free_content);
 	dup2(saved_stdin, 0);
 	close(saved_stdin);
 	dup2(saved_stdout, 1);
