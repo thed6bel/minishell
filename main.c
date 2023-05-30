@@ -216,9 +216,11 @@ int	main(int argc, char **argv, char **envp)
 			out = readline("guest@minishell $ ");
 		if (out == NULL)
 			break;
-		add_history(out);
+		//add_history(out);
 		if (!ft_check_args(out, &prompt))
 			break ;
+		if (str)
+			free(str);
 		ft_signal();
 	}
 	free(out);

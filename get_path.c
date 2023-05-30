@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/30 10:27:10 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:20:34 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		mini_perror(NCMD, *n->full_cmd, 127);
 		n->full_path = NULL;
 	}
+	ft_free(s);
 }
 
 
