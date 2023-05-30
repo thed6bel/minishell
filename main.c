@@ -203,6 +203,8 @@ int	main(int argc, char **argv, char **envp)
 	char				*out;
 	t_prompt			prompt;
 
+	str = NULL;
+	out = NULL;
 	prompt = init_prompt(argv, envp);
 	ft_signal();
 	while (argv && argc)
