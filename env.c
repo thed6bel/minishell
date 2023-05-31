@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:10:18 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/31 11:32:38 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:09:10 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,26 @@ t_env	*get_env_list(char **envp)
 	t_env	*tail;
 	t_env	*new_entry;
 	char	*equal_pos;
-	int		i;
-	int		var_len;
+	int		i[2];
 
 	head = NULL;
 	tail = NULL;
-	i = 0;
-	while (envp[i] != NULL)
+	i[0] = 0;
+	while (envp[i[0]] != NULL)
 	{
-		equal_pos = ft_strchr(envp[i], '=');
+		equal_pos = ft_strchr(envp[i[0]], '=');
 		if (equal_pos != NULL)
 		{
 			new_entry = (t_env *)malloc(sizeof(t_env));
 			if (new_entry == NULL)
 				return (NULL);
-			var_len = equal_pos - envp[i];
-			new_entry->var = ft_substr(envp[i], 0, var_len);
+			i[1] = equal_pos - envp[i[0]];
+			new_entry->var = ft_substr(envp[i[0]], 0, i[1]);
 			new_entry->equal = '=';
 			new_entry->value = ft_strdup(equal_pos + 1);
 			if (new_entry->var == NULL || new_entry->value == NULL)
 			{
-				free(new_entry->var);
-				free(new_entry->value);
-				free(new_entry);
+				free_env_list(new_entry);
 				return (NULL);
 			}
 			new_entry->next = NULL;
@@ -104,7 +101,7 @@ t_env	*get_env_list(char **envp)
 				tail = new_entry;
 			}
 		}
-		i++;
+		i[0]++;
 	}
 	return (head);
 }

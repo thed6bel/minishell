@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 14:43:11 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:00:50 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 	}
 	if (pipe_fds[0] != -1)
 		close(pipe_fds[0]);
-	//if (g_status != 0)
 	ft_lstclear(&cmds, free_content);
 	dup2(saved_stdin, 0);
 	close(saved_stdin);
