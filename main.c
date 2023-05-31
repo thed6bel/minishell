@@ -74,19 +74,19 @@ static t_prompt	init_prompt(char **argv, char **envp)
 	return (prompt);
 }
 
-void free_memory(char *str) 
+void	free_memory(char *str)
 {
-    if (str != NULL) 
-        free(str); 
+	if (str != NULL)
+		free(str);
 }
 
-char *read_input(char *str)
+char	*read_input(char *str)
 {
 	char	*out;
-	
-	if (str) 
-		out = readline(str); 
-	else 
+
+	if (str)
+		out = readline(str);
+	else
 		out = readline("guest@minishell $ ");
 	return (out);
 }
