@@ -100,7 +100,7 @@ void	ft_execute_single_command(t_mini *cmd, char **envp)
 
 void ft_pipe_and_execute(t_list *cur, t_prompt *p, int fds[2], int saved_stdout)
 {
-	t_mini *cmd;
+	t_mini	*cmd;
 
 	while (cur)
 	{
@@ -122,27 +122,27 @@ void ft_pipe_and_execute(t_list *cur, t_prompt *p, int fds[2], int saved_stdout)
 	}
 }
 
-void ft_close_and_restore(int fds[2], int saved_stdin, int saved_stdout, t_list *cmds)
+void ft_close_and_restore(int fds[2], int saved_stdin, int stdout, t_list *cmds)
 {
 	if (fds[0] != -1)
 		close(fds[0]);
 	ft_lstclear(&cmds, free_content);
 	dup2(saved_stdin, 0);
 	close(saved_stdin);
-	dup2(saved_stdout, 1);
-	close(saved_stdout);
+	dup2(stdout, 1);
+	close(stdout);
 }
 
 void ft_execute_p_cmds(t_list *cmds, t_prompt *p, t_list *cur, int fds[2])
 {
-	t_mini *cmd;
-	int saved_stdin;
-	int saved_stdout;
+	t_mini	*cmd;
+	int		saved_stdin;
+	int		saved_stdout;
 
 	cur = cmds;
-	saved_stdin = dup(0); 
-	saved_stdout = dup(1);  
-	ft_pipe_and_execute(cur, p, fds, saved_stdout);  
+	saved_stdin = dup(0);
+	saved_stdout = dup(1);
+	ft_pipe_and_execute(cur, p, fds, saved_stdout);
 	ft_close_and_restore(fds, saved_stdin, saved_stdout, cmds);
 }
 
