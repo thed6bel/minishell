@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 15:00:50 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:17:51 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,39 +79,35 @@ void	ft_execute_single_command(t_mini *cmd, char **envp)
 	}
 }
 
-void	ft_execute_piped_commands(t_list *cmds, t_prompt *p)
+void	ft_execute_p_cmds(t_list *cmds, t_prompt *p, t_list *cur, int fds[2])
 {
-	t_list	*cur;
 	t_mini	*cmd;
-	int		pipe_fds[2];
 	int		saved_stdin;
 	int		saved_stdout;
 
 	cur = cmds;
 	saved_stdin = dup(0);
 	saved_stdout = dup(1);
-	pipe_fds[0] = -1;
-	pipe_fds[1] = -1;
 	while (cur)
 	{
 		cmd = cur->content;
 		if (cur->next)
 		{
-			pipe(pipe_fds);
+			pipe(fds);
 			if (cmd->outfile == 1)
-				cmd->outfile = pipe_fds[1];
-			((t_mini *)cur->next->content)->infile = pipe_fds[0];
+				cmd->outfile = fds[1];
+			((t_mini *)cur->next->content)->infile = fds[0];
 		}
 		if (!ft_execute_builtin(cmd, p))
 			ft_execute_single_command(cmd, p->envp);
 		if (cur->next)
-			close(pipe_fds[1]);
+			close(fds[1]);
 		if (cmd->outfile != 1)
 			dup2(saved_stdout, 1);
 		cur = cur->next;
 	}
-	if (pipe_fds[0] != -1)
-		close(pipe_fds[0]);
+	if (fds[0] != -1)
+		close(fds[0]);
 	ft_lstclear(&cmds, free_content);
 	dup2(saved_stdin, 0);
 	close(saved_stdin);
@@ -121,5 +117,11 @@ void	ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 
 void	ft_execute_commandes(t_prompt *p)
 {
-	ft_execute_piped_commands(p->cmds, p);
+	t_list	*cur;
+	t_mini	*cmd;
+	int		pipe_fds[2];
+
+	pipe_fds[0] = -1;
+	pipe_fds[1] = -1;
+	ft_execute_p_cmds(p->cmds, p, cur, pipe_fds);
 }
