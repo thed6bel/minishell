@@ -6,32 +6,30 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 11:47:51 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:43:11 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_builtin(t_mini *n, t_prompt *p, int i)
+int	ft_execute_builtin(t_mini *n, t_prompt *p)
 {
 	t_env	*env_list;
 
-	if (i == 1)
-		return (1);
 	env_list = get_env_list(p->envp);
-	if (!ft_strncmp(*n->full_cmd, "cd", ft_strlen(*n->full_cmd)))
+	if (!ft_strncmp(*n->full_cmd, "cd", ft_strlen(*n->full_cmd) + 1))
 		ft_builtin_cd(n, env_list);
-	else if (!ft_strncmp(*n->full_cmd, "echo", ft_strlen(*n->full_cmd)))
+	else if (!ft_strncmp(*n->full_cmd, "echo", ft_strlen(*n->full_cmd) + 1))
 		ft_buildin_echo(n);
-	else if (!ft_strncmp(*n->full_cmd, "pwd", ft_strlen(*n->full_cmd)))
+	else if (!ft_strncmp(*n->full_cmd, "pwd", ft_strlen(*n->full_cmd) + 1))
 		ft_builtin_pwd(n);
-	else if (!ft_strncmp(*n->full_cmd, "env", ft_strlen(*n->full_cmd)))
+	else if (!ft_strncmp(*n->full_cmd, "env", ft_strlen(*n->full_cmd) + 1))
 		built_env(n, env_list);
-	else if (!ft_strncmp(*n->full_cmd, "export", ft_strlen(*n->full_cmd)))
+	else if (!ft_strncmp(*n->full_cmd, "export", ft_strlen(*n->full_cmd) + 1))
 		ft_builtin_export(n, env_list);
-	else if (!ft_strncmp(*n->full_cmd, "unset", ft_strlen(*n->full_cmd)))
+	else if (!ft_strncmp(*n->full_cmd, "unset", ft_strlen(*n->full_cmd) + 1))
 		ft_builtin_unset(n, &env_list);
-	else if (!ft_strncmp(*n->full_cmd, "exit", ft_strlen(*n->full_cmd)))
+	else if (!ft_strncmp(*n->full_cmd, "exit", ft_strlen(*n->full_cmd) + 1))
 		ft_builtin_exit(n, env_list);
 	else
 	{
@@ -104,7 +102,7 @@ void	ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 				cmd->outfile = pipe_fds[1];
 			((t_mini *)cur->next->content)->infile = pipe_fds[0];
 		}
-		if (!ft_execute_builtin(cmd, p, 0))
+		if (!ft_execute_builtin(cmd, p))
 			ft_execute_single_command(cmd, p->envp);
 		if (cur->next)
 			close(pipe_fds[1]);
@@ -114,6 +112,7 @@ void	ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 	}
 	if (pipe_fds[0] != -1)
 		close(pipe_fds[0]);
+	//if (g_status != 0)
 	ft_lstclear(&cmds, free_content);
 	dup2(saved_stdin, 0);
 	close(saved_stdin);

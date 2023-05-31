@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:53:11 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/30 15:12:54 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:44:58 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ void	free_content(void *content)
 
 	node = content;
 	ft_free_matrix(&node->full_cmd);
-	if (ft_strncmp(node->full_path, "0", 1))
-		free(node->full_path);
-	if (node->infile != STDIN_FILENO)
-		close(node->infile);
-	if (node->outfile != STDOUT_FILENO)
-		close(node->outfile);
+	if (node->full_path)
+	{
+		if (ft_strncmp(node->full_path, "0", 1))
+			free(node->full_path);
+		if (node->infile != STDIN_FILENO)
+			close(node->infile);
+		if (node->outfile != STDOUT_FILENO)
+			close(node->outfile);
+	}
 	free(node);
 }
 
