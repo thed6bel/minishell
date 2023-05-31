@@ -12,6 +12,23 @@
 
 #include "../minishell.h"
 
+char	*get_oldpwd(t_env *envp)
+{
+	t_env	*tmp;
+	char	*oldpwd;
+
+	tmp = envp;
+	while (tmp != NULL && ft_strncmp(tmp->var, "OLDPWD", 6) != 0)
+		tmp = tmp->next;
+	if (tmp == NULL)
+		return (NULL);
+	oldpwd = ft_strdup(tmp->value);
+	if (!oldpwd)
+		return (NULL);
+	printf("%s\n", oldpwd);
+	return (oldpwd);
+}
+
 static char	*ft_compet_path(char *cmd, t_env *envp)
 {
 	char	*home;
@@ -92,6 +109,15 @@ static void	ft_upd_pwd(t_env *envp)
 	g_status = 0;
 }
 
+void	get_old_dir(t_env *envp, char *homedir)
+{
+	homedir = get_oldpwd(envp);
+	if (homedir && chdir(homedir) != -1)
+		ft_upd_pwd(envp);
+	else
+		g_status = 1;
+}
+
 void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
 	char	*homedir;
@@ -108,6 +134,8 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 		else
 			g_status = 1;
 	}
+	else if (!ft_strncmp(n->full_cmd[1], "-", 1))
+		get_old_dir(envp, homedir);
 	else if (chdir(n->full_cmd[1]) != -1)
 		ft_upd_pwd(envp);
 	else
