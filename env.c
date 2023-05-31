@@ -61,28 +61,27 @@ char	**mini_setenv(char *var, char *value, char **envp, int n)
 	return (envp);
 }
 
-t_env *create_env_entry(char *equal_pos, char **envp, int i, int j)
+t_env	*create_env_entry(char *equal_pos, char **envp, int i, int j)
 {
-	t_env *new_entry;
-	
+	t_env	*new_entry;
+
 	new_entry = (t_env *)malloc(sizeof(t_env));
 	if (new_entry == NULL)
-		return NULL;
+		return (NULL);
 	i = equal_pos - envp[j];
 	new_entry->var = ft_substr(envp[j], 0, i);
 	new_entry->equal = '=';
 	new_entry->value = ft_strdup(equal_pos + 1);
-
 	if (new_entry->var == NULL || new_entry->value == NULL)
 	{
 		free_env_list(new_entry);
-		return NULL;
+		return (NULL);
 	}
-	new_entry->next = NULL;
-	return new_entry;
+	new_entry->next = (NULL);
+	return (new_entry);
 }
 
-void add_env_entry(t_env **head, t_env **tail, t_env *new_entry)
+void	add_env_entry(t_env **head, t_env **tail, t_env *new_entry)
 {
 	if (*tail == NULL)
 	{
@@ -161,3 +160,4 @@ char	**env_list_to_tab(t_env *envp)
 	env[i] = NULL;
 	return (env);
 }
+
