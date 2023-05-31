@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:36:39 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/30 13:26:22 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:07:10 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ void	ft_close_fds(t_mini *cmd)
 
 void	free_env_list(t_env *head)
 {
-	t_env	*current = head;
+	t_env	*current;
+	t_env	*next;
 
+	current = head;
 	while (current != NULL)
 	{
-		t_env *next = current->next;
+		next = current->next;
 		free(current->var);
 		free(current->value);
 		free(current);

@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:41:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/23 11:36:58 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:57:12 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	ft_mod_ko(t_mini *n)
 			ft_putnbr_fd(g_status, n->outfile);
 		else
 			write(n->outfile, n->full_cmd[i], ft_strlen(n->full_cmd[i]));
-		
 		i++;
 		if (n->full_cmd[i] != NULL)
 			write(n->outfile, " ", 1);
@@ -55,7 +54,7 @@ void	ft_set_mod(int *mod, t_mini *n)
 
 	i = 1;
 	if (n->full_cmd[i] == NULL)
-		return;
+		return ;
 	while (n->full_cmd[i] != NULL)
 	{
 		j = 1;
@@ -64,9 +63,9 @@ void	ft_set_mod(int *mod, t_mini *n)
 			while (n->full_cmd[i][j] == 'n')
 				j++;
 			if (n->full_cmd[i][j] != '\0')
-				return;
+				return ;
 			else
-				*mod +=1;
+				*mod += 1;
 		}
 		i++;
 	}

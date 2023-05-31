@@ -6,13 +6,11 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:37:24 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/23 11:41:28 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:06:03 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-extern int	g_status;
 
 static void	ft_free_env_node(t_env *node)
 {
@@ -32,7 +30,8 @@ void	ft_builtin_unset(t_mini *n, t_env **envp)
 	tmp = buff;
 	while (buff != NULL)
 	{
-		if (!ft_strncmp(buff->var, n->full_cmd[1], (ft_strlen(n->full_cmd[1]) + 1)))
+		if (!ft_strncmp(buff->var, n->full_cmd[1],
+				(ft_strlen(n->full_cmd[1]) + 1)))
 		{
 			if (i != 0)
 				tmp->next = buff->next;

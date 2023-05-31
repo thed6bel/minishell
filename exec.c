@@ -6,18 +6,18 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/30 15:14:58 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:47:51 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_execute_builtin(t_mini *n, t_prompt *p, int i)
+int	ft_execute_builtin(t_mini *n, t_prompt *p, int i)
 {
-	t_env *env_list;
+	t_env	*env_list;
 
 	if (i == 1)
-		return 1;
+		return (1);
 	env_list = get_env_list(p->envp);
 	if (!ft_strncmp(*n->full_cmd, "cd", ft_strlen(*n->full_cmd)))
 		ft_builtin_cd(n, env_list);
@@ -36,23 +36,23 @@ int ft_execute_builtin(t_mini *n, t_prompt *p, int i)
 	else
 	{
 		free_env_list(env_list);
-		return 0;
+		return (0);
 	}
 	ft_close_fds(n);
 	ft_free(p->envp);
 	p->envp = env_list_to_tab(env_list);
 	free_env_list(env_list);
-	return 1;
+	return (1);
 }
 
-void ft_execute_single_command(t_mini *cmd, char **envp)
+void	ft_execute_single_command(t_mini *cmd, char **envp)
 {
-	int status;
-	pid_t pid;
-	
+	int		status;
+	pid_t	pid;
+
 	pid = fork();
 	ft_signals_inprocess();
-	if (pid == 0) 
+	if (pid == 0)
 	{
 		if (cmd->infile != 0)
 		{
@@ -62,33 +62,33 @@ void ft_execute_single_command(t_mini *cmd, char **envp)
 		if (cmd->outfile != 1)
 		{
 			dup2(cmd->outfile, 1);
-			close(cmd->outfile); 
+			close(cmd->outfile);
 		}
 		if (cmd->full_path != NULL)
 		{
-			execve(cmd->full_path, cmd->full_cmd, envp); 
+			execve(cmd->full_path, cmd->full_cmd, envp);
 			ft_exit("execve ");
 		}
 		exit(0);
-	} 
-	else 
-	{ 
+	}
+	else
+	{
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) != 0) 
+		if (WIFEXITED(status) != 0)
 			g_status = WEXITSTATUS(status);
 		close(cmd->outfile);
 		close(cmd->infile);
 	}
 }
 
-void ft_execute_piped_commands(t_list *cmds, t_prompt *p)
+void	ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 {
 	t_list	*cur;
 	t_mini	*cmd;
 	int		pipe_fds[2];
 	int		saved_stdin;
 	int		saved_stdout;
-	
+
 	cur = cmds;
 	saved_stdin = dup(0);
 	saved_stdout = dup(1);
@@ -97,7 +97,7 @@ void ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 	while (cur)
 	{
 		cmd = cur->content;
-		if (cur->next) 
+		if (cur->next)
 		{
 			pipe(pipe_fds);
 			if (cmd->outfile == 1)
@@ -121,7 +121,7 @@ void ft_execute_piped_commands(t_list *cmds, t_prompt *p)
 	close(saved_stdout);
 }
 
-void ft_execute_commandes(t_prompt *p)
+void	ft_execute_commandes(t_prompt *p)
 {
 	ft_execute_piped_commands(p->cmds, p);
-} 
+}

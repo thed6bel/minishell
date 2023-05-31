@@ -143,6 +143,10 @@ char	*ft_gethomedir(t_env *envp);
 void	ft_buildin_echo(t_mini *n);
 void	built_env(t_mini *n, t_env *envp);
 void	ft_builtin_exit(t_mini *n, t_env *env_list);
+void	ft_builtin_pwd(t_mini *n);
+void	ft_builtin_unset(t_mini *n, t_env **envp);
+
+//builtin_export
 void	ft_builtin_export(t_mini *n, t_env *envp);
 void	ft_check_variable(t_env *buff, char *var, char *value, int *mod);
 int		ft_var_error(char *var, char *value, int *mod);
@@ -155,12 +159,12 @@ void	ft_new_list(char *var, char *value, t_env *buff);
 char	*ft_set_value(char *arg);
 char	*ft_set_var(char *arg, int *mod);
 void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod);
-void	ft_builtin_pwd(t_mini *n);
-void	ft_builtin_unset(t_mini *n, t_env **envp);
+int		ft_var_error_print(char *var, char *value);
 
 t_env	*get_env_list(char **envp);
 char	**env_list_to_tab(t_env *envp);
 void	free_env_list(t_env *head);
+//signal
 void	ft_handler(int n);
 void	ft_handler_process(int n);
 void	ft_signal(void);

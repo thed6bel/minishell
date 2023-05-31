@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/26 14:10:24 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:55:24 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_gethomedir(t_env *envp)
 		return (NULL);
 	homedir = malloc(sizeof(char) * (ft_strlen(tmp->value) + 1));
 	if (!homedir)
-		return (NULL);//ou ft_error?
+		return (NULL);
 	while (tmp->value[i] != '\0')
 	{
 		homedir[i] = tmp->value[i];
@@ -100,7 +100,7 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 	if (n->full_cmd[1] == NULL || !ft_strncmp(n->full_cmd[1], "~", 1))
 	{
 		if (n->full_cmd[1])
-			homedir = ft_compet_path(n->full_cmd[1], envp);// rentre jamais dedans!!
+			homedir = ft_compet_path(n->full_cmd[1], envp);
 		else
 			homedir = ft_gethomedir(envp);
 		if (chdir(homedir) != -1)
