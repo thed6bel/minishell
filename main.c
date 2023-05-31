@@ -74,6 +74,23 @@ static t_prompt	init_prompt(char **argv, char **envp)
 	return (prompt);
 }
 
+void free_memory(char *str) 
+{
+    if (str != NULL) 
+        free(str); 
+}
+
+char *read_input(char *str)
+{
+	char	*out;
+	
+	if (str) 
+		out = readline(str); 
+	else 
+		out = readline("guest@minishell $ ");
+	return (out);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*str;
@@ -86,13 +103,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_signal();
 	while (argv && argc)
 	{
-		if (out != NULL)
-			free(out);
+		free_memory(out);
 		str = ft_getprompt(prompt);
-		if (str)
-			out = readline(str);
-		else
-			out = readline("guest@minishell $ ");
+		out = read_input(str);
 		if (out == NULL)
 		{
 			free(out);
@@ -100,8 +113,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!ft_check_args(out, &prompt))
 			break ;
-		if (str)
-			free(str);
+		free_memory(str);
 		ft_signal();
 	}
 	free(out);
