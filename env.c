@@ -61,6 +61,41 @@ char	**mini_setenv(char *var, char *value, char **envp, int n)
 	return (envp);
 }
 
+t_env *create_env_entry(char *equal_pos, char **envp, int i, int j)
+{
+	t_env *new_entry;
+	
+	new_entry = (t_env *)malloc(sizeof(t_env));
+	if (new_entry == NULL)
+		return NULL;
+	i = equal_pos - envp[j];
+	new_entry->var = ft_substr(envp[j], 0, i);
+	new_entry->equal = '=';
+	new_entry->value = ft_strdup(equal_pos + 1);
+
+	if (new_entry->var == NULL || new_entry->value == NULL)
+	{
+		free_env_list(new_entry);
+		return NULL;
+	}
+	new_entry->next = NULL;
+	return new_entry;
+}
+
+void add_env_entry(t_env **head, t_env **tail, t_env *new_entry)
+{
+	if (*tail == NULL)
+	{
+		*head = new_entry;
+		*tail = new_entry;
+	}
+	else
+	{
+		(*tail)->next = new_entry;
+		*tail = new_entry;
+	}
+}
+
 t_env	*get_env_list(char **envp)
 {
 	t_env	*head;
@@ -77,41 +112,32 @@ t_env	*get_env_list(char **envp)
 		equal_pos = ft_strchr(envp[i[0]], '=');
 		if (equal_pos != NULL)
 		{
-			new_entry = (t_env *)malloc(sizeof(t_env));
-			if (new_entry == NULL)
-				return (NULL);
-			i[1] = equal_pos - envp[i[0]];
-			new_entry->var = ft_substr(envp[i[0]], 0, i[1]);
-			new_entry->equal = '=';
-			new_entry->value = ft_strdup(equal_pos + 1);
-			if (new_entry->var == NULL || new_entry->value == NULL)
-			{
-				free_env_list(new_entry);
-				return (NULL);
-			}
-			new_entry->next = NULL;
-			if (tail == NULL)
-			{
-				head = new_entry;
-				tail = new_entry;
-			}
-			else
-			{
-				tail->next = new_entry;
-				tail = new_entry;
-			}
+			new_entry = create_env_entry(equal_pos, envp , i[1], i[0]);
+			add_env_entry(&head, &tail, new_entry);
 		}
 		i[0]++;
 	}
 	return (head);
 }
 
+void fill_env_tab(char **env, t_env *current, int i)
+{
+	int len;
+
+	len = ft_strlen(current->var) + 1 + ft_strlen(current->value) + 1;
+	env[i] = malloc(sizeof(char) * len);
+	if (!env[i])
+		return ;
+	ft_strlcpy(env[i], current->var, len);
+	env[i][ft_strlen(current->var)] = '=';
+	ft_strlcpy(env[i] + ft_strlen(current->var) + 1, current->value, len - ft_strlen(current->var) - 1);
+}
+
 char	**env_list_to_tab(t_env *envp)
 {
 	int		count;
-	int		len;
-	char	**env;
 	t_env	*current;
+	char	**env;
 	int		i;
 
 	count = 0;
@@ -128,13 +154,7 @@ char	**env_list_to_tab(t_env *envp)
 	i = 0;
 	while (current)
 	{
-		len = ft_strlen(current->var) + 1 + ft_strlen(current->value) + 1;
-		env[i] = malloc(sizeof(char) * len);
-		if (!env[i])
-			return (NULL);
-		ft_strlcpy(env[i], current->var, len);
-		env[i][ft_strlen(current->var)] = '=';
-		ft_strlcpy(env[i] + ft_strlen(current->var) + 1, current->value, len - ft_strlen(current->var) - 1);
+		fill_env_tab(env, current, i);
 		current = current->next;
 		i++;
 	}
