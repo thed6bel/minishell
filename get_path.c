@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/01 15:54:54 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:08:26 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 	ft_free(s);
 }
 
-int	builtin(t_prompt *prompt, t_list *cmd, int i)
+int	builtin(t_prompt *prompt, t_list *cmd)
 {
 	t_mini	*n;
-	t_env	*env_list;
 
 	while (cmd)
 	{

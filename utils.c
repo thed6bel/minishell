@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:53:11 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/01 10:51:56 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:10:19 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	print_cmds(t_prompt *prompt)
 	int		j;
 
 	i = 1;
-	*cmds = *prompt->cmds;
+	cmds = NULL;
+	cmds = prompt->cmds;
 	while (cmds != NULL)
 	{
 		printf("===================\n");

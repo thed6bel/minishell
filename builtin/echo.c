@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:41:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 09:57:12 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:10:08 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_buildin_echo(t_mini *n)
 {
 	int		i;
 	int		mod;
-	char	*codexit;
 
 	i = 1;
 	mod = 0;

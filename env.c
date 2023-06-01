@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:10:18 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/01 10:15:48 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:03:12 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_env	*get_env_list(char **envp)
 	head = NULL;
 	tail = NULL;
 	i[0] = 0;
+	i[1] = 0;
 	while (envp[i[0]] != NULL)
 	{
 		equal_pos = ft_strchr(envp[i[0]], '=');

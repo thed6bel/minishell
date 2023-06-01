@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 10:26:22 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:10:19 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ft_close_and_restore(int fds[2], int s_stdin, int stdout, t_list *cmds)
 
 void	ft_execute_p_cmds(t_list *cmds, t_prompt *p, t_list *cur, int fds[2])
 {
-	t_mini	*cmd;
 	int		saved_stdin;
 	int		saved_stdout;
 
@@ -76,9 +75,9 @@ void	ft_execute_p_cmds(t_list *cmds, t_prompt *p, t_list *cur, int fds[2])
 void	ft_execute_commandes(t_prompt *p)
 {
 	t_list	*cur;
-	t_mini	*cmd;
 	int		pipe_fds[2];
 
+	cur = NULL;
 	pipe_fds[0] = -1;
 	pipe_fds[1] = -1;
 	ft_execute_p_cmds(p->cmds, p, cur, pipe_fds);

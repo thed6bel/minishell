@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 12:56:15 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:12:32 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_print_export(t_mini *n, t_env *envp)
 	t_env	*new_env;
 
 	envpcpy = NULL;
+	tmp = NULL;
+	new_env = NULL;
 	ft_copy_env(envp, &envpcpy, tmp, new_env);
 	ft_print_env(n, envpcpy);
 }
@@ -79,7 +81,7 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 		write(1, "Erreur : empty list\n", 20);
 }
 
-int	ft_var_error_print(char *var, char *value)
+int	ft_var_error_print(char *value)
 {
 	write(1, "not a valide command, use : export [name=value]\n", 48);
 	if (value)
@@ -92,7 +94,7 @@ int	ft_var_error(char *var, char *value, int *mod)
 	int	i;
 
 	if (!var)
-		return (ft_var_error_print(var, value));
+		return (ft_var_error_print(value));
 	i = 0;
 	while (var[i] != '\0')
 	{

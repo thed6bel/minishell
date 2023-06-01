@@ -129,7 +129,7 @@ int		get_here_doc(char *str[2], char *aux[2]);
 char	*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 
 // get_path.c
-int		builtin(t_prompt *prompt, t_list *cmd, int n);
+int		builtin(t_prompt *prompt, t_list *cmd);
 int		is_builtin(t_mini *n);
 int		ft_dispatch_builtin(t_mini *n, t_prompt *p);
 
@@ -182,7 +182,7 @@ void	ft_new_list(char *var, char *value, t_env *buff);
 char	*ft_set_value(char *arg);
 char	*ft_set_var(char *arg, int *mod);
 void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod);
-int		ft_var_error_print(char *var, char *value);
+int		ft_var_error_print(char *value);
 void	free_env_list(t_env *head);
 void	ft_export_mod_utils(char **finalvalue, t_env *current, char *value1);
 
