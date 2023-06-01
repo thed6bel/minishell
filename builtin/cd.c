@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 13:33:24 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:37:47 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static void	ft_upd_pwd(t_env *envp)
 	new->value = getcwd(NULL, 0);
 	g_status = 0;
 }
-
 
 void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
