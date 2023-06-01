@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 09:58:52 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:43:57 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_builtin_exit(t_mini *n, t_env *env_list)
 	}
 	if (n->full_cmd[1] == NULL)
 		g_status = 0;
-	system("leaks a.out");//a retirer
+	system("leaks a.out");//a retirer//
 	free_env_list(env_list);
 	exit(g_status);
 }
