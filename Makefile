@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
+#    By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 14:22:47 by hucorrei          #+#    #+#              #
-#    Updated: 2023/06/01 10:32:16 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/01 15:53:23 by lowathar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,7 @@ ${NAME}:	${OBJS}
 		@echo "$(GREEN)$(NAME) created[0m ✔️"
 
 build:
-	gcc main.c env.c error.c exec.c expand.c fill_node.c get_params.c get_path.c heredoc.c matrix_utils.c parse_args.c strtrim.c subsplit.c utils.c builtin/unset.c builtin/cd.c builtin/echo.c builtin/env.c builtin/exit.c builtin/export.c builtin/export_utils.c builtin/export_list.c builtin/pwd.c prompt.c signal.c env_utils.c exec_utils.c builtin/cd_utils.c libft/libft.a -lreadline -L /Users/hucorrei/.brew/opt/readline/lib -I /Users/hucorrei/.brew/opt/readline/include
-#-g -fsanitize=address
+	gcc main.c env.c error.c exec.c expand.c fill_node.c get_params.c get_path.c heredoc.c matrix_utils.c parse_args.c strtrim.c subsplit.c utils.c builtin/unset.c builtin/cd.c builtin/echo.c builtin/env.c builtin/exit.c builtin/export.c builtin/export_utils.c builtin/export_list.c builtin/pwd.c prompt.c signal.c env_utils.c exec_utils.c builtin/cd_utils.c libft/libft.a -lreadline -L /Users/lowathar/.brew/opt/readline/lib -I /Users/lowathar/.brew/opt/readline/include -g -fsanitize=address
 #	./a.out
 # all:	${NAME}
 

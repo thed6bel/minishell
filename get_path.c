@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/30 11:59:24 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:54:54 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		free(path);
 		n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
 	}
-	if (!n->full_path || !n->full_cmd[0] || !n->full_cmd[0][0])
+	if (!n->full_path || (n->full_cmd && (!n->full_cmd[0] || !n->full_cmd[0][0])))
 	{
 		mini_perror(NCMD, *n->full_cmd, 127);
 		n->full_path = NULL;
