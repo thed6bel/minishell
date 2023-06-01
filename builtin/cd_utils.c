@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:32:54 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 13:33:42 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:37:29 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ void	get_old_dir(t_env *envp)
 void	ft_make_oldpwd(t_env *envp)
 {
 	t_env	*new;
+	t_env	*old;
 	char	*oldpwd;
 
 	new = envp;
 	while (new != NULL && ft_strncmp(new->var, "PWD", 3) != 0)
 		new = new->next;
 	oldpwd = ft_strdup(new->value);
-	t_env	*old = malloc(sizeof(t_env));
+	old = malloc(sizeof(t_env));
 	old->var = ft_strdup("OLDPWD");
 	old->value = oldpwd;
 	old->next = envp;
