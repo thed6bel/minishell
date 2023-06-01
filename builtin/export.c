@@ -94,26 +94,6 @@ char	*ft_set_value(char *arg)
 	return (res);
 }
 
-void	check_arg(t_mini *n, t_env *buff, int *mod)
-{
-	char	*var;
-	char	*value;
-	int		i;
-
-	while (n->full_cmd[i])
-	{
-		var = ft_set_var(n->full_cmd[i], mod);
-		value = ft_set_value(n->full_cmd[i]);
-		if (!ft_var_error(var, value, mod))
-			break ;
-		if (*mod == 1)
-			ft_export_mod(var, value, buff, mod);
-		else
-			ft_check_variable(buff, var, value, mod);
-		i++;
-	}
-}
-
 void	ft_builtin_export(t_mini *n, t_env *envp)
 {
 	t_env	*buff;
@@ -128,7 +108,20 @@ void	ft_builtin_export(t_mini *n, t_env *envp)
 	if (n->full_cmd[i] == NULL)
 		ft_print_export(n, envp);
 	else
-		check_arg(n, buff, &mod);
+	{
+		while (n->full_cmd[i])
+		{
+			var = ft_set_var(n->full_cmd[i], &mod);
+			value = ft_set_value(n->full_cmd[i]);
+			if (!ft_var_error(var, value, &mod))
+				break ;
+			if (mod == 1)
+				ft_export_mod(var, value, buff, &mod);
+			else
+				ft_check_variable(buff, var, value, &mod);
+			i++;
+		}
+	}
 	if (mod == 1)
 	{
 		free(var);
