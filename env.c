@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:10:18 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/31 15:09:10 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:15:48 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,6 @@ t_env	*create_env_entry(char *equal_pos, char **envp, int i, int j)
 	return (new_entry);
 }
 
-void	add_env_entry(t_env **head, t_env **tail, t_env *new_entry)
-{
-	if (*tail == NULL)
-	{
-		*head = new_entry;
-		*tail = new_entry;
-	}
-	else
-	{
-		(*tail)->next = new_entry;
-		*tail = new_entry;
-	}
-}
-
 t_env	*get_env_list(char **envp)
 {
 	t_env	*head;
@@ -111,25 +97,12 @@ t_env	*get_env_list(char **envp)
 		equal_pos = ft_strchr(envp[i[0]], '=');
 		if (equal_pos != NULL)
 		{
-			new_entry = create_env_entry(equal_pos, envp , i[1], i[0]);
+			new_entry = create_env_entry(equal_pos, envp, i[1], i[0]);
 			add_env_entry(&head, &tail, new_entry);
 		}
 		i[0]++;
 	}
 	return (head);
-}
-
-void fill_env_tab(char **env, t_env *current, int i)
-{
-	int len;
-
-	len = ft_strlen(current->var) + 1 + ft_strlen(current->value) + 1;
-	env[i] = malloc(sizeof(char) * len);
-	if (!env[i])
-		return ;
-	ft_strlcpy(env[i], current->var, len);
-	env[i][ft_strlen(current->var)] = '=';
-	ft_strlcpy(env[i] + ft_strlen(current->var) + 1, current->value, len - ft_strlen(current->var) - 1);
 }
 
 char	**env_list_to_tab(t_env *envp)
@@ -160,4 +133,3 @@ char	**env_list_to_tab(t_env *envp)
 	env[i] = NULL;
 	return (env);
 }
-

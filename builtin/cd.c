@@ -6,30 +6,13 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 09:55:24 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:33:24 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_oldpwd(t_env *envp)
-{
-	t_env	*tmp;
-	char	*oldpwd;
-
-	tmp = envp;
-	while (tmp != NULL && ft_strncmp(tmp->var, "OLDPWD", 6) != 0)
-		tmp = tmp->next;
-	if (tmp == NULL)
-		return (NULL);
-	oldpwd = ft_strdup(tmp->value);
-	if (!oldpwd)
-		return (NULL);
-	printf("%s\n", oldpwd);
-	return (oldpwd);
-}
-
-static char	*ft_compet_path(char *cmd, t_env *envp)
+char	*ft_compet_path(char *cmd, t_env *envp)
 {
 	char	*home;
 	char	*completpath;
@@ -92,6 +75,7 @@ static void	ft_upd_pwd(t_env *envp)
 	old = envp;
 	new = envp;
 	i = -1;
+	ft_make_oldpwd(envp);
 	while (old != NULL && ft_strncmp(old->var, "OLDPWD", 6) != 0)
 		old = old->next;
 	while (new != NULL && ft_strncmp(new->var, "PWD", 3) != 0)
@@ -109,14 +93,6 @@ static void	ft_upd_pwd(t_env *envp)
 	g_status = 0;
 }
 
-void	get_old_dir(t_env *envp, char *homedir)
-{
-	homedir = get_oldpwd(envp);
-	if (homedir && chdir(homedir) != -1)
-		ft_upd_pwd(envp);
-	else
-		g_status = 1;
-}
 
 void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
@@ -135,7 +111,7 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 			g_status = 1;
 	}
 	else if (!ft_strncmp(n->full_cmd[1], "-", 1))
-		get_old_dir(envp, homedir);
+		return (get_old_dir(envp));
 	else if (chdir(n->full_cmd[1]) != -1)
 		ft_upd_pwd(envp);
 	else

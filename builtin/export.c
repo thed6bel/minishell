@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/05/31 10:50:59 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:28:37 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,39 +94,47 @@ char	*ft_set_value(char *arg)
 	return (res);
 }
 
+void	check_arg(t_mini *n, t_env *buff, int mod)
+{
+	char	*var;
+	char	*value;
+	int		i;
+
+	i = 1;
+	while (n->full_cmd[i])
+	{
+		var = ft_set_var(n->full_cmd[i], &mod);
+		value = ft_set_value(n->full_cmd[i]);
+		if (!ft_var_error(var, value, &mod))
+			return ;
+		if (mod == 1)
+			ft_export_mod(var, value, buff, &mod);
+		else
+			ft_check_variable(buff, var, value, &mod);
+		i++;
+	}
+	if ((int)mod == 1)
+	{
+		free(var);
+		free(value);
+	}
+	if ((int)mod == 2)
+		free(var);
+}
+
 void	ft_builtin_export(t_mini *n, t_env *envp)
 {
 	t_env	*buff;
-	char	*var;
-	char	*value;
+	t_mini	*tmp;
 	int		i;
 	int		mod;
 
 	buff = envp;
+	tmp = n;
 	i = 1;
 	mod = 0;
 	if (n->full_cmd[i] == NULL)
 		ft_print_export(n, envp);
 	else
-	{
-		while (n->full_cmd[i])
-		{
-			var = ft_set_var(n->full_cmd[i], &mod);
-			value = ft_set_value(n->full_cmd[i]);
-			if (!ft_var_error(var, value, &mod))
-				break ;
-			if (mod == 1)
-				ft_export_mod(var, value, buff, &mod);
-			else
-				ft_check_variable(buff, var, value, &mod);
-			i++;
-		}
-	}
-	if (mod == 1)
-	{
-		free(var);
-		free(value);
-	}
-	if (mod == 2)
-		free(var);
+		check_arg(tmp, buff, mod);
 }

@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:53:11 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/31 14:44:58 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:51:56 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	free_content(void *content)
 	}
 	free(node);
 }
-
+/*
 void	print_cmds(t_prompt *prompt)
 {
 	t_list	*cmds;
@@ -92,4 +92,21 @@ void	print_cmds(t_prompt *prompt)
 		printf("Output file descriptor: %d\n", cmd->outfile);
 		cmds = cmds->next;
 	}
+}*/
+
+void	free_memory(char *str)
+{
+	if (str != NULL)
+		free(str);
+}
+
+char	*read_input(char *str)
+{
+	char	*out;
+
+	if (str)
+		out = readline(str);
+	else
+		out = readline("guest@minishell $ ");
+	return (out);
 }

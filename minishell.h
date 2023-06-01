@@ -91,6 +91,8 @@ int		ft_strchars_i(const char *s, char *set);
 int		ft_strchr_i(const char *s, int c);
 void	free_content(void *content);
 void	print_cmds(t_prompt *prompt);
+void	free_memory(char *str);
+char	*read_input(char *str);
 
 // fill_node.c
 t_list	*fill_node(char **args, int i);
@@ -112,6 +114,12 @@ char	*expand_vars(char *str, int i, int quotes[2], t_prompt *prompt);
 // env.c
 char	*mini_getenv(char *var, char **envp, int n);
 char	**mini_setenv(char *var, char *value, char **envp, int n);
+t_env	*get_env_list(char **envp);
+char	**env_list_to_tab(t_env *envp);
+
+// env_utils.c
+void	fill_env_tab(char **env, t_env *current, int i);
+void	add_env_entry(t_env **head, t_env **tail, t_env *new_entry);
 
 // prompt.c
 char	*ft_getprompt(t_prompt prompt);
@@ -132,19 +140,34 @@ void	ft_free(char **str);
 void	ft_close_fds(t_mini *cmd);
 void	free_env_list(t_env *head);
 
-// exec.c
+// exec.c and exec_utils
+void	ft_execute_single_command(t_mini *cmd, char **envp);
+void	ft_pipe_and_execute(t_list *cur, t_prompt *p, int fds[2], int s_stdout);
+void	ft_close_and_restore(int fds[2], int s_stdin, int stdout, t_list *cmds);
+void	ft_execute_p_cmds(t_list *cmds, t_prompt *p, t_list *cur, int fds[2]);
 void	ft_execute_commandes(t_prompt *p);
-void	ft_cmd_not_found(char **cmd);
-void	ft_free(char **str);
+void	ft_exec_builtin_helper(t_mini *n, t_env *env_list, t_prompt *p);
+int		ft_execute_other_builtins(t_mini *n, t_prompt *p, t_env *env_list);
+int		ft_execute_builtin(t_mini *n, t_prompt *p);
+void	ft_child_process(t_mini *cmd, char **envp);
+void	ft_parent_process(t_mini *cmd, int *status, pid_t pid);
 
-//builtins
-void	ft_builtin_cd(t_mini *n, t_env *envp);
+// builtins
 char	*ft_gethomedir(t_env *envp);
 void	ft_buildin_echo(t_mini *n);
 void	built_env(t_mini *n, t_env *envp);
 void	ft_builtin_exit(t_mini *n, t_env *env_list);
 void	ft_builtin_pwd(t_mini *n);
 void	ft_builtin_unset(t_mini *n, t_env **envp);
+
+// builtin_cd and builtin_cd_utils
+void	ft_builtin_cd(t_mini *n, t_env *envp);
+void	ft_upd_pwd(t_env *envp);
+char	*ft_gethomedir(t_env *envp);
+char	*ft_compet_path(char *cmd, t_env *envp);
+void	get_old_dir(t_env *envp);
+char	*get_oldpwd(t_env *envp);
+void	ft_make_oldpwd(t_env *envp);
 
 //builtin_export
 void	ft_builtin_export(t_mini *n, t_env *envp);
@@ -160,10 +183,9 @@ char	*ft_set_value(char *arg);
 char	*ft_set_var(char *arg, int *mod);
 void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod);
 int		ft_var_error_print(char *var, char *value);
-
-t_env	*get_env_list(char **envp);
-char	**env_list_to_tab(t_env *envp);
 void	free_env_list(t_env *head);
+void	ft_export_mod_utils(char **finalvalue, t_env *current, char *value1);
+
 //signal
 void	ft_handler(int n);
 void	ft_handler_process(int n);

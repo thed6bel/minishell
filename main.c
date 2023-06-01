@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 11:57:15 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/24 11:57:15 by marvin           ###   ########.fr       */
+/*   Created: 2023/06/01 10:54:05 by hucorrei          #+#    #+#             */
+/*   Updated: 2023/06/01 10:54:40 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,6 @@ static t_prompt	init_prompt(char **argv, char **envp)
 	mini_getpid(&prompt);
 	prompt = init_vars(prompt, str, argv);
 	return (prompt);
-}
-
-void	free_memory(char *str)
-{
-	if (str != NULL)
-		free(str);
-}
-
-char	*read_input(char *str)
-{
-	char	*out;
-
-	if (str)
-		out = readline(str);
-	else
-		out = readline("guest@minishell $ ");
-	return (out);
 }
 
 int	main(int argc, char **argv, char **envp)

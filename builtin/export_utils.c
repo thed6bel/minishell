@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 10:57:31 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 12:56:15 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,7 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 		if (!ft_strncmp(current->var, varfind, (ft_strlen(varfind) + 1)))
 		{
 			if (current->value != NULL)
-			{
-				finalvalue = ft_strjoin(current->value, value1);
-				if (finalvalue == NULL)
-				{
-					write(1, "Allocation failed\n", 18);
-					return ;
-				}
-				free(current->value);
-			}
+				ft_export_mod_utils(&finalvalue, current, value1);
 			current->value = finalvalue;
 			return ;
 		}

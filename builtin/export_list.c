@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export2.c                                          :+:      :+:    :+:   */
+/*   export_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:32 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 10:14:42 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 12:58:08 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,15 @@ void	ft_copy_env(t_env *envp, t_env **envpcpy, t_env	*tmp, t_env	*new_env)
 		}
 		envp = envp->next;
 	}
+}
+
+void	ft_export_mod_utils(char **finalvalue, t_env *current, char *value1)
+{
+	*finalvalue = ft_strjoin(current->value, value1);
+	if (*finalvalue == NULL)
+	{
+		write(1, "Allocation failed\n", 18);
+		return ;
+	}
+	free(current->value);
 }
