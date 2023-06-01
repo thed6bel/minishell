@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:32:54 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 13:37:29 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:06:44 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,44 @@ void	get_old_dir(t_env *envp)
 	free(old_dir);
 }
 
+void	ft_op_utils(t_env *oldpwd_e, t_env *pwd_e, t_env *tmp, t_env *envp)
+{
+	oldpwd_e = (t_env *)malloc(sizeof(t_env));
+	if (!oldpwd_e)
+		return ;
+	oldpwd_e->var = ft_strdup("OLDPWD");
+	oldpwd_e->equal = '=';
+	if (pwd_e)
+		oldpwd_e->value = ft_strdup(pwd_e->value);
+	else
+		oldpwd_e->value = ft_strdup("");
+	oldpwd_e->next = NULL;
+	if (!tmp)
+		tmp = envp;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = oldpwd_e;
+}
+
 void	ft_make_oldpwd(t_env *envp)
 {
-	t_env	*new;
-	t_env	*old;
-	char	*oldpwd;
+	t_env	*tmp;
+	t_env	*pwd_element;
+	t_env	*oldpwd_element;
 
-	new = envp;
-	while (new != NULL && ft_strncmp(new->var, "PWD", 3) != 0)
-		new = new->next;
-	oldpwd = ft_strdup(new->value);
-	old = malloc(sizeof(t_env));
-	old->var = ft_strdup("OLDPWD");
-	old->value = oldpwd;
-	old->next = envp;
-	envp = old;
+	tmp = envp;
+	pwd_element = NULL;
+	oldpwd_element = NULL;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->var, "PWD", 3) == 0)
+			pwd_element = tmp;
+		else if (ft_strncmp(tmp->var, "OLDPWD", 6) == 0)
+			oldpwd_element = tmp;
+		if (oldpwd_element && pwd_element)
+			break ;
+		tmp = tmp->next;
+	}
+	if (!oldpwd_element)
+		ft_op_utils(oldpwd_element, pwd_element, tmp, envp);
 }

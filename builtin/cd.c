@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 13:37:47 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:48:16 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_gethomedir(t_env *envp)
 	return (homedir);
 }
 
-static void	ft_upd_pwd(t_env *envp)
+void	ft_upd_pwd(t_env *envp)
 {
 	t_env	*old;
 	t_env	*new;
