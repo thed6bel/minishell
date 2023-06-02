@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:53:25 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/30 13:23:04 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:42:38 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ static char	*get_user(t_prompt prompt)
 	else if ((int)(user[0][0]) % 5 == 0)
 		temp2 = ft_strjoin(NULL, CYAN);
 	else if ((int)(user[0][0]) % 5 == 1)
-		temp2 = ft_strjoin(NULL, GRAY);
+		temp2 = ft_strjoin(NULL, YELLOW);
 	else if ((int)(user[0][0]) % 5 == 2)
 		temp2 = ft_strjoin(NULL, GREEN);
 	else if ((int)(user[0][0]) % 5 == 3)
 		temp2 = ft_strjoin(NULL, RED);
 	else
-		temp2 = ft_strjoin(NULL, YELLOW);
+		temp2 = ft_strjoin(NULL, GRAY);
 	temp = ft_strjoin(temp2, *user);
 	free(temp2);
 	ft_free_matrix(&user);
