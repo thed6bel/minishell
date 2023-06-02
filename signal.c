@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:19:27 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/05/31 11:31:43 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:37:37 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 void	ft_handler(int n)
 {
-	struct termios	term;
-
 	if (n == SIGINT)
 	{
-		tcgetattr(STDIN_FILENO, &term);
-		term.c_lflag &= ~ECHOCTL;
-		tcsetattr(STDIN_FILENO, TCSANOW, &term);
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
+		g_status = 130;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
-		rl_redisplay();
+		rl_on_new_line();
 	}
 }
 

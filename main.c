@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:54:05 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 20:30:07 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:30:12 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_signal();
 	while (argv && argc)
 	{
+		ft_signal();
 		free_memory(out);
 		str = ft_getprompt(prompt);
 		out = read_input(str);
@@ -97,7 +98,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!ft_check_args(out, &prompt))
 			break ;
 		free_memory(str);
-		ft_signal();
 	}
 	free(out);
 	exit(g_status);
