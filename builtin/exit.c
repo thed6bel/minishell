@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/02 10:53:46 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:23:54 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_builtin_exit(t_mini *n, t_env *env_list)
 	}
 	if (n->full_cmd[1] == NULL)
 		g_status = 0;
-	system("leaks minishell");//a retirer//
 	free_env_list(env_list);
 	exit(g_status);
 }
