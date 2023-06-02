@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 15:57:53 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/02 10:05:57 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ void	ft_exec_builtin_helper(t_mini *n, t_env *env_list, t_prompt *p)
 
 int	ft_execute_other_builtins(t_mini *n, t_prompt *p, t_env *env_list)
 {
-	if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "export", ft_strlen(*n->full_cmd) + 1)))
+	if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "export",
+				ft_strlen(*n->full_cmd) + 1)))
 		ft_builtin_export(n, env_list);
-	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "unset", ft_strlen(*n->full_cmd) + 1)))
+	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "unset",
+				ft_strlen(*n->full_cmd) + 1)))
 		ft_builtin_unset(n, &env_list);
-	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "exit", ft_strlen(*n->full_cmd) + 1)))
+	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "exit",
+				ft_strlen(*n->full_cmd) + 1)))
 		ft_builtin_exit(n, env_list);
 	else
 	{
@@ -42,13 +45,17 @@ int	ft_execute_builtin(t_mini *n, t_prompt *p)
 	t_env	*env_list;
 
 	env_list = get_env_list(p->envp);
-	if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "cd", ft_strlen(*n->full_cmd) + 1)))
+	if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "cd",
+				ft_strlen(*n->full_cmd) + 1)))
 		ft_builtin_cd(n, env_list);
-	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "echo", ft_strlen(*n->full_cmd) + 1)))
+	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "echo",
+				ft_strlen(*n->full_cmd) + 1)))
 		ft_buildin_echo(n);
-	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "pwd", ft_strlen(*n->full_cmd) + 1)))
+	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "pwd",
+				ft_strlen(*n->full_cmd) + 1)))
 		ft_builtin_pwd(n);
-	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "env", ft_strlen(*n->full_cmd) + 1)))
+	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "env",
+				ft_strlen(*n->full_cmd) + 1)))
 		built_env(n, env_list);
 	else
 		return (ft_execute_other_builtins(n, p, env_list));
@@ -68,7 +75,7 @@ void	ft_child_process(t_mini *cmd, char **envp)
 		dup2(cmd->outfile, 1);
 		close(cmd->outfile);
 	}
-	if (cmd->full_path != NULL)
+	if (cmd->full_path != NULL && cmd->full_cmd != NULL)
 	{
 		execve(cmd->full_path, cmd->full_cmd, envp);
 		ft_exit("execve ");

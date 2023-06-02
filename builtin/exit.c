@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 18:43:57 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/02 10:53:46 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_numeric_argument(const char *argument)
 	i = 0;
 	while (argument[i])
 	{
-		if (!isdigit(argument[i]))
+		if (!ft_isdigit(argument[i]))
 		{
 			write(1, "exit: ", 6);
 			write(1, argument, ft_strlen(argument));
@@ -44,7 +44,7 @@ void	ft_builtin_exit(t_mini *n, t_env *env_list)
 	}
 	if (n->full_cmd[1] == NULL)
 		g_status = 0;
-	system("leaks a.out");//a retirer//
+	system("leaks minishell");//a retirer//
 	free_env_list(env_list);
 	exit(g_status);
 }

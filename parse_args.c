@@ -115,6 +115,5 @@ void	*ft_check_args(char *out, t_prompt *p)
 	}
 	p = parse_arg(a, p);
 	ft_execute_commandes(p);
-	//print_cmds(p);
 	return (p);
 }
