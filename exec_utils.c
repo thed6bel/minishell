@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 13:22:29 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:59:27 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_exec_builtin_helper(t_mini *n, t_env *env_list, t_prompt *p)
 
 int	ft_execute_other_builtins(t_mini *n, t_prompt *p, t_env *env_list)
 {
-	t_list *tmp;
-	
+	t_list	*tmp;
+
 	tmp = p->cmds;
 	if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "export",
 				ft_strlen(*n->full_cmd) + 1)) && tmp->next == NULL)
@@ -79,10 +79,7 @@ void	ft_child_process(t_mini *cmd, char **envp)
 		close(cmd->outfile);
 	}
 	if (cmd->full_path != NULL && cmd->full_cmd != NULL)
-	{
 		execve(cmd->full_path, cmd->full_cmd, envp);
-		//ft_exit("execve ");
-	}
 	exit(0);
 }
 

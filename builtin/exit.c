@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 11:39:28 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:00:51 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	handle_numeric_argument(const char *argument)
 	if (j > 9223372036854775807)
 	{
 		write(1, "exit: ", 6);
-			write(1, argument, ft_strlen(argument));
-			write(1, ": numeric argument required\n", 28);
-			exit(255);
+		write(1, argument, ft_strlen(argument));
+		write(1, ": numeric argument required\n", 28);
+		exit(255);
 	}
 }
 

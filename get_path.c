@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 12:01:31 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:00:28 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		n->full_path = NULL;
 	}
 	else
-		g_status = 0;//a verif
+		g_status = 0;//a verif si non apres erreur 127 les executable ne se lance pas
 	ft_free(s);
 }
 
