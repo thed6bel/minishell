@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/25 15:02:06 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:22:10 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
-		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
+		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>'
+			&& a[0][*i + 2][0] != '|')
 			node = get_outfile_double(node, a[1], i);
-		else if (a[0][*i][0] == '>')
+		else if (a[0][*i][0] == '>' && a[0][*i + 1][0] != '|')
 			node = get_outfile_single(node, a[1], i);
 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
 			a[0][*i + 1][0] == '<')
