@@ -6,7 +6,7 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 17:20:10 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:43:00 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ t_list	*fill_node(char **args, int i)
 		}
 		tmp[0] = args;
 		cmds[1]->content = get_params(cmds[1]->content, tmp, &i);
-		if (cmds[1]->content == NULL)
-			exit(1);
 		if (i < 0)
 			return (stop_fill(cmds[0], args, tmp[1]));
 		if (!args[i])
