@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strtrim.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:24:46 by lowathar          #+#    #+#             */
-/*   Updated: 2023/04/26 15:25:28 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:55:30 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 static int	malloc_len(char const *s1)
 {

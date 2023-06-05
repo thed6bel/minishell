@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/04 18:38:46 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:51:01 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 char	*ft_compet_path(char *cmd, t_env *envp)
 {

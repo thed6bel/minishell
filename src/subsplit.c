@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   subsplit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:19:54 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/11 14:52:26 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:55:34 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 static int	ft_count_words(char *s, char *set, int count)
 {

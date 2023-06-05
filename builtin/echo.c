@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:41:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 17:10:08 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:51:06 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 static void	ft_mod_ok(t_mini *n, int *mod)
 {

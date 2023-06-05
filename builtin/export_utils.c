@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 17:12:32 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:51:17 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 void	ft_print_export(t_mini *n, t_env *envp)
 {

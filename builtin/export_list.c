@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:32 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 12:58:08 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:51:15 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 void	ft_new_list(char *var, char *value, t_env *buff)
 {

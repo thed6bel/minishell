@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/04 18:36:14 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:54:45 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	ft_execute_single_command(t_mini *cmd, char **envp)
 {

@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:27:08 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/04 18:38:46 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:50:56 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 void	change_directory(char *homedir, t_env *envp)
 {

@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:10:18 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/01 17:03:12 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:54:34 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 char	*mini_getenv(char *var, char **envp, int n)
 {

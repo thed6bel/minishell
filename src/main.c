@@ -6,11 +6,11 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:54:05 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/02 18:02:30 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:55:10 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int			g_status;
 

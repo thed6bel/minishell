@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:51:40 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/25 14:48:47 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:55:14 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 char	**ft_matrix_replace_in(char ***big, char **small, int n)
 {

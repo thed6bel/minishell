@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_params.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:09:56 by lowathar          #+#    #+#             */
-/*   Updated: 2023/05/11 15:04:18 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:55:00 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	get_fd(int oldfd, char *path, int flags[2])
 {
