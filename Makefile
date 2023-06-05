@@ -6,7 +6,7 @@
 #    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/05 21:46:11 by thed6bel         ###   ########.fr        #
+#    Updated: 2023/06/05 22:40:58 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := minishell
-CC          := gcc
-FLAGS       := -Wall -Wextra -Werror
-HOME := $(shell echo $$HOME)
+NAME			= minishell
+CC				= gcc
+FLAGS			= -Wall -Wextra -Werror
+HOME			= $(shell echo $$HOME)
 
 ifeq ($(shell uname -s), Linux)
 	READLINE_LIB = -lreadline -lhistory
@@ -31,37 +31,37 @@ endif
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      builtin/export.c \
-						builtin/unset.c \
-						builtin/echo.c \
-						builtin/cd_utils.c \
-						builtin/cd_utils2.c \
-						builtin/export_list.c \
-						builtin/export_utils.c \
-						builtin/cd.c \
-						builtin/exit.c \
-						builtin/env.c \
-						builtin/pwd.c \
-						src/env_utils.c \
-						src/matrix_utils.c \
-						src/signal.c \
-						src/main.c \
-						src/parse_args.c \
-						src/get_params.c \
-						src/error.c \
-						src/expand.c \
-						src/heredoc.c \
-						src/exec_utils.c \
-						src/exec.c \
-						src/subsplit.c \
-						src/fill_node.c \
-						src/prompt.c \
-						src/utils.c \
-						src/env.c \
-						src/strtrim.c \
-						src/get_path.c \
+SRCS			=	builtin/export.c \
+					builtin/unset.c \
+					builtin/echo.c \
+					builtin/cd_utils.c \
+					builtin/cd_utils2.c \
+					builtin/export_list.c \
+					builtin/export_utils.c \
+					builtin/cd.c \
+					builtin/exit.c \
+					builtin/env.c \
+					builtin/pwd.c \
+					src/env_utils.c \
+					src/matrix_utils.c \
+					src/signal.c \
+					src/main.c \
+					src/parse_args.c \
+					src/get_params.c \
+					src/error.c \
+					src/expand.c \
+					src/heredoc.c \
+					src/exec_utils.c \
+					src/exec.c \
+					src/subsplit.c \
+					src/fill_node.c \
+					src/prompt.c \
+					src/utils.c \
+					src/env.c \
+					src/strtrim.c \
+					src/get_path.c \
 						
-OBJS        := $(SRCS:.c=.o)
+OBJS			= $(SRCS:.c=.o)
 
 .c.o:
 	${CC} ${FLAGS} -c $< -o ${<:.c=.o} $(READLINE_INC)
@@ -102,5 +102,6 @@ git:
 		git add .
 		git commit -m "$m"
 		git push
+		@ echo "$(BLUE)ALL is one $(CYAN)GIT $(CLR_RMV)Git OK ✔️"
 
 .PHONY:	all clean fclean re git
