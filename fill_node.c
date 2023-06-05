@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 15:22:10 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:20:10 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 			node = get_infile_double(node, a[1], i);
 		else if (a[0][*i][0] == '<')
 			node = get_infile_single(node, a[1], i);
+		else if (a[0][0][0] == '|')
+		{
+			mini_perror(PIPENDERR, NULL, 2);
+			return (node);
+		}
 		else if (a[0][*i][0] != '|')
 			node->full_cmd = ft_extend_matrix(node->full_cmd, a[1][*i]);
 		else
@@ -98,6 +103,8 @@ t_list	*fill_node(char **args, int i)
 		}
 		tmp[0] = args;
 		cmds[1]->content = get_params(cmds[1]->content, tmp, &i);
+		if (cmds[1]->content == NULL)
+			exit(1);
 		if (i < 0)
 			return (stop_fill(cmds[0], args, tmp[1]));
 		if (!args[i])

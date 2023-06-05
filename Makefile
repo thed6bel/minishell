@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
+#    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 14:22:47 by hucorrei          #+#    #+#              #
-#    Updated: 2023/06/05 09:13:48 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/05 16:34:26 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,6 @@ CFLAGS			= -Wall -Wextra -Werror
 INCLUDES		= minishell.h
 CURRENT_USER	= $(shell whoami)
 CURRENT_FOLDER	= $(shell pwd)
-
-ifeq ($(CURRENT_USER),hucorrei)
-	READLINE_LIB = -lreadline -lhistory -L /Users/hucorrei/.brew/opt/readline/lib
-	READLINE_INC = -I /Users/hucorrei/.brew/opt/readline/include
-else
-	READLINE_LIB = -lreadline -lhistory -L /Users/lowathar/.brew/opt/readline/lib
-	READLINE_INC = -I /Users/lowathar/.brew/opt/readline/include
-endif
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -79,6 +71,9 @@ GREEN		= \033[1;32m
 YELLOW		= \033[1;33m
 CYAN 		= \033[1;36m
 RM			= rm -rf
+
+build:
+	gcc main.c env.c error.c exec.c expand.c fill_node.c get_params.c get_path.c heredoc.c matrix_utils.c parse_args.c strtrim.c subsplit.c utils.c builtin/unset.c builtin/cd.c builtin/echo.c builtin/env.c builtin/exit.c builtin/export.c builtin/export_utils.c builtin/export_list.c builtin/pwd.c prompt.c signal.c env_utils.c exec_utils.c builtin/cd_utils.c builtin/cd_utils2.c libft/libft.a -lreadline -L /Users/lowathar/.brew/opt/readline/lib -I /Users/lowathar/.brew/opt/readline/include -g -fsanitize=address
 
 all:	${NAME}
 
