@@ -6,7 +6,7 @@
 #    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/05 22:40:58 by thed6bel         ###   ########.fr        #
+#    Updated: 2023/06/05 22:42:39 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,6 +102,6 @@ git:
 		git add .
 		git commit -m "$m"
 		git push
-		@ echo "$(BLUE)ALL is one $(CYAN)GIT $(CLR_RMV)Git OK ✔️"
+		@ echo "$(BLUE)ALL is one, $(CYAN)GIT $(CLR_RMV)OK ✔️"
 
 .PHONY:	all clean fclean re git
