@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:50:09 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/02 10:06:47 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:36:14 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_pipe_and_execute(t_list *cur, t_prompt *p, int fds[2], int s_stdout)
 				cmd->outfile = fds[1];
 			((t_mini *)cur->next->content)->infile = fds[0];
 		}
-		if (!ft_execute_builtin(cmd, p))
+		if (!ft_execute_builtin(cmd, p) && g_status != 127)
 			ft_execute_single_command(cmd, p->envp);
 		if (cur->next)
 			close(fds[1]);

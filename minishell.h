@@ -31,7 +31,6 @@
 # define WRITE_END 1
 
 extern int	g_status;
-int			g_status;
 
 typedef struct s_env
 {
@@ -162,12 +161,13 @@ void	ft_builtin_unset(t_mini *n, t_env **envp);
 
 // builtin_cd and builtin_cd_utils
 void	ft_builtin_cd(t_mini *n, t_env *envp);
-void	ft_upd_pwd(t_env *envp);
+void	ft_upd_pwd(t_env *old, t_env *new);
 char	*ft_gethomedir(t_env *envp);
 char	*ft_compet_path(char *cmd, t_env *envp);
 void	get_old_dir(t_env *envp);
 char	*get_oldpwd(t_env *envp);
-void	ft_make_oldpwd(t_env *envp);
+int		ft_make_oldpwd(t_env *envp);
+void	change_directory(char *homedir, t_env *envp);
 
 //builtin_export
 void	ft_builtin_export(t_mini *n, t_env *envp);

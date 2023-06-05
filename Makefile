@@ -6,7 +6,7 @@
 #    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 14:22:47 by hucorrei          #+#    #+#              #
-#    Updated: 2023/06/02 12:24:25 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/05 09:13:48 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRCS	= 	main.c \
 			builtin/unset.c \
 			builtin/cd.c \
 			builtin/cd_utils.c \
+			builtin/cd_utils2.c \
 			builtin/echo.c \
 			builtin/env.c \
 			builtin/exit.c \

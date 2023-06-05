@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:47:32 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/02 12:55:53 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:45:15 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 {
 	char	*temp;
 
-	while (g_status != 1 && (!str[0] || ft_strncmp(str[0], limit, len) \
+	while (g_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len) \
 		|| ft_strlen(limit) != len))
 	{
 		temp = str[1];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/01 13:48:16 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:38:46 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,57 +65,53 @@ char	*ft_gethomedir(t_env *envp)
 	return (homedir);
 }
 
-void	ft_upd_pwd(t_env *envp)
+void	ft_upd_pwd(t_env *old, t_env *new)
 {
-	t_env	*old;
-	t_env	*new;
 	char	*ret;
 	int		i;
 
-	old = envp;
-	new = envp;
 	i = -1;
-	ft_make_oldpwd(envp);
-	while (old != NULL && ft_strncmp(old->var, "OLDPWD", 6) != 0)
-		old = old->next;
-	while (new != NULL && ft_strncmp(new->var, "PWD", 3) != 0)
-		new = new->next;
-	ret = malloc(sizeof(char) * (ft_strlen(new->value) + 1));
-	if (!ret)
-		return ;
-	while (new->value[++i] != '\0')
-		ret[i] = new->value[i];
-	free(old->value);
-	ret[i] = '\0';
-	old->value = ret;
-	free(new->value);
-	new->value = getcwd(NULL, 0);
-	g_status = 0;
+	if (ft_make_oldpwd(old))
+	{
+		while (old != NULL && ft_strncmp(old->var, "OLDPWD", 6) != 0)
+			old = old->next;
+		while (new != NULL && ft_strncmp(new->var, "PWD", 3) != 0)
+			new = new->next;
+		ret = malloc(sizeof(char) * (ft_strlen(new->value) + 1));
+		if (!ret)
+			return ;
+		while (new->value[++i] != '\0')
+			ret[i] = new->value[i];
+		free(old->value);
+		ret[i] = '\0';
+		old->value = ret;
+		free(new->value);
+		new->value = getcwd(NULL, 0);
+		g_status = 0;
+	}
+}
+
+static char	*get_homedir(t_mini *n, t_env *envp)
+{
+	char	*homedir;
+
+	if (n->full_cmd[1])
+		homedir = ft_compet_path(n->full_cmd[1], envp);
+	else
+		homedir = ft_gethomedir(envp);
+	return (homedir);
 }
 
 void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
 	char	*homedir;
 
-	homedir = NULL;
-	if (n->full_cmd[1] == NULL || !ft_strncmp(n->full_cmd[1], "~", 1))
-	{
-		if (n->full_cmd[1])
-			homedir = ft_compet_path(n->full_cmd[1], envp);
-		else
-			homedir = ft_gethomedir(envp);
-		if (chdir(homedir) != -1)
-			ft_upd_pwd(envp);
-		else
-			g_status = 1;
-	}
-	else if (!ft_strncmp(n->full_cmd[1], "-", 1))
+	if (!n->full_cmd[1] || !ft_strncmp(n->full_cmd[1], "~", 1))
+		homedir = get_homedir(n, envp);
+	else if (!ft_strncmp(n->full_cmd[1], "-", 2))
 		return (get_old_dir(envp));
-	else if (chdir(n->full_cmd[1]) != -1)
-		ft_upd_pwd(envp);
 	else
-		g_status = 1;
-	if (g_status == 1)
-		printf("No such file or directory\n");
+		homedir = ft_strdup(n->full_cmd[1]);
+	change_directory(homedir, envp);
 	free(homedir);
 }
