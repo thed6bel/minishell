@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
+#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/05 22:44:19 by thed6bel         ###   ########.fr        #
+#    Updated: 2023/06/06 09:52:05 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS			=	builtin/export.c \
 					src/exec.c \
 					src/subsplit.c \
 					src/fill_node.c \
+					src/fill_node_utils.c \
 					src/prompt.c \
 					src/utils.c \
 					src/env.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:19:27 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 17:55:26 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:08:02 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	ft_handler(int n)
 
 	if (n == SIGINT)
 	{
-		g_status = 130;
 		tcgetattr(STDIN_FILENO, &term);
 		term.c_lflag &= ~ECHOCTL;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 

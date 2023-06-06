@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 17:54:53 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:02:58 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 			node = get_infile_single(node, a[1], i);
 		else if (a[0][0][0] == '|')
 		{
-			mini_perror(PIPENDERR, NULL, 2);
+			mini_perror(PIPENDERR, NULL, 258);
+			*i = -2;
 			return (node);
 		}
 		else if (a[0][*i][0] != '|')
