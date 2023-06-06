@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/06 14:42:49 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:15:30 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,8 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
-		if ((a[0][0] != NULL && a[0][0][0] == '|' ))// || ((a[0][0] != NULL) && ((a[0][*i + 1][0] == '>' && a[0][*i + 2][0] == '|'))))//|| i != NULL && ((a[0][*i + 2] != NULL && a[0][*i + 2][0] == '|'))
-		{
-			mini_perror(PIPENDERR, NULL, 258);
-			*i = -2;
+		if (ft_check_error(a, i) == -1)
 			return (node);
-		}
-		else if ((a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '|') || ((a[0][*i][0] == '>' && a[0][*i + 2] ) && (a[0][*i + 2][0] == '|' || a[0][*i + 2][0] == '<' || a[0][*i + 2][0] == '>')))
-		{
-			mini_perror(PIPENDERR, NULL, 258);
-			*i = -2;
-			return (node);
-		}
 		else if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile_double(node, a[1], i);
 		else if (a[0][*i][0] == '>')
