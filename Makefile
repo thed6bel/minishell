@@ -6,7 +6,7 @@
 #    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/06 16:55:05 by thed6bel         ###   ########.fr        #
+#    Updated: 2023/06/06 23:40:30 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ SRCS			=	builtin/export.c \
 OBJS			= $(SRCS:.c=.o)
 
 .c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o} $(READLINE_INC)
+	@${CC} ${FLAGS} -c $< -o ${<:.c=.o} $(READLINE_INC)
 
 ################################################################################
 #                                  Makefile  objs                              #
@@ -82,15 +82,15 @@ RM		    := rm -f
 
 ${NAME}: ${OBJS} ${INCLUDES}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			@${MAKE} -C ./libft
+			@${MAKE} -s -C ./libft
 			@${CC} ${FLAGS} $(OBJS) $(READLINE_LIB) ./libft/libft.a -o $(NAME)
 			@echo "$(GREEN)$(NAME) created$(CLR_RMV) ✔️"
 
 all:		${NAME}
 
 clean:
-			@${MAKE} -C ./libft fclean
-			${RM} ${OBJS}
+			@${MAKE} -s -C ./libft fclean
+			@${RM} ${OBJS}
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 
 fclean:		clean

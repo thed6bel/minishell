@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
+#    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/10 16:54:45 by lwathar           #+#    #+#              #
-#    Updated: 2023/05/23 09:21:43 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/06 23:38:16 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,8 +68,6 @@ NAME = libft.a
 
 OBJS = $(SRC:%.c=%.o)
 
-BOBJ = $(BONUS:%.c=%.o)
-
 CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
 
 GCC = gcc
@@ -88,7 +86,7 @@ $(NAME): $(OBJS)
 	ranlib $(NAME)   
 
 clean:
-	    $(RM) $(OBJS) $(BOBJ)
+	    $(RM) $(OBJS)
 
 fclean: clean
 	    $(RM) $(NAME)
