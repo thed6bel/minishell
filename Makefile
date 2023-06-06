@@ -6,7 +6,7 @@
 #    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/06 11:40:57 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/06 13:51:07 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,6 @@ git:
 		git add .
 		git commit -m "$m"
 		git push
-		@ echo "$(BLUE)ALL is one your $(CYAN)GIT $(CLR_RMV)✔️"
+		@ echo "$(BLUE)ALL is on your $(CYAN)GIT $(CLR_RMV)✔️"
 
 .PHONY:	all clean fclean re git
