@@ -172,7 +172,7 @@ int		ft_make_oldpwd(t_env *envp);
 void	change_directory(char *homedir, t_env *envp);
 
 //builtin_export
-void	ft_builtin_export(t_mini *n, t_env *envp);
+void	ft_builtin_export(t_mini *n, t_env *envp, t_prompt *p);
 void	ft_check_variable(t_env *buff, char *var, char *value, int *mod);
 int		ft_var_error(char *var, char *value, int *mod);
 void	ft_print_export(t_mini *n, t_env *envp);

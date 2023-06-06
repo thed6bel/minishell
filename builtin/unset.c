@@ -6,7 +6,7 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:37:24 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 19:51:25 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:39:26 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_free_env_node(t_env *node)
 	free(node);
 }
 
-void	ft_builtin_unset(t_mini *n, t_env **envp)
+static void	ft_remove_var_from_env(char *var_to_remove, t_env **envp)
 {
 	t_env	*buff;
 	t_env	*tmp;
@@ -30,8 +30,8 @@ void	ft_builtin_unset(t_mini *n, t_env **envp)
 	tmp = buff;
 	while (buff != NULL)
 	{
-		if (!ft_strncmp(buff->var, n->full_cmd[1],
-				(ft_strlen(n->full_cmd[1]) + 1)))
+		if (!ft_strncmp(buff->var, var_to_remove,
+				(ft_strlen(var_to_remove) + 1)))
 		{
 			if (i != 0)
 				tmp->next = buff->next;
@@ -44,4 +44,21 @@ void	ft_builtin_unset(t_mini *n, t_env **envp)
 		i++;
 		buff = buff->next;
 	}
+}
+
+void	ft_builtin_unset(t_mini *n, t_env **envp)
+{
+	int	i;
+
+	i = 1;
+	if (n->full_cmd[i])
+	{
+		while (n->full_cmd[i])
+		{
+			ft_remove_var_from_env(n->full_cmd[i], envp);
+			i++;
+		}
+	}
+	else
+		printf("unset: not enough arguments\n");
 }

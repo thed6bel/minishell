@@ -6,7 +6,7 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 17:54:42 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:13:42 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	ft_execute_other_builtins(t_mini *n, t_prompt *p, t_env *env_list)
 
 	tmp = p->cmds;
 	if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "export",
-				ft_strlen(*n->full_cmd) + 1)) && tmp->next == NULL)
-		ft_builtin_export(n, env_list);
+				ft_strlen(*n->full_cmd) + 1)))
+		ft_builtin_export(n, env_list, p);
 	else if (n->full_cmd && (!ft_strncmp(*n->full_cmd, "unset",
 				ft_strlen(*n->full_cmd) + 1)))
 		ft_builtin_unset(n, &env_list);

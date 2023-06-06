@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
+#    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/06 13:51:07 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/06 16:55:05 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ RM		    := rm -f
 ${NAME}: ${OBJS} ${INCLUDES}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
 			@${MAKE} -C ./libft
-			@${CC} ${FLAGS} $(OBJS) $(READLINE_LIB) ./libft/libft.a -g -fsanitize=address -o $(NAME)
+			@${CC} ${FLAGS} $(OBJS) $(READLINE_LIB) ./libft/libft.a -o $(NAME)
 			@echo "$(GREEN)$(NAME) created$(CLR_RMV) ✔️"
 
 all:		${NAME}

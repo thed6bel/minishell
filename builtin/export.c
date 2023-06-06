@@ -6,7 +6,7 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/05 19:51:20 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:16:04 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,11 @@ void	check_arg(t_mini *n, t_env *buff, int mod)
 		free(var);
 }
 
-void	ft_builtin_export(t_mini *n, t_env *envp)
+void	ft_builtin_export(t_mini *n, t_env *envp, t_prompt *prompt)
 {
 	t_env	*buff;
 	t_mini	*tmp;
+	t_list	*tmp_prompt;
 	int		i;
 	int		mod;
 
@@ -133,8 +134,12 @@ void	ft_builtin_export(t_mini *n, t_env *envp)
 	tmp = n;
 	i = 1;
 	mod = 0;
+	tmp_prompt = prompt->cmds;
 	if (n->full_cmd[i] == NULL)
 		ft_print_export(n, envp);
 	else
-		check_arg(tmp, buff, mod);
+	{
+		if (tmp_prompt->next == NULL)
+			check_arg(tmp, buff, mod);
+	}
 }
