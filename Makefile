@@ -6,7 +6,7 @@
 #    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/06 09:52:05 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/06 11:40:57 by hucorrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ RM		    := rm -f
 ${NAME}: ${OBJS} ${INCLUDES}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
 			@${MAKE} -C ./libft
-			@${CC} ${FLAGS} $(OBJS) $(READLINE_LIB) ./libft/libft.a -o $(NAME)
+			@${CC} ${FLAGS} $(OBJS) $(READLINE_LIB) ./libft/libft.a -g -fsanitize=address -o $(NAME)
 			@echo "$(GREEN)$(NAME) created$(CLR_RMV) ✔️"
 
 all:		${NAME}

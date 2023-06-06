@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 17:55:04 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:14:49 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,24 @@ static char	*find_cmd(char **env_path, char *cmd, char *full_path)
 	return (full_path);
 }
 
-static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
+static void	update_cmd_path(t_list *cmd, char **s)
+{
+	t_mini	*n;
+
+	n = cmd->content;
+	s = ft_split(*n->full_cmd, '/');
+	n->full_path = ft_strdup(*n->full_cmd);
+	free(n->full_cmd[0]);
+	n->full_cmd[0] = ft_strdup(&s[1][ft_matrixlen(s)] - 2);
+}
+
+static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 {
 	t_mini	*n;
 
 	n = cmd->content;
 	if (n && n->full_cmd && ft_strchr(*n->full_cmd, '/'))
-	{
-		s = ft_split(*n->full_cmd, '/');
-		n->full_path = ft_strdup(*n->full_cmd);
-		free(n->full_cmd[0]);
-		n->full_cmd[0] = ft_strdup(&s[1][ft_matrixlen(s)] - 2);
-	}
+		update_cmd_path(cmd, s);
 	else if (!is_builtin(n) && n && n->full_cmd)
 	{
 		path = mini_getenv("PATH", prompt->envp, 4);
@@ -66,7 +72,7 @@ static	void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		n->full_path = NULL;
 	}
 	else
-		g_status = 0;//a verif si non apres erreur 127 les executable ne se lance pas
+		g_status = 0;//a verif si erreur 127 les exec ne se lance pas
 	ft_free(s);
 }
 

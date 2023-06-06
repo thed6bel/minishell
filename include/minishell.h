@@ -95,6 +95,7 @@ char	*read_input(char *str);
 
 // fill_node.c
 t_list	*fill_node(char **args, int i);
+t_mini	*ft_get_redir(t_mini *node, char **a[2], int *i);
 
 // strtrim.c
 char	*ft_strtrim_all(char const *s1, int squote, int dquote);
