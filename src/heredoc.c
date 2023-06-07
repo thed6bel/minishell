@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:47:32 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 17:55:07 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:43:08 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_check_heredoc(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '|')
+	{
+		mini_perror(PIPENDERR, NULL, 258);
+		return (-1);
+	}
+	else if (str[i] == '<')
+	{
+		g_status = 258;
+		ft_putstr_fd("minishell: syntax error \
+near unexpected token `newline'\n", 2);
+		return (-1);
+	}
+	else if (str[i] == '>')
+	{
+		g_status = 258;
+		ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+		return (-1);
+	}
+	else
+		return (0);
+}
 
 char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 {
@@ -43,6 +70,8 @@ int	get_here_doc(char *str[2], char *aux[2])
 	int		fd[2];
 
 	g_status = 0;
+	if (ft_check_heredoc(aux[0]) != 0)
+		return (-1);
 	if (pipe(fd) == -1)
 	{
 		mini_perror(PIPERR, NULL, 1);
