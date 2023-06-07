@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:37:24 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/06 17:39:26 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/07 09:34:24 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ void	ft_builtin_unset(t_mini *n, t_env **envp)
 		}
 	}
 	else
+	{
+		g_status = 1;
 		printf("unset: not enough arguments\n");
+	}
 }
