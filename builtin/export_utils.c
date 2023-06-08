@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 19:51:17 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:33:43 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 int	ft_var_error_print(char *value)
 {
 	write(1, "not a valide command, use : export [name=value]\n", 48);
+	g_status = 1;
 	if (value)
 		free(value);
 	return (0);
@@ -99,13 +100,13 @@ int	ft_var_error(char *var, char *value, int *mod)
 	while (var[i] != '\0')
 	{
 		if (i == 0 && !ft_isalpha(var[i]) && var[i] != '_')
-		{
 			*mod = 1;
-			return (0);
-		}
 		else if (!ft_isalnum(var[i]) && var[i] != '_')
-		{
 			*mod = 1;
+		if (*mod == 1)
+		{
+			g_status = 1;
+			printf("export: not a valid identifier\n");
 			return (0);
 		}
 		i++;

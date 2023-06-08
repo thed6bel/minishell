@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:37:24 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/07 09:34:24 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:35:22 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_builtin_unset(t_mini *n, t_env **envp)
 	}
 	else
 	{
-		g_status = 1;
-		printf("unset: not enough arguments\n");
+		g_status = 0;
+		//printf("unset: not enough arguments\n");
 	}
 }

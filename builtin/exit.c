@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 19:51:12 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:56:15 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void	handle_numeric_argument(const char *argument)
 	unsigned long long int	j;
 
 	i = 0;
+	j = atoi(argument);
 	while (argument[i])
-	{
+	{	
+		if (argument[i] == '+')
+			i++;
 		if (!ft_isdigit(argument[i]))
 		{
-			write(1, "exit: ", 6);
-			write(1, argument, ft_strlen(argument));
-			write(1, ": numeric argument required\n", 28);
+			if (argument[i] == '-')
+				exit ((j + 255) + 1);
+			printf("exit: %s : numeric argument required\n", argument);
 			exit(255);
 		}
 		i++;
 	}
-	j = atoi(argument);
 	if (j > 9223372036854775807)
 	{
 		write(1, "exit: ", 6);
-		write(1, argument, ft_strlen(argument));
-		write(1, ": numeric argument required\n", 28);
 		exit(255);
 	}
 }
