@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/08 14:56:15 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/08 20:22:37 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_numeric_argument(const char *argument)
 	unsigned long long int	j;
 
 	i = 0;
-	j = atoi(argument);
+	j = ft_atoi(argument);
 	while (argument[i])
 	{	
 		if (argument[i] == '+')
@@ -27,15 +27,15 @@ void	handle_numeric_argument(const char *argument)
 		{
 			if (argument[i] == '-')
 				exit ((j + 255) + 1);
-			printf("exit: %s : numeric argument required\n", argument);
-			exit(255);
+			printf("exit\nminishell: %s : numeric argument required\n", argument);
+			exit(2);
 		}
 		i++;
 	}
 	if (j > 9223372036854775807)
 	{
-		write(1, "exit: ", 6);
-		exit(255);
+		write(1, "exit\n", 5);
+		exit(2);
 	}
 }
 

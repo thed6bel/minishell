@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/08 15:10:14 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:30:08 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ void	ft_child_process(t_mini *cmd, char **envp)
 		close(cmd->outfile);
 	}
 	if (cmd->full_path != NULL && cmd->full_cmd != NULL)
+	{
 		execve(cmd->full_path, cmd->full_cmd, envp);
-		ft_exit("No such file or directory");
+		g_status = 126;
+		ft_exit("");
+	}
 	exit(0);
 }
 

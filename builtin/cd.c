@@ -6,7 +6,7 @@
 /*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/05 19:51:01 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:47:54 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
 	char	*homedir;
 
+	if (n->full_cmd[2])
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		g_status = 1;
+		return ;
+	}
 	if (!n->full_cmd[1] || !ft_strncmp(n->full_cmd[1], "~", 1))
 		homedir = get_homedir(n, envp);
 	else if (!ft_strncmp(n->full_cmd[1], "-", 2))
