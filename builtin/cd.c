@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/08 18:47:54 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:35:44 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 
 	if (n->full_cmd[2])
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		g_status = 1;
+		g_status = 0;
 		return ;
 	}
 	if (!n->full_cmd[1] || !ft_strncmp(n->full_cmd[1], "~", 1))

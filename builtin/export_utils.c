@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/08 14:33:43 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:31:19 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 
 int	ft_var_error_print(char *value)
 {
-	write(1, "not a valide command, use : export [name=value]\n", 48);
+	write(1, "export: `=': not a valid identifier\n", 36);
 	g_status = 1;
 	if (value)
 		free(value);
@@ -106,15 +106,15 @@ int	ft_var_error(char *var, char *value, int *mod)
 		if (*mod == 1)
 		{
 			g_status = 1;
-			printf("export: not a valid identifier\n");
+			if (!value)
+				printf("export: `%s': not a valid identifier\n", var);
+			else
+				printf("export: `%s=%s': not a valid identifier\n", var, value);
 			return (0);
 		}
 		i++;
 	}
 	if (!value)
-	{
-		printf("export: `%s=%s': not a valid identifier\n", var, value);
 		return (0);
-	}
 	return (1);
 }
