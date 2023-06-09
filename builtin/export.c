@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/08 14:27:34 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:55:48 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,11 @@ void	check_arg(t_mini *n, t_env *buff, int mod)
 			return ;
 		if (mod == 1)
 			ft_export_mod(var, value, buff, &mod);
-		else
+		else if (mod == 2 || mod == 0)
 			ft_check_variable(buff, var, value, &mod);
 		i++;
 	}
-	if ((int)mod == 1)
+	if ((int)mod == 1 || (int)mod == 3)
 	{
 		free(var);
 		free(value);

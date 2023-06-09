@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/09 09:31:19 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:52:07 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_var_error(char *var, char *value, int *mod)
 				printf("export: `%s': not a valid identifier\n", var);
 			else
 				printf("export: `%s=%s': not a valid identifier\n", var, value);
-			return (0);
+			*mod = 3;
 		}
 		i++;
 	}
