@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:58:55 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/05 17:54:49 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:26:44 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*expand_vars(char *str, int i, int quotes[2], t_prompt *prompt)
 	{
 		quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2;
 		quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2;
-		if (!quotes[0] && str[i] == '$' && str[i + 1] && \
+		if (!quotes[0] && str[i] == '$' && str[i + 1] && str[i + 1] != ' ' && \
 			((ft_strchars_i(&str[i + 1], "/~%^{}:; ") && !quotes[1]) || \
 			(ft_strchars_i(&str[i + 1], "/~%^{}:;\"") && quotes[1])))
 			return (expand_vars(get_substr_var(str, ++i, prompt), -1, \
