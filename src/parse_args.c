@@ -82,7 +82,6 @@ char	**ft_cmdtrim(char const *s, char *set)
 	if (!s)
 		return (NULL);
 	nb_words = ft_count_words(s, set, counts);
-	printf("nbr_word : %d\n", nb_words);
 	if (nb_words == -1)
 		return (NULL);
 	aux = malloc((nb_words + 1) * sizeof(char *));
