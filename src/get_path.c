@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/09 14:15:36 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:31:18 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,13 @@ static void	update_cmd_path(t_list *cmd, char **s)
 static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 {
 	t_mini	*n;
+	DIR		*dir;
 
 	n = cmd->content;
-	if (n && n->full_cmd && ft_strchr(*n->full_cmd, '/'))
+	dir = NULL;
+	if (n && n->full_cmd)
+		dir = opendir(*n->full_cmd);
+	if (n && n->full_cmd && ft_strchr(*n->full_cmd, '/') && !dir)
 		update_cmd_path(cmd, s);
 	else if (!is_builtin(n) && n && n->full_cmd)
 	{
@@ -68,15 +72,27 @@ static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		free(path);
 		n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
 	}
-	if (!n->full_path || (n->full_cmd && (!n->full_cmd[0]
-				|| !n->full_cmd[0][0])))
+	ft_free(s);
+	if ((!n->full_path || (n->full_cmd && (!n->full_cmd[0]
+				|| !n->full_cmd[0][0]))) && !dir)
 	{
+		printf("coucou\n");
 		mini_perror(NCMD, *n->full_cmd, 127);
 		n->full_path = NULL;
 	}
 	else if (g_status != 127)
 		g_status = 0;
-	ft_free(s);
+	if (!is_builtin(n) && n && n->full_cmd && dir)
+		mini_perror(IS_DIR, *n->full_cmd, 126);
+	else if (!is_builtin(n) && n && n->full_path && \
+		access(n->full_path, F_OK) == -1)
+		mini_perror(NDIR, n->full_path, 127);
+	else if (!is_builtin(n) && n && n->full_path && \
+		access(n->full_path, X_OK) == -1)
+		mini_perror(NPERM, n->full_path, 126);
+	if (dir)
+		closedir(dir);
+	//ft_free_matrix(&s);
 }
 
 int	builtin(t_prompt *prompt, t_list *cmd)

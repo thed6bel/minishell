@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:53:11 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/09 13:58:03 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:08:29 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,32 @@ char	*read_input(char *str)
 	else
 		out = readline("guest@minishell $ ");
 	return (out);
+}
+
+void	print_cmds(t_prompt *prompt)
+{
+	t_list	*cmds;
+	t_mini	*cmd;
+	int		i;
+	int		j;
+
+	i = 1;
+	cmds = prompt->cmds;
+	while (cmds != NULL)
+	{
+		printf("===================\n");
+		printf("Node numero : %i\n", i); //rtgjehrgehrgieg
+		i++;
+		cmd = cmds->content;
+		j = 0;
+		while (j < 5 && cmd->full_cmd[j] != NULL)
+		{
+			printf("Full command: %s\n", cmd->full_cmd[j]);
+			j++;
+		}
+		printf("Full path: %s\n", cmd->full_path);
+		printf("Input file descriptor: %d\n", cmd->infile);
+		printf("Output file descriptor: %d\n", cmd->outfile);
+		cmds = cmds->next;
+	}
 }

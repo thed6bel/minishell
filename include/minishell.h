@@ -91,6 +91,7 @@ int		ft_strchr_i(const char *s, int c);
 void	free_content(void *content);
 void	free_memory(char *str);
 char	*read_input(char *str);
+void	print_cmds(t_prompt *prompt);
 
 // fill_node.c
 t_list	*fill_node(char **args, int i);
