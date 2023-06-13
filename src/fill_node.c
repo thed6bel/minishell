@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:13:14 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/06 15:15:30 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:33:25 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 			mini_perror(PIPENDERR, NULL, 2);
 			*i = -2;
 		}
+		g_status = 0;
 		return (node);
 	}
 	mini_perror(PIPENDERR, NULL, 2);
