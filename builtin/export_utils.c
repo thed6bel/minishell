@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/13 14:54:31 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:01:38 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	ft_var_error_print(char *value, char *var, char *fcmd, int f)
 	i = 0;
 	while (fcmd[i] && fcmd[i] != '=')
 		i++;
-	printf("f = %d \n", f);
 	if ((fcmd[i] == '=' && fcmd[i - 1] == '-') || f == 1)
 	{
 		write(2, "export11: `", 11);

@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:32 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/13 11:14:31 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:18:33 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	ft_new_list(char *var, char *value, t_env *buff)
 		new->value = value;
 	}
 	else
-		write(1, "not a valide command, use : export [VARname=value]\n", 51);
+	{
+		write(1, "not a valid identifier\n", 23);
+		g_status = 1;
+	}
 }
 
 void	ft_swap_env(t_env *env1, t_env *env2)
