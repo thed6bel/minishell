@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/09 17:52:07 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:14:54 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,23 @@ void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod)
 		write(1, "Erreur : empty list\n", 20);
 }
 
-int	ft_var_error_print(char *value)
+int	ft_var_error_print(char *value, char *fcmd, int f)
 {
-	write(1, "export: `=': not a valid identifier\n", 36);
+	write(2, "export: `", 9);
+	ft_putstr_fd(fcmd, 2);
+	write(2, "': not a valid identifier\n", 26);
 	g_status = 1;
-	if (value)
+	if (value && (f == '1'))
 		free(value);
 	return (0);
 }
 
-int	ft_var_error(char *var, char *value, int *mod)
+int	ft_var_error(char *var, char *value, int *mod, char *fcmd)
 {
 	int	i;
 
 	if (!var)
-		return (ft_var_error_print(value));
+		return (ft_var_error_print(value, fcmd, 1));
 	i = 0;
 	while (var[i] != '\0')
 	{
@@ -103,15 +105,14 @@ int	ft_var_error(char *var, char *value, int *mod)
 			*mod = 1;
 		else if (!ft_isalnum(var[i]) && var[i] != '_')
 			*mod = 1;
-		if (*mod == 1)
+		if (*mod == 1 && !value)
 		{
 			g_status = 1;
-			if (!value)
-				printf("export: `%s': not a valid identifier\n", var);
-			else
-				printf("export: `%s=%s': not a valid identifier\n", var, value);
+			printf("export: `%s': not a valid identifier\n", var);
 			*mod = 3;
 		}
+		if (*mod == 1 && value)
+			ft_var_error_print(value, fcmd, 0);
 		i++;
 	}
 	if (!value)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/09 17:55:48 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:15:19 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	check_arg(t_mini *n, t_env *buff, int mod)
 	{
 		var = ft_set_var(n->full_cmd[i], &mod);
 		value = ft_set_value(n->full_cmd[i]);
-		if (!ft_var_error(var, value, &mod))
+		if (!ft_var_error(var, value, &mod, n->full_cmd[i]))
 			return ;
 		if (mod == 1)
 			ft_export_mod(var, value, buff, &mod);
@@ -134,6 +134,7 @@ void	ft_builtin_export(t_mini *n, t_env *envp, t_prompt *prompt)
 	tmp = n;
 	i = 1;
 	mod = 0;
+	g_status = 0;
 	tmp_prompt = prompt->cmds;
 	if (n->full_cmd[i] == NULL)
 		ft_print_export(n, envp);

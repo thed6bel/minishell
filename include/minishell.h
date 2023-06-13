@@ -175,7 +175,7 @@ void	change_directory(char *homedir, t_env *envp);
 //builtin_export
 void	ft_builtin_export(t_mini *n, t_env *envp, t_prompt *p);
 void	ft_check_variable(t_env *buff, char *var, char *value, int *mod);
-int		ft_var_error(char *var, char *value, int *mod);
+int		ft_var_error(char *var, char *value, int *mod, char *fcmd);
 void	ft_print_export(t_mini *n, t_env *envp);
 void	ft_print_env(t_mini *n, t_env *envpcpy);
 void	ft_copy_env(t_env *envp, t_env **envpcpy, t_env	*tmp, t_env	*new_env);
@@ -185,7 +185,7 @@ void	ft_new_list(char *var, char *value, t_env *buff);
 char	*ft_set_value(char *arg);
 char	*ft_set_var(char *arg, int *mod);
 void	ft_export_mod(char *varfind, char *value1, t_env *buff, int *mod);
-int		ft_var_error_print(char *value);
+int		ft_var_error_print(char *value, char *fcmd, int f);
 void	free_env_list(t_env *head);
 void	ft_export_mod_utils(char **finalvalue, t_env *current, char *value1);
 

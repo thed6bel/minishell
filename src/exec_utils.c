@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/09 22:51:40 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:21:06 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	ft_execute_builtin(t_mini *n, t_prompt *p)
 	else
 		return (ft_execute_other_builtins(n, p, env_list));
 	ft_exec_builtin_helper(n, env_list, p);
+	g_status = 0;
 	return (1);
 }
 

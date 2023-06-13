@@ -3,39 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/09 11:13:14 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:10:47 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	handle_numeric_argument(const char *argument)
+static int	ft_atoi2(const char *nptr, long long int *n)
 {
 	int						i;
-	unsigned long long int	j;
+	int						signe;
+	unsigned long long int	nbr;
 
 	i = 0;
-	j = ft_atoi(argument);
-	while (argument[i])
+	signe = 1;
+	nbr = 0;
+	while (nptr[i] == ' ' || nptr[i] == '\n' || nptr[i] == '\t'
+		|| nptr[i] == '\r' || nptr[i] == '\v' || nptr[i] == '\f')
+		i++;
+	while (nptr[i] == '-' || nptr[i] == '+')
+	{
+		if (nptr[i] == '-')
+			signe *= -1;
+		i++;
+		if (nptr[i] == '-' || nptr[i] == '+')
+			return (0);
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+		nbr = nptr[i++] - '0' + (nbr * 10);
+	if (((nbr > 9223372036854775808ULL) && signe == -1) || \
+		((nbr > 9223372036854775807) && signe == 1))
+		return (0);
+	*n = (long long int)(nbr * signe);
+	return (1);
+}
+
+void	handle_numeric_argument(const char *arg)
+{
+	int					i;
+	long long int		j;
+
+	i = 0;
+	if (!ft_atoi2(arg, &j))
+	{
+		printf("exit\nminishell: exit: %s: numeric argument required\n", arg);
+		exit(255);
+	}
+	while (arg[i])
 	{	
-		if (argument[i] == '+')
+		if (arg[i] == '+')
 			i++;
-		if (!ft_isdigit(argument[i]))
+		if (!ft_isdigit(arg[i]))
 		{
-			if (argument[i] == '-')
+			if (arg[i] == '-')
 				exit ((j + 255) + 1);
-			printf("exit\nminishell: %s: numeric argument required\n", argument);
+			printf("exit\nminishell: %s: numeric argument required\n", arg);
 			exit(255);
 		}
 		i++;
-	}
-	if (j >= 9223372036854775807)
-	{
-		write(1, "exit\n", 5);
-		exit(255);
 	}
 }
 
@@ -56,3 +84,4 @@ void	ft_builtin_exit(t_mini *n, t_env *env_list)
 	free_env_list(env_list);
 	exit(g_status);
 }
+
