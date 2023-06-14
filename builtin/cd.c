@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/14 10:26:27 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:09:31 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,16 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
 	char	*homedir;
 
-	if (n->full_cmd[2] && n->full_cmd[2])
+	if (n->full_cmd[2] && n->full_cmd[1])
 	{
+		// printf("testskdjfwkjhfwkfejhf\n");// j'ai du ajouter && n->full_cmd[1] pour que cd fonctionns! donc cmd[2] existe???
 		g_status = 0;
 		return ;
 	}
 	if (!n->full_cmd[1] || !ft_strncmp(n->full_cmd[1], "~", 1))
+	{
 		homedir = get_homedir(n, envp);
+	}
 	else if (!ft_strncmp(n->full_cmd[1], "-", 2))
 		return (get_old_dir(envp));
 	else

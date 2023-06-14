@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/13 15:01:38 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:58:45 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_var_error_print(char *value, char *var, char *fcmd, int f)
 		i++;
 	if ((fcmd[i] == '=' && fcmd[i - 1] == '-') || f == 1)
 	{
-		write(2, "export11: `", 11);
+		write(2, "export: `", 9);
 		ft_putstr_fd(fcmd, 2);
 		write(2, "': not a valid identifier\n", 26);
 		g_status = 1;

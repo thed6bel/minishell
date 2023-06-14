@@ -113,7 +113,6 @@ void	*ft_check_args(char *out, t_prompt *p)
 		mini_perror(QUOTE, NULL, 1);
 		return ("");
 	}
-	//system("leaks minishell");
 	p = parse_arg(a, p);
 	ft_execute_commandes(p);
 	if (p && p->cmds)
