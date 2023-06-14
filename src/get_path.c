@@ -6,7 +6,7 @@
 /*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/12 15:31:18 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:36:38 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 	t_mini	*n;
 	DIR		*dir;
 
+	//system("leaks minishell");
 	n = cmd->content;
 	dir = NULL;
 	if (n && n->full_cmd)
@@ -72,7 +73,7 @@ static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		free(path);
 		n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
 	}
-	ft_free(s);
+	//ft_free(s);
 	if ((!n->full_path || (n->full_cmd && (!n->full_cmd[0]
 				|| !n->full_cmd[0][0]))) && !dir)
 	{
@@ -92,7 +93,7 @@ static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		mini_perror(NPERM, n->full_path, 126);
 	if (dir)
 		closedir(dir);
-	//ft_free_matrix(&s);
+	ft_free_matrix(&s);
 }
 
 int	builtin(t_prompt *prompt, t_list *cmd)

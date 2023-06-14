@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/09 09:35:44 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:26:27 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 {
 	char	*homedir;
 
-	if (n->full_cmd[2])
+	if (n->full_cmd[2] && n->full_cmd[2])
 	{
 		g_status = 0;
 		return ;
