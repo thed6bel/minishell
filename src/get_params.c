@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_params.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:09:56 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/07 10:39:37 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:37:03 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_mini	*get_infile_single(t_mini *node, char **args, int *i)
 		else
 			g_status = 1;
 	}
+	printf("gstat = %d\n", g_status);
 	return (node);
 }
 

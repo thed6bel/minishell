@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/14 11:10:48 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:57:53 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	update_cmd_path(t_list *cmd, char **s)
 		n->full_cmd[0] = ft_strdup(&s[1][ft_matrixlen(s)] - 2);
 	if (!s[1])
 		mini_perror(NDIR, n->full_cmd[0], 127);
-	free(n->full_cmd[0]);
+	//free(n->full_cmd[0]);
 }
 
 static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
