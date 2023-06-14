@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:09:56 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/14 11:37:03 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:45:38 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ t_mini	*get_infile_single(t_mini *node, char **args, int *i)
 		else
 			g_status = 1;
 	}
-	printf("gstat = %d\n", g_status);
 	return (node);
 }
 

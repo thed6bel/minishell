@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:52:17 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/14 10:09:31 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:55:48 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	ft_builtin_cd(t_mini *n, t_env *envp)
 
 	if (n->full_cmd[2] && n->full_cmd[1])
 	{
-		// printf("testskdjfwkjhfwkfejhf\n");// j'ai du ajouter && n->full_cmd[1] pour que cd fonctionns! donc cmd[2] existe???
 		g_status = 0;
 		return ;
 	}

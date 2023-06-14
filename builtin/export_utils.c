@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:08:35 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/14 09:58:45 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:56:59 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_var_error_print(char *value, char *var, char *fcmd, int f)
 			free(value);
 			free(var);
 		}
-		return (0);		
+		return (0);
 	}
 	return (1);
 }
