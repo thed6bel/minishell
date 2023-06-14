@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/14 12:59:15 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:18:02 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_child_process(t_mini *cmd, char **envp)
 	if (cmd->full_path != NULL && cmd->full_cmd != NULL)
 	{
 		execve(cmd->full_path, cmd->full_cmd, envp);
-		g_status = 126;
+		// g_status = 127;
 		ft_exit("");
 	}
 	exit(0);
@@ -92,6 +92,9 @@ void	ft_parent_process(t_mini *cmd, int *status, pid_t pid)
 	waitpid(pid, status, 0);
 	if (WIFEXITED(*status) != 0)
 		g_status = WEXITSTATUS(*status);
-	close(cmd->outfile);
-	close(cmd->infile);
+	if (g_status == 0)
+	{
+		close(cmd->outfile);
+		close(cmd->infile);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:36:39 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/08 18:35:31 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:11:40 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,7 @@ void	ft_exit(char *a)
 {
 	if (errno == 0)
 		write(2, "Error\n", 6);
-	else if (g_status == 126)
-	{
-		perror(a);
-		exit(126);
-	}
-	else
-	{
-		perror(a);
-		g_status = 127;
-	}
+	a = NULL;
 	exit(g_status);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/14 13:01:02 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:13:59 by lowathar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,44 +40,41 @@ static char	*find_cmd(char **env_path, char *cmd, char *full_path)
 	return (full_path);
 }
 
-static void	update_cmd_path(t_list *cmd, char **s)
+static DIR	*cmd_checks(t_prompt *prompt, t_list *cmd, char ***s, char *path)
 {
 	t_mini	*n;
+	DIR		*dir;
 
+	dir = NULL;
 	n = cmd->content;
-	s = ft_split(*n->full_cmd, '/');
-	n->full_path = ft_strdup(*n->full_cmd);
-	if (s[1])
-		n->full_cmd[0] = ft_strdup(&s[1][ft_matrixlen(s)] - 2);
-	if (!s[1])
-		mini_perror(NDIR, n->full_cmd[0], 127);
+	if (n && n->full_cmd)
+		dir = opendir(*n->full_cmd);
+	if (n && n->full_cmd && ft_strchr(*n->full_cmd, '/') && !dir)
+	{
+		*s = ft_split(*n->full_cmd, '/');
+		n->full_path = ft_strdup(*n->full_cmd);
+		free(n->full_cmd[0]);
+		n->full_cmd[0] = ft_strdup(s[0][ft_matrixlen(*s) - 1]);
+	}
+	else if (!is_builtin(n) && n && n->full_cmd && !dir)
+	{
+		path = mini_getenv("PATH", prompt->envp, 4);
+		*s = ft_split(path, ':');
+		free(path);
+		n->full_path = find_cmd(*s, *n->full_cmd, n->full_path);
+		if (!n->full_path || !n->full_cmd[0] || !n->full_cmd[0][0])
+			mini_perror(NCMD, *n->full_cmd, 127);
+	}
+	return (dir);
 }
 
-static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
+void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 {
 	t_mini	*n;
 	DIR		*dir;
 
 	n = cmd->content;
-	dir = NULL;
-	if (n && n->full_cmd)
-		dir = opendir(*n->full_cmd);
-	if (n && n->full_cmd && ft_strchr(*n->full_cmd, '/') && !dir)
-		update_cmd_path(cmd, s);
-	else if (!is_builtin(n) && n && n->full_cmd)
-	{
-		path = mini_getenv("PATH", prompt->envp, 4);
-		s = ft_split(path, ':');
-		free(path);
-		n->full_path = find_cmd(s, *n->full_cmd, n->full_path);
-	}
-	ft_free(s);
-	if ((!n->full_path || (n->full_cmd && (!n->full_cmd[0]
-					|| !n->full_cmd[0][0]))) && !dir)
-	{
-		mini_perror(NCMD, *n->full_cmd, 127);
-		n->full_path = NULL;
-	}
+	dir = cmd_checks(prompt, cmd, &s, path);
 	if (!is_builtin(n) && n && n->full_cmd && dir)
 		mini_perror(IS_DIR, *n->full_cmd, 126);
 	else if (!is_builtin(n) && n && n->full_path && \
@@ -88,7 +85,9 @@ static void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		mini_perror(NPERM, n->full_path, 126);
 	if (dir)
 		closedir(dir);
+	ft_free_matrix(&s);
 }
+
 
 int	builtin(t_prompt *prompt, t_list *cmd)
 {
