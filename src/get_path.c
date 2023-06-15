@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:59:09 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/14 15:13:59 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:02:13 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 		closedir(dir);
 	ft_free_matrix(&s);
 }
-
 
 int	builtin(t_prompt *prompt, t_list *cmd)
 {

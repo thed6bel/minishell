@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:53:11 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/14 14:35:58 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:02:37 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	print_cmds(t_prompt *prompt)
 	while (cmds != NULL)
 	{
 		printf("===================\n");
-		printf("Node numero : %i\n", i); //rtgjehrgehrgieg
+		printf("Node numero : %i\n", i);
 		i++;
 		cmd = cmds->content;
 		j = 0;
@@ -110,4 +110,3 @@ void	print_cmds(t_prompt *prompt)
 		cmds = cmds->next;
 	}
 }
-
