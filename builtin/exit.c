@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:25 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/14 12:56:11 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:19:20 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	ft_builtin_exit(t_mini *n, t_env *env_list)
 	if (n->full_cmd[1] != NULL && n->full_cmd[2] != NULL)
 	{
 		write(1, "exit: too many arguments\n", 25);
-		exit(1);
+		g_status = 1;
+		return ;
 	}
 	if (n->full_cmd[1] == NULL)
 		g_status = 0;
