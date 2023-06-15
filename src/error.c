@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowathar <lowathar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:36:39 by lowathar          #+#    #+#             */
-/*   Updated: 2023/06/14 14:11:40 by lowathar         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:15:01 by thed6bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	*mini_perror(int err_type, char *param, int err)
 	return (NULL);
 }
 
-void	ft_exit(char *a)
+void	ft_exit(void)
 {
 	if (errno == 0)
 		write(2, "Error\n", 6);
-	a = NULL;
 	exit(g_status);
 }
 

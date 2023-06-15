@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+         #
+#    By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 21:37:12 by thed6bel          #+#    #+#              #
-#    Updated: 2023/06/15 14:07:37 by hucorrei         ###   ########.fr        #
+#    Updated: 2023/06/15 21:10:56 by thed6bel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME			= minishell
 CC				= gcc
 FLAGS			= -Wall -Wextra -Werror
 HOME			= $(shell echo $$HOME)
+OBJ_DIR			= .objs
 
 ifeq ($(shell uname -s), Linux)
 	READLINE_LIB = -lreadline -lhistory
@@ -62,10 +63,11 @@ SRCS			=	builtin/export.c \
 					src/strtrim.c \
 					src/get_path.c \
 						
-OBJS			= $(SRCS:.c=.o)
+OBJS			= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-.c.o:
-	@${CC} ${FLAGS} -c $< -o ${<:.c=.o} $(READLINE_INC)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	@${CC} ${FLAGS} -c $< -o $@ $(READLINE_INC)
 
 ################################################################################
 #                                  Makefile  objs                              #
@@ -90,7 +92,7 @@ all:		${NAME}
 
 clean:
 			@${MAKE} -s -C ./libft fclean
-			@${RM} ${OBJS}
+			@${RM} -r $(OBJ_DIR)
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 
 fclean:		clean

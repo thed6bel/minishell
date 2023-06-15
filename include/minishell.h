@@ -137,7 +137,7 @@ int		ft_dispatch_builtin(t_mini *n, t_prompt *p);
 
 // error.c
 void	*mini_perror(int err_type, char *param, int err);
-void	ft_exit(char *a);
+void	ft_exit(void);
 void	ft_free(char **str);
 void	ft_close_fds(t_mini *cmd);
 void	free_env_list(t_env *head);
