@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/13 13:49:43 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:51:59 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	check_arg(t_mini *n, t_env *buff, int mod)
 	i = 1;
 	while (n->full_cmd[i])
 	{
+		mod = 0;
 		var = ft_set_var(n->full_cmd[i], &mod);
 		value = ft_set_value(n->full_cmd[i]);
 		if (!ft_var_error(var, value, &mod, n->full_cmd[i]))

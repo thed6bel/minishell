@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:27:08 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/14 10:16:47 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:07:39 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	change_directory(char *homedir, t_env *envp)
 	}
 	else if (chdir(homedir) == -1)
 	{
-		perror(homedir);
+		printf("minishell: cd: %s: %s\n", homedir, strerror(errno));
 		g_status = 1;
 		free(cur_dir);
 	}
