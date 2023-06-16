@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thed6bel <thed6bel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:25:46 by hucorrei          #+#    #+#             */
-/*   Updated: 2023/06/15 20:15:33 by thed6bel         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:15:00 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_child_process(t_mini *cmd, char **envp)
 		execve(cmd->full_path, cmd->full_cmd, envp);
 		ft_exit();
 	}
-	exit(0);
+	exit(127);
 }
 
 void	ft_parent_process(t_mini *cmd, int *status, pid_t pid)
