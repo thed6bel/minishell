@@ -6,7 +6,7 @@
 /*   By: hucorrei <hucorrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:44:14 by thed6bel          #+#    #+#             */
-/*   Updated: 2023/06/16 10:51:59 by hucorrei         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:04:20 by hucorrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,15 @@ void	check_arg(t_mini *n, t_env *buff, int mod)
 			ft_export_mod(var, value, buff, &mod);
 		else if (mod == 2 || mod == 0)
 			ft_check_variable(buff, var, value, &mod);
+		if ((int)mod == 1 || (int)mod == 3)
+		{
+			free(var);
+			free(value);
+		}
+		if ((int)mod == 2)
+			free(var);
 		i++;
 	}
-	if ((int)mod == 1 || (int)mod == 3)
-	{
-		free(var);
-		free(value);
-	}
-	if ((int)mod == 2)
-		free(var);
 }
 
 void	ft_builtin_export(t_mini *n, t_env *envp, t_prompt *prompt)
