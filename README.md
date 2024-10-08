@@ -40,7 +40,7 @@ Minishell est un projet de l'École 42 qui consiste à créer un shell simple ma
 ## Installation et utilisation
 1. Clonez ce dépôt :
    ```
-   git clone https://github.com/votre-username/minishell.git
+   git clone https://github.com/thed6bel/minishell.git
    ```
 2. Naviguez dans le dossier du projet :
    ```
